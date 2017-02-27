@@ -346,12 +346,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the application
+`* * *` | new user | can view more information about a particular command | learn how to use various commands
+`* * *` | user | add task by specifying task description only | record tasks that need to be done ¡®someday¡¯
+`* * *` | user | add task with due date | record task that has to be done by given date
+`* * *` | user | add event with specific duration | record event that takes place within a given timeframe
+`* * *` | user | add follow-up tasks using start time | record tasks that has to be done after a certain date
+`* * *` | user | delete task | get rid of task that I no longer care to track
+`* * *` | user | edit task | edit task name, description
+`* * *` | user | view all tasks |
+`* * *` | user | view incomplete tasks |
+`* * *` | user | view completed tasks |
+`* * *` | user | undo previous action | revert previous action in case of mistakes
+`* * *` | user | sort incomplete tasks by date | check what is due first
+`* * *` | user | search for tasks | find a specific task
+`* * *` | user | check off task | track what tasks are done
+`* * *` | user | uncheck a task | correct accidental check off of a task
+`* * *` | advanced user | Define save and load directory | specify which directory the program read and write from
+`* *` | user | add reminders to task | be reminded before task is going to be due
+`* *` | user | edit reminders of task |
+`* *` | user | remove reminders of task |
+`* *` | user | add a recurring task | add multiple entries of repetitive tasks
+`* *` | user | add tags to task | categorize tasks by tags
+`* *` | user | edit tags under a task |
+`* *` | user | remove tags from task |
+`* *` | user | sort tasks by tags | search for tasks with common category
+`* *` | advanced user | hotkey shortcut | auto open the application without mouse interaction
+`*` | new user | step-by-step tutorial for common features | get familiar with the program
+`*` | user | add a task with checklist | find out about the different things to be done for the task
+`*` | user | edit a checklist |
+`*` | user | remove a checklist |
+`*` | advanced user | use shorter versions of a command | type command faster
+`*` | advanced user | add task reminder to Google Cal | due task shown as full day event in calendar
+`*` | advanced user | parse my email automatically | automatically add task into my todo list
+`*` | advanced user | voice recognition | auto include my task in without keyboard interaction
 
 {More to be added}
 
