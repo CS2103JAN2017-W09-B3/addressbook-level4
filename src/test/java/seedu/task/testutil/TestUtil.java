@@ -285,10 +285,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestTask[] removeTasksFromList(final TestTask[] persons, TestTask... personsToRemove) {
+        List<TestTask> listOfTasks = asList(persons);
+        listOfTasks.removeAll(asList(personsToRemove));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
 
@@ -297,20 +297,20 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
+    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
      * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
+     * @param tasks The array of persons.
+     * @param task The replacement person
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
@@ -319,10 +319,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestTask[] addTasksToList(final TestTask[] persons, TestTask... personsToAdd) {
+        List<TestTask> listOfTasks = asList(persons);
+        listOfTasks.addAll(asList(personsToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {

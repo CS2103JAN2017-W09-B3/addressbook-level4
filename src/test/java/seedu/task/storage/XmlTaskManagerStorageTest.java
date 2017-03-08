@@ -13,14 +13,13 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.FileUtil;
-import seedu.task.model.TaskManager;
 import seedu.task.model.ReadOnlyTaskManager;
+import seedu.task.model.TaskManager;
 import seedu.task.model.task.Task;
-import seedu.task.storage.XmlTaskManagerStorage;
-import seedu.task.testutil.TypicalTestPersons;
+import seedu.task.testutil.TypicalTestTasks;
 
-public class XmlAddressBookStorageTest {
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+public class XmlTaskManagerStorageTest {
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -29,7 +28,7 @@ public class XmlAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_assertionFailure() throws Exception {
+    public void readTaskManager_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
         readAddressBook(null);
     }
@@ -61,9 +60,9 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveTaskManager_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
 
@@ -88,19 +87,19 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
+    public void saveTaskManager_nullAddressBook_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveTaskManager(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
+    private void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
         new XmlTaskManagerStorage(filePath).saveTaskManager(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new TaskManager(), null);
+        saveTaskManager(new TaskManager(), null);
     }
 
 

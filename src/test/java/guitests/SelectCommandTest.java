@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import seedu.task.model.task.ReadOnlyTask;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskManagerGuiTest {
 
 
     @Test
@@ -16,7 +16,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); // first person in the list
-        int personCount = td.getTypicalPersons().length;
+        int personCount = td.getTypicalTasks().length;
         assertSelectionSuccess(personCount); // last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); // a person in the middle of the list

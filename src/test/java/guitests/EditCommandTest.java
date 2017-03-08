@@ -13,25 +13,25 @@ import seedu.task.model.task.CompletionStatus;
 import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.StartTime;
-import seedu.task.testutil.PersonBuilder;
-import seedu.task.testutil.TestPerson;
+import seedu.task.testutil.TaskBuilder;
+import seedu.task.testutil.TestTask;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
-public class EditCommandTest extends AddressBookGuiTest {
+public class EditCommandTest extends TaskManagerGuiTest {
 
     // The list of persons in the person list panel is expected to match this list.
     // This list is updated with every successful call to assertEditSuccess().
-    TestPerson[] expectedPersonsList = td.getTypicalPersons();
+    TestTask[] expectedTasksList = td.getTypicalTasks();
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
         String detailsToEdit = "Bobby p/91234567 e/bobby@gmail.com a/Block 123, Bobby Street 3 t/husband";
         int addressBookIndex = 1;
 
-        TestPerson editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
+        TestTask editedTask = new TaskBuilder().withName("Bobby").withPhone("91234567")
                 .withEmail("bobby@gmail.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
 
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedTask);
     }
 
     @Test
@@ -39,10 +39,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = "t/sweetie t/bestie";
         int addressBookIndex = 2;
 
-        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
-        TestPerson editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+        TestTask taskToEdit = expectedTasksList[addressBookIndex - 1];
+        TestTask editedTask = new TaskBuilder(taskToEdit).withTags("sweetie", "bestie").build();
 
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedTask);
     }
 
     @Test
@@ -50,10 +50,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = "t/";
         int addressBookIndex = 2;
 
-        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
-        TestPerson editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        TestTask taskToEdit = expectedTasksList[addressBookIndex - 1];
+        TestTask editedTask = new TaskBuilder(taskToEdit).withTags().build();
 
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedTask);
     }
 
     @Test
@@ -64,10 +64,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         int filteredPersonListIndex = 1;
         int addressBookIndex = 5;
 
-        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
-        TestPerson editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
+        TestTask taskToEdit = expectedTasksList[addressBookIndex - 1];
+        TestTask editedTask = new TaskBuilder(taskToEdit).withName("Belle").build();
 
-        assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedTask);
     }
 
     @Test
@@ -120,19 +120,19 @@ public class EditCommandTest extends AddressBookGuiTest {
      * @param addressBookIndex index of person to edit in the address book.
      *      Must refer to the same person as {@code filteredPersonListIndex}
      * @param detailsToEdit details to edit the person with as input to the edit command
-     * @param editedPerson the expected person after editing the person's details
+     * @param editedTask the expected person after editing the person's details
      */
     private void assertEditSuccess(int filteredPersonListIndex, int addressBookIndex,
-                                    String detailsToEdit, TestPerson editedPerson) {
+                                    String detailsToEdit, TestTask editedTask) {
         commandBox.runCommand("edit " + filteredPersonListIndex + " " + detailsToEdit);
 
         // confirm the new card contains the right data
-        PersonCardHandle editedCard = personListPanel.navigateToPerson(editedPerson.getName().fullName);
-        assertMatching(editedPerson, editedCard);
+        PersonCardHandle editedCard = personListPanel.navigateToPerson(editedTask.getName().fullName);
+        assertMatching(editedTask, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
-        expectedPersonsList[addressBookIndex - 1] = editedPerson;
-        assertTrue(personListPanel.isListMatching(expectedPersonsList));
-        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
+        expectedTasksList[addressBookIndex - 1] = editedTask;
+        assertTrue(personListPanel.isListMatching(expectedTasksList));
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 }

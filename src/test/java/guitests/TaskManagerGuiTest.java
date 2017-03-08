@@ -27,12 +27,12 @@ import seedu.task.commons.events.BaseEvent;
 import seedu.task.model.TaskManager;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
-import seedu.task.testutil.TypicalTestPersons;
+import seedu.task.testutil.TypicalTestTasks;
 
 /**
  * A GUI Test class for TaskManager.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskManagerGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -40,7 +40,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -88,7 +88,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = new TaskManager();
-        TypicalTestPersons.loadTaskManagerWithSampleData(ab);
+        TypicalTestTasks.loadTaskManagerWithSampleData(ab);
         return ab;
     }
 

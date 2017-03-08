@@ -10,43 +10,43 @@ import seedu.task.model.task.ReadOnlyTask;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private CompletionStatus address;
-    private EndTime email;
-    private StartTime phone;
+    private CompletionStatus completionStatus;
+    private EndTime endTime;
+    private StartTime startTime;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
     /**
      * Creates a copy of {@code personToCopy}.
      */
-    public TestPerson(TestPerson personToCopy) {
-        this.name = personToCopy.getName();
-        this.phone = personToCopy.getStartTime();
-        this.email = personToCopy.getEndTime();
-        this.address = personToCopy.getCompletionStatus();
-        this.tags = personToCopy.getTags();
+    public TestTask(TestTask taskToCopy) {
+        this.name = taskToCopy.getName();
+        this.startTime = taskToCopy.getStartTime();
+        this.endTime = taskToCopy.getEndTime();
+        this.completionStatus = taskToCopy.getCompletionStatus();
+        this.tags = taskToCopy.getTags();
     }
 
     public void setName(Name name) {
         this.name = name;
     }
 
-    public void setAddress(CompletionStatus address) {
-        this.address = address;
+    public void setCompletionStatus(CompletionStatus address) {
+        this.completionStatus = address;
     }
 
-    public void setEmail(EndTime email) {
-        this.email = email;
+    public void setEndTime(EndTime email) {
+        this.endTime = email;
     }
 
-    public void setPhone(StartTime phone) {
-        this.phone = phone;
+    public void setStartTime(StartTime phone) {
+        this.startTime = phone;
     }
 
     public void setTags(UniqueTagList tags) {
@@ -60,17 +60,17 @@ public class TestPerson implements ReadOnlyTask {
 
     @Override
     public StartTime getStartTime() {
-        return phone;
+        return startTime;
     }
 
     @Override
     public EndTime getEndTime() {
-        return email;
+        return endTime;
     }
 
     @Override
     public CompletionStatus getCompletionStatus() {
-        return address;
+        return completionStatus;
     }
 
     @Override
