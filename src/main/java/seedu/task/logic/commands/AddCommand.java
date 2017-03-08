@@ -50,7 +50,24 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-
+    
+    /**
+     * Creates an AddCommand using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        this.toAdd = new Task(
+                new Name(name),
+                new StartTime(""),
+                new EndTime(""),
+                new CompletionStatus("Not Done"),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
     @Override
     public CommandResult execute() throws CommandException {
         assert model != null;
