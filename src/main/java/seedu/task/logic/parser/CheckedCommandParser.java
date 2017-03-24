@@ -19,7 +19,7 @@ public class CheckedCommandParser {
         }
 
         // Add the undo entry after the CheckCommand is successfully parsed.
-        UndoManager.pushCommand(CheckCommand.COMMAND_WORD);
+        UndoManager.pushUndoCommand(CheckCommand.COMMAND_WORD);
 
         return new CheckCommand(index.get());
     }

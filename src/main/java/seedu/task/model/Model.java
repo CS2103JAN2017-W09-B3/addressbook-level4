@@ -64,4 +64,6 @@ public interface Model {
 
     int getTaskID(Task task);
 
+	void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException;
+
 }
