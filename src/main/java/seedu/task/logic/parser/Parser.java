@@ -19,13 +19,9 @@ import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
-<<<<<<< HEAD
-import seedu.task.logic.commands.RedoCommand;
-=======
 import seedu.task.logic.commands.LoadFromCommand;
 import seedu.task.logic.commands.RedoCommand;
 import seedu.task.logic.commands.SaveToCommand;
->>>>>>> 9c58002cd7e9ef1b789272bef9cce44bb6b45b5a
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.SortCommand;
 import seedu.task.logic.commands.UncheckCommand;
@@ -108,8 +104,6 @@ public class Parser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-<<<<<<< HEAD
-=======
         case SaveToCommand.COMMAND_WORD:
             return new SaveToCommandParser().parse(arguments);
 
@@ -119,7 +113,6 @@ public class Parser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
->>>>>>> 9c58002cd7e9ef1b789272bef9cce44bb6b45b5a
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
