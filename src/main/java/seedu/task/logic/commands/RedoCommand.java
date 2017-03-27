@@ -4,7 +4,7 @@ import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.task.Task;
 
 public class RedoCommand extends Command {
-	public static final String COMMAND_WORD = "redo";
+    public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"

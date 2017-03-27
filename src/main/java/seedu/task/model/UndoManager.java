@@ -25,7 +25,7 @@ public class UndoManager {
     }
 
     public void pushRedoTask(Task task) {
-    	redoTaskStack.push(task);
+        redoTaskStack.push(task);
     }
 
     public static void pushUndoCommand(String command) {
@@ -33,7 +33,7 @@ public class UndoManager {
     }
 
     public void pushRedoCommand(String command) {
-    	redoCommand.pushCommand(command);
+        redoCommand.pushCommand(command);
     }
 
     public void pushEditedTask(Task task) {
@@ -41,27 +41,27 @@ public class UndoManager {
     }
 
     public Task popUndoTask () {
-    	Task task = undoTaskStack.pop();
-    	redoTaskStack.push(task);
+        Task task = undoTaskStack.pop();
+        redoTaskStack.push(task);
         return task;
     }
 
     public Task popRedoTask() {
-    	Task task = redoTaskStack.pop();
-    	undoTaskStack.push(task);
-    	return task;
+        Task task = redoTaskStack.pop();
+        undoTaskStack.push(task);
+        return task;
     }
 
     public String popUndoCommand() {
-    	String command = undoCommand.popCommand();
-    	redoCommand.pushCommand(command);
+        String command = undoCommand.popCommand();
+        redoCommand.pushCommand(command);
         return command;
     }
 
     public String popRedoCommand() {
         String command = redoCommand.popCommand();
         undoCommand.pushCommand(command);
-    	return command;
+        return command;
     }
 
     public Task popEditedTask() {
