@@ -67,14 +67,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
         Task deletedTask = new Task(target);
-        undoManager.pushUndo(deletedTask);
+        undoManager.pushUndoTask(deletedTask);
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        undoManager.pushUndo(task);
+        undoManager.pushUndoTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -86,7 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
         Task taskBackup = new Task(filteredTasks.get(filteredTaskListIndex));
         int taskManagerIndex = filteredTasks.getSourceIndex(filteredTaskListIndex);
         taskManager.updateTask(taskManagerIndex, editedTask);
-        undoManager.pushUndo(taskBackup);
+        undoManager.pushUndoTask(taskBackup);
         undoManager.pushEditedTask(new Task(editedTask));
         indicateTaskManagerChanged();
     }
@@ -216,6 +216,12 @@ public class ModelManager extends ComponentManager implements Model {
         assert editedTask != null;
         int taskManagerIndex = filteredTasks.getSourceIndex(filteredTaskListIndex);
         taskManager.updateTask(taskManagerIndex, editedTask);
+        indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException {
+        taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
 

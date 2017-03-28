@@ -13,6 +13,11 @@ public interface ReadOnlyTask {
     EndTime getEndTime();
     CompletionStatus getCompletionStatus();
 
+    public static final String START_DATE_MESSAGE = "Start Date: ";
+    public static final String END_DATE_MESSAGE = "End Date: ";
+    public static final String COMPLETION_STATUS_MESSAGE = "Completion Status: ";
+    public static final String TAGS_MESSAGE = "Tags: ";
+
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -36,16 +41,43 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-        .append(" Start Date: ")
-        .append(getStartTime())
-        .append(" End Date: ")
-        .append(getEndTime())
-        .append(" Completion Status: ")
-        .append(getCompletionStatus().toString())
-        .append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(getName()).append("\n")
+        .append(writeStartDate())
+        .append(writeEndDate())
+        .append(writeCompletionStatus())
+        .append(writeTags());
         return builder.toString();
+    }
+
+    public default String writeStartDate() {
+        String startDate = "";
+        if (!getStartTime().toString().equals("")) {
+            startDate = START_DATE_MESSAGE + getStartTime().toString() + ("\n");
+        }
+        return startDate;
+    }
+
+    public default String writeEndDate() {
+        String endDate = "";
+        if (!getEndTime().toString().equals("")) {
+            endDate = END_DATE_MESSAGE + getEndTime().toString() + ("\n");
+        }
+        return endDate;
+    }
+
+    public default String writeTags() {
+        StringBuilder tags = new StringBuilder();
+        if (!getTags().asObservableList().isEmpty()) {
+            tags.append(TAGS_MESSAGE);
+            getTags().forEach(tags::append);
+        }
+        return tags.toString();
+    }
+
+    public default String writeCompletionStatus() {
+        String completionStatus = "";
+        completionStatus = COMPLETION_STATUS_MESSAGE + getCompletionStatus().toString() + ("\n");
+        return completionStatus;
     }
 
 }

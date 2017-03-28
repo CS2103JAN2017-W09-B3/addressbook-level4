@@ -30,6 +30,22 @@ public class EditCommand extends Command {
             + " [c/COMPLETIONSTATUS]  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 e/090617 c/Done";
 
+    //@@author A0146789H
+    /**
+     * @return the editTaskDescriptor
+     */
+    public EditTaskDescriptor getEditTaskDescriptor() {
+        return editTaskDescriptor;
+    }
+
+    //@@author
+    /**
+     * @param editTaskDescriptor the editTaskDescriptor to set
+     */
+    public void setEditTaskDescriptor(EditTaskDescriptor editTaskDescriptor) {
+        this.editTaskDescriptor = editTaskDescriptor;
+    }
+
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
@@ -51,7 +67,6 @@ public class EditCommand extends Command {
 
         // converts filteredTaskListIndex from one-based to zero-based.
         this.filteredTaskListIndex = filteredTaskListIndex - 1;
-
         this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
     }
 
@@ -76,16 +91,14 @@ public class EditCommand extends Command {
     }
 
     public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {
-
         int taskID = model.getTaskID(editedTask);
-
         try {
             model.updateTaskUndo(taskID, previousTask);
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, previousTask));
+        return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
     }
 
     /**
