@@ -46,29 +46,29 @@ public class TaskCard extends UiPart<Region> {
     }
 
     private void writeEndTime(ReadOnlyTask task) {
-        if(hasEndTime(task)){
-            endTime.setText(getEndTimeMessage(task)+task.getEndTime().value);
-        }else{
+        if (hasEndTime(task)) {
+            endTime.setText(getEndTimeMessage(task) + task.getEndTime().value);
+        } else {
             endTime.setText("");
         }
     }
 
     private void writeStartTime(ReadOnlyTask task) {
-        if(hasStartTime(task)){
-            startTime.setText(START_TIME_MESSAGE+task.getStartTime().value);
-        }else{
+        if (hasStartTime(task)) {
+            startTime.setText(START_TIME_MESSAGE + task.getStartTime().value);
+        } else {
             startTime.setText("");
         }
     }
 
     private void initTags(ReadOnlyTask task) {
-        task.getTags().forEach(tag -> tags.getChildren().add(new Label(TAG_MESSAGE+tag.tagName)));
+        task.getTags().forEach(tag -> tags.getChildren().add(new Label(TAG_MESSAGE + tag.tagName)));
     }
 
-    private void setCheckboxStatus(boolean completionStatus){
-        if(completionStatus){
+    private void setCheckboxStatus(boolean completionStatus) {
+        if (completionStatus) {
             showChecked();
-        }else{
+        } else {
             showUnchecked();
         }
     }
@@ -83,28 +83,28 @@ public class TaskCard extends UiPart<Region> {
         imgUnchecked.setVisible(false);
     }
 
-    private String getEndTimeMessage(ReadOnlyTask task){
+    private String getEndTimeMessage(ReadOnlyTask task) {
         String message = "";
-        if(hasStartTime(task)){
+        if (hasStartTime(task)) {
             message = EVENT_END_MESSAGE;
-        }else{
+        } else {
             message = DEADLINE_MESSAGE;
         }
         return message;
     }
 
-    public boolean hasStartTime(ReadOnlyTask task){
-        if(task.getStartTime().toString().equals("")){
+    public boolean hasStartTime(ReadOnlyTask task) {
+        if (task.getStartTime().toString().equals("")) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    public boolean hasEndTime(ReadOnlyTask task){
-        if(task.getEndTime().toString().equals("")){
+    public boolean hasEndTime(ReadOnlyTask task) {
+        if (task.getEndTime().toString().equals("")) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
