@@ -17,7 +17,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_REDO_SUCCESS_DELETE = "Redo Command Successful.\nDeleted task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_CHECKED = "Redo Command Successful.\nChecked task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_UNCHEKED = "Redo Command Successful.\nUncheked task: %1$s";
-    public static final String MESSAGE_REDO_SUCCESS = "Undo Command Successful.";
+    public static final String MESSAGE_REDO_SUCCESS = "Redo Command Successful.";
     public static final String NOTHING_TO_REDO = "Nothing To Redo";
 
 
