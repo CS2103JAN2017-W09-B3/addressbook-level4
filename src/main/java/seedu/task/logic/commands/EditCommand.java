@@ -100,6 +100,17 @@ public class EditCommand extends Command {
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
     }
+
+    public CommandResult executeRedo(Task previousTask, Task editedTask, Model model) throws CommandException {
+        int taskID = model.getTaskID(editedTask);
+        try {
+            model.updateTaskUndo(taskID, previousTask);
+        } catch (UniqueTaskList.DuplicateTaskException dte) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+        model.updateFilteredListToShowAll();
+        return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, previousTask));
+    }
     //@@author
     /**
      * Creates and returns a {@code Task} with the details of {@code taskToEdit}

@@ -95,4 +95,8 @@ public class UndoManager {
         return undoCommand.getCommandHistoryStatus();
     }
 
+    public boolean getRedoCommandHistoryStatus() {
+        return redoCommand.getCommandHistoryStatus();
+    }
+
 }

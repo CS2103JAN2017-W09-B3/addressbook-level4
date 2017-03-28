@@ -12,21 +12,26 @@ public class RedoCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Redo Command Successful";
-    public static final String NOTHING_TO_UNDO = "Nothing To Redo";
+    public static final String MESSAGE_REDO_SUCCESS_EDIT = "Undo Command Successful.\nRestored previously edited task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS_ADD = "Redo Command Successful.\nRestored previously added task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS_DELETE = "Redo Command Successful.\nDeleted task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS_CHECKED = "Redo Command Successful.\nChecked task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS_UNCHEKED = "Redo Command Successful.\nUncheked task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "Undo Command Successful.";
+    public static final String NOTHING_TO_REDO = "Nothing To Redo";
 
 
     @Override
     public CommandResult execute() throws CommandException {
 
-//        if (model.getUndoManager().getCommandHistoryStatus()) {
-//            return new CommandResult(NOTHING_TO_UNDO);
-//        }
+        if (model.getUndoManager().getRedoCommandHistoryStatus()) {
+            return new CommandResult(NOTHING_TO_REDO);
+        }
 
         String previousCommand = model.getUndoManager().popRedoCommand();
 
         if (model.getUndoManager().getRedoStackStatus()) {
-            return new CommandResult(NOTHING_TO_UNDO);
+            return new CommandResult(NOTHING_TO_REDO);
         }
 
         System.out.println(previousCommand);
@@ -34,20 +39,24 @@ public class RedoCommand extends Command {
         switch (previousCommand) {
         case DeleteCommand.COMMAND_WORD:
             Task previousTask = model.getUndoManager().popRedoTask();
-            new DeleteCommand().executeUndo(previousTask, model);
-            break;
+            return new DeleteCommand().executeRedo(previousTask, model);
         case AddCommand.COMMAND_WORD:
             previousTask = model.getUndoManager().popRedoTask();
-            new AddCommand().executeUndo(previousTask, model);
-            break;
+            return new AddCommand().executeRedo(previousTask, model);
         case EditCommand.COMMAND_WORD:
             previousTask = model.getUndoManager().popRedoEditedTask();
             Task editedTask = model.getUndoManager().popRedoTask();
-            new EditCommand().executeUndo(previousTask, editedTask, model);
-            break;
+            return new EditCommand().executeRedo(previousTask, editedTask, model);
+        case CheckCommand.COMMAND_WORD:
+        	previousTask = model.getUndoManager().popRedoEditedTask();
+        	editedTask = model.getUndoManager().popRedoTask();
+        	return new CheckCommand().executeUndo(previousTask, editedTask, model);
+        case UncheckCommand.COMMAND_WORD:
+        	previousTask = model.getUndoManager().popRedoEditedTask();
+        	editedTask = model.getUndoManager().popRedoTask();
+        	return new UncheckCommand().executeUndo(previousTask, editedTask, model);
         default:
-            return new CommandResult(NOTHING_TO_UNDO);
+            return new CommandResult(NOTHING_TO_REDO);
         }
-        return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }
 }
