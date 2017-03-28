@@ -1,3 +1,4 @@
+<!-- @@author A0138664W -->
 # Suru: The Task Manager
 
 [![Build Status](https://travis-ci.org/CS2103JAN2017-W09-B3/main.svg?branch=master)](https://travis-ci.org/CS2103JAN2017-W09-B3/main)
@@ -5,8 +6,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/7vf90ll03qoahvb4/branch/master?svg=true)](https://ci.appveyor.com/project/mustaqiimuhar/main/branch/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/24eeab7e4e534007b9db95e231ee9915)](https://www.codacy.com/app/mustaqiimuhar/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103JAN2017-W09-B3/main&amp;utm_campaign=Badge_Grade)
 
+<!-- @@author A0139938L -->
 <img src="docs/images/Ui.jpg" width="600"><br>
 
+<!-- @@author A0138664W -->
 * Suru is a task manager application. It has a GUI to display user tasks and checklist but most of the user interactions
   happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as

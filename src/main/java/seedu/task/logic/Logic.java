@@ -21,7 +21,8 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    //@@author A0139938L
     /** Returns the list of chat messages */
     ChatList getChatList();
-
+    //@@author
 }

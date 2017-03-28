@@ -1,5 +1,6 @@
 package seedu.task.ui.chat;
 
+//@@author A0139938L
 import seedu.task.model.chat.Chat;
 
 public class UserChatMessage extends ChatMessage {
@@ -9,3 +10,4 @@ public class UserChatMessage extends ChatMessage {
         super(FXML, chat);
     }
 }
+//@author

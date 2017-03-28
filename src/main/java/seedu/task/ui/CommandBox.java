@@ -1,5 +1,5 @@
 package seedu.task.ui;
-
+//@@author A0139938L
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -69,3 +69,5 @@ public class CommandBox extends UiPart<Region> {
     }
 
 }
+//@@author
+

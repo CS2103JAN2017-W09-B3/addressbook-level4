@@ -26,7 +26,9 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
+    //@@author A0139938L
     private final ChatList chats;
+    //@@author
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -38,7 +40,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
+        //@@author A0139938L
         chats = new ChatList();
+        //@@author
     }
 
     public TaskManager() {}
@@ -188,10 +192,11 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Objects.hash(tasks, tags);
     }
 
+    //@@author A0139938L
     public ChatList getChatList() {
         return chats;
     }
-
+    //@@author
     public int getTaskID(Task task) {
         return tasks.getTaskID(task);
     }
