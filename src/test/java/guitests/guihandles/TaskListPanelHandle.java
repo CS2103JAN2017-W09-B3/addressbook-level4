@@ -133,7 +133,7 @@ public class TaskListPanelHandle extends GuiHandle {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
             if (tasksInList.get(i).getName().equals(targetTask.getName())) {
-                return i + 1;
+                return i;
             }
         }
         return NOT_FOUND;
