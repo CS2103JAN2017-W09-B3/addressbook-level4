@@ -30,6 +30,10 @@ public class FindCommandParser {
 
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
+        // converts keywords to lower case to allow case-insensitive search
+        for (String s: keywords) {
+            s.toLowerCase();
+        }
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }

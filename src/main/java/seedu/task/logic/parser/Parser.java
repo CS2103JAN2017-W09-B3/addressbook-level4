@@ -80,12 +80,14 @@ public class Parser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        //@@author A0139410N
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
 
+        //@@author
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 

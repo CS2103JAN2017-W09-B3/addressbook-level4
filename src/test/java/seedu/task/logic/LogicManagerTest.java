@@ -33,7 +33,9 @@ import seedu.task.logic.commands.DeleteCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
+import seedu.task.logic.commands.ListCheckedCommand;
 import seedu.task.logic.commands.ListCommand;
+import seedu.task.logic.commands.ListUncheckedCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
@@ -232,7 +234,51 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    //@@author A0139410N
+    @Test
+    public void execute_listUnchecked_showsUnchecked() throws Exception {
+        // prepare expectations, only supposed to show 2 unchecked task with 3 task in total
+        TestDataHelper helper = new TestDataHelper();
+        Task unchecked1 = helper.generateTaskWithName("not done");
+        Task unchecked2 = helper.generateTaskWithName("Also not done");
+        Task checked = helper.completedTask();
 
+        List<Task> threeTasks = helper.generateTaskList(unchecked1, unchecked2, checked);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2);
+
+        // prepare address book state comprising of 2 unchecked task and 1 checked
+        helper.addToModel(model, threeTasks);
+
+        assertCommandSuccess("list unchecked",
+                ListUncheckedCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    //@@ author A0139410N
+    @Test
+    public void execute_listChecked_showsChecked() throws Exception {
+     // prepare expectations, only supposed to show 1 checked task with 3 task in total
+        TestDataHelper helper = new TestDataHelper();
+        Task unchecked1 = helper.generateTaskWithName("not done");
+        Task unchecked2 = helper.generateTaskWithName("Also not done");
+        Task checked = helper.completedTask();
+
+        List<Task> threeTasks = helper.generateTaskList(unchecked1, unchecked2, checked);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(checked);
+
+        // prepare address book state comprising of 2 unchecked task and 1 checked
+        helper.addToModel(model, threeTasks);
+
+        assertCommandSuccess("list checked",
+                ListCheckedCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    //@@author
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -397,6 +443,17 @@ public class LogicManagerTest {
             StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             CompletionStatus completion = new CompletionStatus(false);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+        //@@author A0139410N
+        Task completedTask() throws Exception {
+            Name name = new Name("I am done");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            CompletionStatus completion = new CompletionStatus(true);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("longertag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);

@@ -12,6 +12,8 @@ import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.chat.ChatList;
+import seedu.task.model.tag.Tag;
+import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -108,6 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(null);
     }
 
+    //@@author A0139410N
     @Override
     public void updateFilteredListToShowUnchecked() {
         filteredTasks.setPredicate(isUnchecked);
@@ -118,17 +121,32 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(isChecked);
     }
 
+    //@@author
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
+    //@@author A0139410N
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords, Set<Tag> tagKeywords) {
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)),
+                new PredicateExpression(new TagQualifier(tagKeywords)));
+    }
+
+    //@@author
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
+    //@@author A0139410N
+    private void updateFilteredTaskList (Expression nameExpression, Expression tagExpression) {
+        filteredTasks.setPredicate(p -> (nameExpression.satisfies(p) || tagExpression.satisfies(p)));
+    }
+
     //========== Inner classes/interfaces used for filtering =================================================
 
+    //@@author A0139410N
     /** Predicate to check if completionStatus is false */
     Predicate<ReadOnlyTask> isUnchecked = new Predicate<ReadOnlyTask> () {
         @Override
@@ -145,6 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     };
 
+    //@@author
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
         @Override
@@ -194,6 +213,29 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+
+    //@@author A0139410N
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tagKeyWords;
+
+        TagQualifier(Set<Tag> tagKeyWords) {
+            this.tagKeyWords = tagKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            UniqueTagList taskTags = task.getTags();
+            return tagKeyWords.stream()
+                    .filter(keyword -> taskTags.contains(keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "tags=" + String.join(", ", tagKeyWords.toString());
         }
     }
 

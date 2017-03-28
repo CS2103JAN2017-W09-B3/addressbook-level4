@@ -4,6 +4,7 @@ import java.util.Set;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.model.chat.ChatList;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -42,6 +43,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
+    //@@author A0139410N
     /** Updates the filter of the filtered task list to show all unchecked tasks */
     void updateFilteredListToShowUnchecked();
 
@@ -50,6 +52,9 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+    /** Updates the filter of the filtered task list to filter by the given keywords and tags*/
+    void updateFilteredTaskList(Set<String> keywords, Set<Tag> tagKeywords);
 
     //@@author A0139938L
     /** Returns the chat list as an {@code FilteredList<Chat>} */
