@@ -93,7 +93,7 @@ public class TaskCard extends UiPart<Region> {
         return message;
     }
 
-    public boolean hasStartTime(ReadOnlyTask task) {
+    private boolean hasStartTime(ReadOnlyTask task) {
         if (task.getStartTime().toString().equals("")) {
             return false;
         } else {
@@ -101,7 +101,7 @@ public class TaskCard extends UiPart<Region> {
         }
     }
 
-    public boolean hasEndTime(ReadOnlyTask task) {
+    private boolean hasEndTime(ReadOnlyTask task) {
         if (task.getEndTime().toString().equals("")) {
             return false;
         } else {
