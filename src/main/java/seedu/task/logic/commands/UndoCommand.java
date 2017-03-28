@@ -11,7 +11,9 @@ public class UndoCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNDO_SUCCESS_EDIT = "Undo Command Successful. %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS_EDIT = "Undo Command Successful.\nRestored previously edited task: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS_ADD = "Undo Command Successful.\nRestored previously added task: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS_DELETE = "Undo Command Successful.\nDeleted task: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undo Command Successful.";
     public static final String NOTHING_TO_UNDO = "Nothing To Undo";
 
@@ -39,8 +41,8 @@ public class UndoCommand extends Command {
 //            break;
         case DeleteCommand.COMMAND_WORD:
             previousTask = model.getUndoManager().popUndoTask();
-            new AddCommand().executeUndo(previousTask, model);
-            break;
+            return new AddCommand().executeUndo(previousTask, model);
+//            break;
         case EditCommand.COMMAND_WORD:
             previousTask = model.getUndoManager().popUndoTask();
             Task editedTask = model.getUndoManager().popEditedTask();
@@ -49,7 +51,6 @@ public class UndoCommand extends Command {
         default:
             return new CommandResult(NOTHING_TO_UNDO);
         }
-        return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }
 
 }
