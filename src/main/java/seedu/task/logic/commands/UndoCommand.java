@@ -11,7 +11,8 @@ public class UndoCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Undo Command Successful. %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS_EDIT = "Undo Command Successful. %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo Command Successful.";
     public static final String NOTHING_TO_UNDO = "Nothing To Undo";
 
 
