@@ -29,18 +29,23 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private ImageView imgUnchecked;
 
+    private static final String START_TIME_MESSAGE = "From: ";
+    private static final String END_TIME_MESSAGE = "To: ";
+    private static final String TAG_MESSAGE = "#";
+
+
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        startTime.setText(task.getStartTime().value);
+        startTime.setText(START_TIME_MESSAGE+task.getStartTime().value);
         setCheckboxStatus(task.getCompletionStatus().getStatus());
-        endTime.setText(task.getEndTime().value);
+        endTime.setText(END_TIME_MESSAGE+task.getEndTime().value);
         initTags(task);
     }
 
     private void initTags(ReadOnlyTask task) {
-        task.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        task.getTags().forEach(tag -> tags.getChildren().add(new Label(TAG_MESSAGE+tag.tagName)));
     }
 
     private void setCheckboxStatus(boolean completionStatus){
