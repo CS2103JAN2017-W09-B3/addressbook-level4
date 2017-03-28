@@ -62,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
     protected void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
     }
-
+//@@author A0138664W
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
@@ -90,6 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoManager.pushEditedTask(new Task(editedTask));
         indicateTaskManagerChanged();
     }
+//@@author
 
     //=========== Filtered Task List Accessors =============================================================
 
@@ -196,7 +197,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ChatList getChatList() {
         return chatList;
     }
-
+//@@author A0138664W
     @Override
     public synchronized void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
@@ -234,5 +235,5 @@ public class ModelManager extends ComponentManager implements Model {
     public int getTaskID(Task task) {
         return taskManager.getTaskID(task);
     }
-
+//@@author
 }

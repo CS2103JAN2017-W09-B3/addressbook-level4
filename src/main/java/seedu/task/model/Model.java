@@ -53,7 +53,7 @@ public interface Model {
 
     /** Returns the chat list as an {@code FilteredList<Chat>} */
     ChatList getChatList();
-
+    //@@author A0138664W
     void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
 
     void updateTaskUndo(int filteredTaskListIndex, ReadOnlyTask editedTask) throws DuplicateTaskException;
@@ -62,8 +62,9 @@ public interface Model {
 
     UndoManager getUndoManager();
 
+    void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException;
+    //@@author
     int getTaskID(Task task);
 
-    void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException;
 
 }

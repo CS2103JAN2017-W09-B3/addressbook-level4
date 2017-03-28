@@ -52,16 +52,14 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
-
+    //@@author A0138664W
     public CommandResult executeUndo(Task previousTask, Model model) throws CommandException {
         try {
             model.deleteTaskUndo(previousTask);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
         return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_DELETE, previousTask));
-
     }
-
+    //@@author
 }
