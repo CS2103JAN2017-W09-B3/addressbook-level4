@@ -37,13 +37,13 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Start Date: ")
-                .append(getStartTime())
-                .append(" End Date: ")
-                .append(getEndTime())
-                .append(" Completion Status: ")
-                .append(getCompletionStatus().toString())
-                .append(" Tags: ");
+        .append(" Start Date: ")
+        .append(getStartTime())
+        .append(" End Date: ")
+        .append(getEndTime())
+        .append(" Completion Status: ")
+        .append(getCompletionStatus().toString())
+        .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
