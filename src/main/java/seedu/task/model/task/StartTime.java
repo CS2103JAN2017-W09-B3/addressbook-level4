@@ -42,7 +42,7 @@ public class StartTime {
         if (this.value == null) {
             return "";
         }
-        DateFormat formatter = DateFormat.getDateTimeInstance();
+        DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
         return formatter.format(this.value);
     }
 

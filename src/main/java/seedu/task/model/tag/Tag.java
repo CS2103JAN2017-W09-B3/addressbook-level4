@@ -51,7 +51,7 @@ public class Tag {
      */
     @Override
     public String toString() {
-        return '[' + tagName + ']';
+        return "#" + tagName + " ";
     }
 
 }

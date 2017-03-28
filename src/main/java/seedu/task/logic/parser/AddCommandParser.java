@@ -91,7 +91,7 @@ public class AddCommandParser {
             logger.info(String.format("%s tagSet: %s", logPrefix, tagSet.toString()));
 
             // Add the undo entry after successfully parsing an AddCommand
-            UndoManager.pushCommand(AddCommand.COMMAND_WORD);
+            UndoManager.pushUndoCommand(AddCommand.COMMAND_WORD);
 
             return new AddCommand(
                     taskName,

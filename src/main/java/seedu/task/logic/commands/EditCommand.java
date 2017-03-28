@@ -67,7 +67,6 @@ public class EditCommand extends Command {
 
         // converts filteredTaskListIndex from one-based to zero-based.
         this.filteredTaskListIndex = filteredTaskListIndex - 1;
-
         this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
     }
 
@@ -92,16 +91,14 @@ public class EditCommand extends Command {
     }
 
     public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {
-
         int taskID = model.getTaskID(editedTask);
-
         try {
             model.updateTaskUndo(taskID, previousTask);
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, previousTask));
+        return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
     }
 
     /**

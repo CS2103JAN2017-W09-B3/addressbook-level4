@@ -19,7 +19,7 @@ public class UncheckedCommandParser {
         }
 
         // Add the undo entry after the UncheckCommand is successfully parsed.
-        UndoManager.pushCommand(UncheckCommand.COMMAND_WORD);
+        UndoManager.pushUndoCommand(UncheckCommand.COMMAND_WORD);
 
         return new UncheckCommand(index.get());
     }

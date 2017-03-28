@@ -28,7 +28,7 @@ public class DeleteCommandParser {
         }
 
         // Add the undo entry after the DeleteCommand is successfully parsed.
-        UndoManager.pushCommand(DeleteCommand.COMMAND_WORD);
+        UndoManager.pushUndoCommand(DeleteCommand.COMMAND_WORD);
 
         return new DeleteCommand(index.get());
     }

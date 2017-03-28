@@ -13,6 +13,14 @@ public interface ReadOnlyTask {
     EndTime getEndTime();
     CompletionStatus getCompletionStatus();
 
+    public static final String START_TIME_MESSAGE = "From: ";
+    public static final String EVENT_END_MESSAGE = "To: ";
+    public static final String DEADLINE_MESSAGE = "By: ";
+    public static final String TAGS_MESSAGE = "Tags: ";
+    public static final String TAG_PREFIX = "#";
+
+    public static final String COMPLETION_STATUS_MESSAGE = "Completion Status: ";
+
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -36,16 +44,69 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Start Date: ")
-                .append(getStartTime())
-                .append(" End Date: ")
-                .append(getEndTime())
-                .append(" Completion Status: ")
-                .append(getCompletionStatus().toString())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(getName()).append("\n")
+        .append(writeStartTime())
+        .append(writeEndTime())
+        .append(writeCompletionStatus())
+        .append(writeTags());
         return builder.toString();
+    }
+
+    public default String writeTags() {
+        StringBuilder tags = new StringBuilder();
+        if (!getTags().asObservableList().isEmpty()) {
+            tags.append(TAGS_MESSAGE);
+            getTags().forEach(tags::append);
+        }
+        return tags.toString();
+    }
+
+    public default String writeCompletionStatus() {
+        String completionStatus = "";
+        completionStatus = COMPLETION_STATUS_MESSAGE + getCompletionStatus().toString() + "\n";
+        return completionStatus;
+    }
+
+    public default String getEndTimeMessage() {
+        String message = "";
+        if (hasStartTime()) {
+            message = EVENT_END_MESSAGE;
+        } else {
+            message = DEADLINE_MESSAGE;
+        }
+        return message;
+    }
+
+    public default boolean hasStartTime() {
+        if (getStartTime().toString().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public default boolean hasEndTime() {
+        if (getEndTime().toString().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public default String writeEndTime() {
+        String result = "";
+        if (hasEndTime()) {
+            result = getEndTimeMessage() + getEndTime().toString() + "\n";
+        }
+        return result;
+    }
+
+    public default String writeStartTime() {
+        String result = "";
+        if (hasStartTime()) {
+            result = START_TIME_MESSAGE + getStartTime().toString()  + "\n";
+        }
+        return result;
     }
 
 }
