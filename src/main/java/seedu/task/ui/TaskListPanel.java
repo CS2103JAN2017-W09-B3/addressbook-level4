@@ -1,5 +1,6 @@
 package seedu.task.ui;
 
+import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -15,29 +16,33 @@ import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.task.model.task.ReadOnlyTask;
 
-/**
- * Panel containing the list of tasks.
- */
-public class TaskListPanel extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+public abstract class TaskListPanel extends UiPart<Region> {
 
+    private final Logger logger = LogsCenter.getLogger(DoneTaskListPanel.class);
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
-    public TaskListPanel(AnchorPane taskListPlaceholder, ObservableList<ReadOnlyTask> taskList) {
-        super(FXML);
+    public TaskListPanel(URL fxmlFileUrl) {
+        super(fxmlFileUrl);
+    }
+
+    public TaskListPanel(String fxmlFileName) {
+        super(fxmlFileName);
+    }
+
+    public TaskListPanel(String fxmlFileName, AnchorPane taskListPlaceholder, ObservableList<ReadOnlyTask> taskList) {
+        super(fxmlFileName);
         setConnections(taskList);
         addToPlaceholder(taskListPlaceholder);
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    protected void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void addToPlaceholder(AnchorPane placeHolderPane) {
+    protected void addToPlaceholder(AnchorPane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
         placeHolderPane.getChildren().add(getRoot());
@@ -45,12 +50,12 @@ public class TaskListPanel extends UiPart<Region> {
 
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new TaskPanelSelectionChangedEvent(newValue));
-                    }
-                });
+        .addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                raise(new TaskPanelSelectionChangedEvent(newValue));
+            }
+        });
     }
 
     public void scrollTo(int index) {
