@@ -12,6 +12,8 @@ import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.chat.ChatList;
+import seedu.task.model.tag.Tag;
+import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -118,8 +120,18 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords, Set<Tag> tagKeywords) {
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)),
+                new PredicateExpression(new TagQualifier(tagKeywords)));
+    }
+
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+
+    private void updateFilteredTaskList (Expression nameExpression, Expression tagExpression) {
+        filteredTasks.setPredicate(p -> (nameExpression.satisfies(p) || tagExpression.satisfies(p)));
     }
 
     //========== Inner classes/interfaces used for filtering =================================================
@@ -189,6 +201,28 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tagKeyWords;
+
+        TagQualifier(Set<Tag> tagKeyWords) {
+            this.tagKeyWords = tagKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            UniqueTagList taskTags = task.getTags();
+            return tagKeyWords.stream()
+                    .filter(keyword -> taskTags.contains(keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "tags=" + String.join(", ", tagKeyWords.toString());
         }
     }
 
