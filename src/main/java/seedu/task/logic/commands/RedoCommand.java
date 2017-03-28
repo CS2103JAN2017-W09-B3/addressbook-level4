@@ -40,8 +40,8 @@ public class RedoCommand extends Command {
             new AddCommand().executeUndo(previousTask, model);
             break;
         case EditCommand.COMMAND_WORD:
-            previousTask = model.getUndoManager().popRedoTask();
-            Task editedTask = model.getUndoManager().popEditedTask();
+            previousTask = model.getUndoManager().popRedoEditedTask();
+            Task editedTask = model.getUndoManager().popRedoTask();
             new EditCommand().executeUndo(previousTask, editedTask, model);
             break;
         default:

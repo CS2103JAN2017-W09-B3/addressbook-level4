@@ -9,6 +9,7 @@ public class UndoManager {
     private Stack<Task> undoTaskStack;
     private Stack<Task> redoTaskStack;
     private Stack<Task> editedTaskStack;
+    private Stack<Task> redoEditedTaskStack;
     private static CommandStack undoCommand;
     private static CommandStack redoCommand;
 
@@ -16,6 +17,7 @@ public class UndoManager {
         undoTaskStack = new Stack<Task>();
         redoTaskStack = new Stack<Task>();
         editedTaskStack = new Stack<Task>();
+        redoEditedTaskStack = new Stack<Task>();
         undoCommand = new CommandStack();
         redoCommand = new CommandStack();
     }
@@ -28,16 +30,20 @@ public class UndoManager {
         redoTaskStack.push(task);
     }
 
-    public static void pushUndoCommand(String command) {
-        undoCommand.pushCommand(command);
+    public void pushEditedTask(Task task) {
+        editedTaskStack.push(task);
+    }
+
+    public void pushRedoEditedTask(Task task) {
+        redoEditedTaskStack.push(task);
     }
 
     public void pushRedoCommand(String command) {
         redoCommand.pushCommand(command);
     }
 
-    public void pushEditedTask(Task task) {
-        editedTaskStack.push(task);
+    public static void pushUndoCommand(String command) {
+        undoCommand.pushCommand(command);
     }
 
     public Task popUndoTask () {
@@ -65,7 +71,15 @@ public class UndoManager {
     }
 
     public Task popEditedTask() {
-        return editedTaskStack.pop();
+        Task task = editedTaskStack.pop();
+        redoEditedTaskStack.push(task);
+        return task;
+    }
+
+    public Task popRedoEditedTask() {
+        Task task = redoEditedTaskStack.pop();
+        editedTaskStack.push(task);
+        return task;
     }
 
     public boolean getUndoStackStatus() {
