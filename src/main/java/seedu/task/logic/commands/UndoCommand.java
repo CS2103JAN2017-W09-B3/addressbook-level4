@@ -12,8 +12,10 @@ public class UndoCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNDO_SUCCESS_EDIT = "Undo Command Successful.\nRestored previously edited task: %1$s";
-    public static final String MESSAGE_UNDO_SUCCESS_ADD = "Undo Command Successful.\nRestored previously added task: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS_EDIT =
+            "Undo Command Successful.\nRestored previously edited task: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS_ADD =
+            "Undo Command Successful.\nRestored previously added task: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS_DELETE = "Undo Command Successful.\nDeleted task: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS_CHECKED = "Undo Command Successful.\nChecked task: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS_UNCHEKED = "Undo Command Successful.\nUncheked task: %1$s";
@@ -49,13 +51,13 @@ public class UndoCommand extends Command {
             Task editedTask = model.getUndoManager().popEditedTask();
             return new EditCommand().executeUndo(previousTask, editedTask, model);
         case CheckCommand.COMMAND_WORD:
-        	previousTask = model.getUndoManager().popUndoTask();
-        	editedTask = model.getUndoManager().popEditedTask();
-        	return new UncheckCommand().executeUndo(previousTask, editedTask, model);
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new UncheckCommand().executeUndo(previousTask, editedTask, model);
         case UncheckCommand.COMMAND_WORD:
-        	previousTask = model.getUndoManager().popUndoTask();
-        	editedTask = model.getUndoManager().popEditedTask();
-        	return new CheckCommand().executeUndo(previousTask, editedTask, model);
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new CheckCommand().executeUndo(previousTask, editedTask, model);
         default:
             return new CommandResult(NOTHING_TO_UNDO);
         }

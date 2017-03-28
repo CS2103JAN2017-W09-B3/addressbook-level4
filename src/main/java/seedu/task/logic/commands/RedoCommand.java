@@ -12,8 +12,10 @@ public class RedoCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_REDO_SUCCESS_EDIT = "Undo Command Successful.\nRestored previously edited task: %1$s";
-    public static final String MESSAGE_REDO_SUCCESS_ADD = "Redo Command Successful.\nRestored previously added task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS_EDIT =
+            "Undo Command Successful.\nRestored previously edited task: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS_ADD =
+            "Redo Command Successful.\nRestored previously added task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_DELETE = "Redo Command Successful.\nDeleted task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_CHECKED = "Redo Command Successful.\nChecked task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_UNCHEKED = "Redo Command Successful.\nUncheked task: %1$s";
@@ -48,13 +50,13 @@ public class RedoCommand extends Command {
             Task editedTask = model.getUndoManager().popRedoTask();
             return new EditCommand().executeRedo(previousTask, editedTask, model);
         case CheckCommand.COMMAND_WORD:
-        	previousTask = model.getUndoManager().popRedoEditedTask();
-        	editedTask = model.getUndoManager().popRedoTask();
-        	return new CheckCommand().executeUndo(previousTask, editedTask, model);
+            previousTask = model.getUndoManager().popRedoEditedTask();
+            editedTask = model.getUndoManager().popRedoTask();
+            return new CheckCommand().executeUndo(previousTask, editedTask, model);
         case UncheckCommand.COMMAND_WORD:
-        	previousTask = model.getUndoManager().popRedoEditedTask();
-        	editedTask = model.getUndoManager().popRedoTask();
-        	return new UncheckCommand().executeUndo(previousTask, editedTask, model);
+            previousTask = model.getUndoManager().popRedoEditedTask();
+            editedTask = model.getUndoManager().popRedoTask();
+            return new UncheckCommand().executeUndo(previousTask, editedTask, model);
         default:
             return new CommandResult(NOTHING_TO_REDO);
         }
