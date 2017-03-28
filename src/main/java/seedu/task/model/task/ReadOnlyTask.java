@@ -13,10 +13,11 @@ public interface ReadOnlyTask {
     EndTime getEndTime();
     CompletionStatus getCompletionStatus();
 
-    public static final String START_DATE_MESSAGE = "Start Date: ";
-    public static final String END_DATE_MESSAGE = "End Date: ";
+    public static final String START_TIME_MESSAGE = "From: ";
+    public static final String EVENT_END_MESSAGE = "To: ";
+    public static final String DEADLINE_MESSAGE = "By: ";
+    public static final String TAG_MESSAGE = "#";
     public static final String COMPLETION_STATUS_MESSAGE = "Completion Status: ";
-    public static final String TAGS_MESSAGE = "Tags: ";
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -42,33 +43,17 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append("\n")
-        .append(writeStartDate())
-        .append(writeEndDate())
+        .append(writeStartTime())
+        .append(writeEndTime())
         .append(writeCompletionStatus())
         .append(writeTags());
         return builder.toString();
     }
 
-    public default String writeStartDate() {
-        String startDate = "";
-        if (!getStartTime().toString().equals("")) {
-            startDate = START_DATE_MESSAGE + getStartTime().toString() + ("\n");
-        }
-        return startDate;
-    }
-
-    public default String writeEndDate() {
-        String endDate = "";
-        if (!getEndTime().toString().equals("")) {
-            endDate = END_DATE_MESSAGE + getEndTime().toString() + ("\n");
-        }
-        return endDate;
-    }
-
     public default String writeTags() {
         StringBuilder tags = new StringBuilder();
         if (!getTags().asObservableList().isEmpty()) {
-            tags.append(TAGS_MESSAGE);
+            tags.append(TAG_MESSAGE);
             getTags().forEach(tags::append);
         }
         return tags.toString();
@@ -76,8 +61,50 @@ public interface ReadOnlyTask {
 
     public default String writeCompletionStatus() {
         String completionStatus = "";
-        completionStatus = COMPLETION_STATUS_MESSAGE + getCompletionStatus().toString() + ("\n");
+        completionStatus = COMPLETION_STATUS_MESSAGE + getCompletionStatus().toString() + "\n";
         return completionStatus;
+    }
+
+    public default String getEndTimeMessage() {
+        String message = "";
+        if (hasStartTime()) {
+            message = EVENT_END_MESSAGE;
+        } else {
+            message = DEADLINE_MESSAGE;
+        }
+        return message;
+    }
+
+    public default boolean hasStartTime() {
+        if (getStartTime().toString().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public default boolean hasEndTime() {
+        if (getEndTime().toString().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public default String writeEndTime() {
+        String result = "";
+        if (hasEndTime()) {
+            result = getEndTimeMessage() + getEndTime().toString();
+        }
+        return result + "\n";
+    }
+
+    public default String writeStartTime() {
+        String result = "";
+        if (hasStartTime()) {
+            result = START_TIME_MESSAGE + getStartTime().toString();
+        }
+        return result + "\n";
     }
 
 }
