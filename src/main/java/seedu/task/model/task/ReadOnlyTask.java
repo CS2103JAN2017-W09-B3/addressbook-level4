@@ -16,7 +16,9 @@ public interface ReadOnlyTask {
     public static final String START_TIME_MESSAGE = "From: ";
     public static final String EVENT_END_MESSAGE = "To: ";
     public static final String DEADLINE_MESSAGE = "By: ";
-    public static final String TAG_MESSAGE = "#";
+    public static final String TAGS_MESSAGE = "Tags: ";
+    public static final String TAG_PREFIX = "#";
+
     public static final String COMPLETION_STATUS_MESSAGE = "Completion Status: ";
 
     /**
@@ -53,7 +55,7 @@ public interface ReadOnlyTask {
     public default String writeTags() {
         StringBuilder tags = new StringBuilder();
         if (!getTags().asObservableList().isEmpty()) {
-            tags.append(TAG_MESSAGE);
+            tags.append(TAGS_MESSAGE);
             getTags().forEach(tags::append);
         }
         return tags.toString();
@@ -94,17 +96,17 @@ public interface ReadOnlyTask {
     public default String writeEndTime() {
         String result = "";
         if (hasEndTime()) {
-            result = getEndTimeMessage() + getEndTime().toString();
+            result = getEndTimeMessage() + getEndTime().toString() + "\n";
         }
-        return result + "\n";
+        return result;
     }
 
     public default String writeStartTime() {
         String result = "";
         if (hasStartTime()) {
-            result = START_TIME_MESSAGE + getStartTime().toString();
+            result = START_TIME_MESSAGE + getStartTime().toString()  + "\n";
         }
-        return result + "\n";
+        return result;
     }
 
 }

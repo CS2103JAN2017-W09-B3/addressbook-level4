@@ -40,7 +40,7 @@ public class TaskCard extends UiPart<Region> {
     }
 
     private void initTags(ReadOnlyTask task) {
-        task.getTags().forEach(tag -> tags.getChildren().add(new Label(ReadOnlyTask.TAG_MESSAGE + tag.tagName)));
+        task.getTags().forEach(tag -> tags.getChildren().add(new Label(ReadOnlyTask.TAG_PREFIX + tag.tagName)));
     }
 
     private void setCheckboxStatus(boolean completionStatus) {
