@@ -9,11 +9,11 @@ import seedu.task.model.task.UniqueTaskList;
 /**
  * Creates sample test people.
  */
-public class TypicalTestPersons {
+public class TypicalTestTasks {
 
     public TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestTasks() {
         try {
             alice = new TestTaskBuilder().withName("Alice Pauline")
                     .withCompletion(true).withEndDate("03/06/17 00:00")
@@ -45,7 +45,7 @@ public class TypicalTestPersons {
     }
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
-        for (TestTask task : new TypicalTestPersons().getTypicalPersons()) {
+        for (TestTask task : new TypicalTestTasks().getTypicalTasks()) {
             try {
                 ab.addTask(new Task(task));
             } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -54,7 +54,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestTask[] getTypicalPersons() {
+    public TestTask[] getTypicalTasks() {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 

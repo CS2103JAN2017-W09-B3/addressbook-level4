@@ -15,7 +15,7 @@ import seedu.task.commons.util.FileUtil;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.TaskManager;
 import seedu.task.model.task.Task;
-import seedu.task.testutil.TypicalTestPersons;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class XmlAddressBookStorageTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
@@ -61,7 +61,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
 
