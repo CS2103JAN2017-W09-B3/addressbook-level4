@@ -26,7 +26,7 @@ public class FindCommand extends Command {
 
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
-        for(String s: keywords){
+        for (String s: keywords) {
             try {
                 tagKeywords.add(new Tag(s));
             } catch (IllegalValueException e) {
