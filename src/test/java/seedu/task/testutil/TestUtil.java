@@ -80,15 +80,15 @@ public class TestUtil {
             EndTime sampleEndTime = new EndTime(NattyDateUtil.parseSingleDate("06/13/13 0909"));
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                    new Task(new Name("Ali Muster"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("George Best"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList())
+                new Task(new Name("Ali Muster"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Boris Mueller"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Carl Kurz"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Daniel Meier"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Elle Meyer"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Fiona Kunz"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("George Best"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Hoon Meier"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Ida Mueller"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
@@ -102,8 +102,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                new Tag("relatives"),
+                new Tag("friends")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -197,7 +197,7 @@ public class TestUtil {
     }
 
     public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException,
-    IllegalAccessException {
+        IllegalAccessException {
         field.setAccessible(true);
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
