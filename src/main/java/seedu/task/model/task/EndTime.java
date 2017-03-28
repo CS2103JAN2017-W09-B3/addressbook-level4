@@ -38,6 +38,7 @@ public class EndTime {
         return true;
     }
 
+    //@@author A0139938L
     @Override
     public String toString() {
         if (this.value == null) {
@@ -46,6 +47,7 @@ public class EndTime {
         DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
         return formatter.format(this.value);
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {

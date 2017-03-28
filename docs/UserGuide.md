@@ -1,3 +1,4 @@
+<!--@@author A0139938L-->
 # Suru - User Guide
 
 By : `W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbsp;&nbsp;
@@ -123,6 +124,8 @@ Examples:
 * `add write essay from 7/13/17 #school #homework`
 * `add write essay by 7/15/17 #blogging`
 * `add write essay #blogging`
+
+<!--@@author A0146789H-->
 
 ### 3.3. Listing
 
@@ -281,6 +284,8 @@ Examples:
   `uncheck 1`<br>
   Unchecks the 1st task in the results of the `find` command.
 
+<!--@@author A0138664W-->
+
 ### 3.10. Search
 
 #### 3.10.1. Finding all tasks containing a keyword: `find KEYWORD [MORE_KEYWORDS]`
@@ -390,6 +395,7 @@ Format:`edit INDEX reminders:`*`(EMPTY)`*
 * `edit 2 buy groceries reminders:`<br>
   Edits the description of the 2nd task to be `buy groceries` and clears all existing reminders.
 
+<!-- @@author A0139410N -->
 ### 3.16. Adding a recurring task: `add DESCRIPTION recurring: FREQUENCY`
 
 Add a recurring task.

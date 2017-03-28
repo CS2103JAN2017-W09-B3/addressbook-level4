@@ -1,5 +1,7 @@
 <!-- (27 Feb | Tian Song: User Stories, UC01 - UC12, Product Survey | Mustaqiim: UC13 - UC25, Product Survey | Shawn: Product Survey | Jeremy: Product Survey)-->
 
+<!-- @@author A0139938L -->
+
 # Suru - Developer Guide
 
 By : `Team W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbsp;&nbsp; Licence: `?`
@@ -162,6 +164,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0146789H -->
 ### 3.3. Logic component
 
 Author: Jeremy
@@ -183,6 +186,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
+<!-- @@author A0139410N -->
 ### 3.4. Model component
 
 Author: Tian Song
@@ -200,6 +204,8 @@ The `Model`
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+<!-- @@author A0138664W -->
 
 ### 3.5. Storage Component
 
@@ -242,7 +248,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`):
 
-
+<!-- @@author A0146789H -->
 ## 5. Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -336,6 +342,7 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+<!-- @@author A0139410N -->
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -684,6 +691,8 @@ Use case ends.
 
 > Use case ends.
 
+<!-- @@author A0138664W -->
+
 ### `UC13 - Delete a reminder for a task`
 
 **MSS**
@@ -941,7 +950,7 @@ Use case ends.
 
 > Windows 7 and above
 
-
+<!-- @@author A0139938L -->
 ## Appendix E : Product Survey
 **IKE**
 Author: Shawn Lin Jingjue
@@ -957,6 +966,7 @@ Cons:
 * No syncing across devices
 * Only Android platform
 
+<!-- @@author A0138664W -->
 **Wunderlist**
 
 Author: Muhammad Mustaqiim Bin Muhar
@@ -972,6 +982,7 @@ Cons:
 * No import function of existing task from other apps to Wunderlist
 * Assigning of to-dos to your team members is a paid feature (Organisation Features)
 
+<!-- @@author A0146789H -->
 **Habitica**
 
 Author: Jeremy Heng Wen Ming
@@ -986,6 +997,7 @@ Cons:
 * The interface is not efficient to use when adding many tasks
 * There is no integration with any calendar applications
 
+<!-- @@author A0139410N -->
 **Trello**
 
 Author: Teo Tian Song

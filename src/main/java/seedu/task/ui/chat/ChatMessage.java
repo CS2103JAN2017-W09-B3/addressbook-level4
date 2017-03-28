@@ -1,5 +1,6 @@
 package seedu.task.ui.chat;
 
+//@@author A0139938L
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -19,3 +20,4 @@ public class ChatMessage extends UiPart<Region> {
     }
 
 }
+//@@author A0139938L

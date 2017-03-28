@@ -19,8 +19,10 @@ public class HelpWindow extends UiPart<Region> {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
+    //@@author A0139938L
     private static final String USERGUIDE_URL =
             "https://cs2103jan2017-w09-b3.github.io/main/UserGuide.html";
+    //@@author
     //To be updated once we have our own html UserGuide
 
     @FXML

@@ -41,11 +41,13 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private MenuItem helpMenuItem;
 
+    //@@author A0139938L
     @FXML
     private AnchorPane taskListPanelPlaceholder;
 
     @FXML
     private AnchorPane chatPanelPlaceholder;
+    //@@author
 
     @FXML
     private AnchorPane statusbarPlaceholder;

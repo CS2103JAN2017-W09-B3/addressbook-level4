@@ -1,5 +1,6 @@
 package seedu.task.ui.chat;
 
+//@@author A0139938L
 import seedu.task.model.chat.Chat;
 
 public class SuruChatMessage extends ChatMessage {
@@ -10,3 +11,4 @@ public class SuruChatMessage extends ChatMessage {
     }
 
 }
+//@@author

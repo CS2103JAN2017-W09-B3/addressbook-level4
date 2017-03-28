@@ -45,9 +45,11 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
 
+    //@@author A0139938L
     @Override
     public ChatList getChatList() {
         // TODO Auto-generated method stub
         return model.getChatList();
     }
+    //@@author
 }

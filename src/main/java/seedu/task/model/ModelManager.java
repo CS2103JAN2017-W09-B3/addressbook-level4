@@ -26,7 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<ReadOnlyTask> filteredTasks;
+    //@@author A0139938L
     private final ChatList chatList;
+    //@@author
     private final UndoManager undoManager = new UndoManager();
 
     /**
@@ -40,7 +42,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskManager = new TaskManager(taskManager);
         filteredTasks = new FilteredList<>(this.taskManager.getTaskList());
+        //@@author A0139938L
         chatList = this.taskManager.getChatList();
+        //@@author
     }
 
     public ModelManager() {
@@ -192,6 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@author A0139938L
     @Override
     public ChatList getChatList() {
         return chatList;

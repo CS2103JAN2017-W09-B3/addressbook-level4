@@ -1,5 +1,5 @@
 package seedu.task.ui;
-
+//@@author A0139938L
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -92,3 +92,4 @@ public class ChatPanel extends UiPart<Region> {
         }
     }
 }
+//@@author

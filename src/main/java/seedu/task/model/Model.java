@@ -51,9 +51,10 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
+    //@@author A0139938L
     /** Returns the chat list as an {@code FilteredList<Chat>} */
     ChatList getChatList();
-
+    //@@author
     void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
 
     void updateTaskUndo(int filteredTaskListIndex, ReadOnlyTask editedTask) throws DuplicateTaskException;
