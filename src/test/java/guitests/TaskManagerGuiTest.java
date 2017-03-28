@@ -1,5 +1,5 @@
 package guitests;
-//@@author A0139938L
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

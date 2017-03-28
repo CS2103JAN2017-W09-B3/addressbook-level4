@@ -1,6 +1,5 @@
 package guitests;
 
-//@@author A0139938L
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
