@@ -36,7 +36,9 @@ import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.ListCheckedCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.ListUncheckedCommand;
+import seedu.task.logic.commands.RedoCommand;
 import seedu.task.logic.commands.SelectCommand;
+import seedu.task.logic.commands.UndoCommand;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
 import seedu.task.model.ModelManager;
@@ -184,7 +186,8 @@ public class LogicManagerTest {
         model.addTask(helper.generateTask(2));
         model.addTask(helper.generateTask(3));
 
-        assertCommandSuccess("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandSuccess("clear", ClearCommand.MESSAGE_SUCCESS,
+        		new TaskManager(), Collections.emptyList());
     }
 
     @Test
@@ -219,13 +222,13 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare address book state
+        // prepare task manager state
         helper.addToModel(model, 2);
 
         assertCommandSuccess("list",
@@ -279,6 +282,101 @@ public class LogicManagerTest {
     }
 
     //@@author
+    //@@author A0138664W
+    @Test
+    public void execute_undo_noPreviousCommandInput() throws Exception {
+    	assertCommandSuccess("undo", UndoCommand.NOTHING_TO_UNDO, new TaskManager(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_redo_noPreviousCommandInput() throws Exception {
+    	assertCommandSuccess("redo", RedoCommand.NOTHING_TO_REDO, new TaskManager(), Collections.emptyList());
+    }
+
+    @Test
+    public void execcute_undoredo_add_delete() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        assertCommandSuccess("delete 1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+
+        expectedAB.addTask(toBeAdded);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_ADD, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_DELETE, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.addTask(toBeAdded);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_ADD, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_DELETE, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+
+//    @Test
+//    public void execute_undo_check_unchecked() throws Exception {
+//    	TestDataHelper helper = new TestDataHelper();
+//    	Task completedTask = helper.completedTask();
+//    	Task incompleteTask = helper.incompletedTask();
+//    	TaskManager expectedAB = new TaskManager();
+//    	expectedAB.addTask(incompleteTask);
+//    	assertCommandSuccess(helper.generateAddCommand(incompleteTask),
+//                String.format(AddCommand.MESSAGE_SUCCESS, incompleteTask),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//
+//    	expectedAB.updateTask(0, completedTask);
+//    	assertCommandSuccess("checked 1",
+//                String.format(CheckCommand.MESSAGE_CHECK_SUCCESS, completedTask.getName()),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//
+////    	assertCommandSuccess("unchecked 1",
+////                String.format(UncheckCommand.MESSAGE_UNCHECK_SUCCESS, incompleteTask.getName()),
+////                expectedAB,
+////                expectedAB.getTaskList());
+////
+////    	expectedAB.updateTask(0, completedTask);
+////    	assertCommandSuccess("undo",
+////                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_CHECKED, completedTask.getName()),
+////                expectedAB,
+////                expectedAB.getTaskList());
+//////
+////    	expectedAB.updateTask(0, incompleteTask);
+//    	assertCommandSuccess("undo",
+//                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_UNCHEKED, completedTask),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//    }
+
+    //@@author
+
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -454,6 +552,18 @@ public class LogicManagerTest {
             StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             CompletionStatus completion = new CompletionStatus(true);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        //@@author A0138664W
+        Task incompletedTask() throws Exception {
+            Name name = new Name("I am done");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            CompletionStatus completion = new CompletionStatus(false);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("longertag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
