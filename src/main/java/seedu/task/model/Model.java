@@ -69,7 +69,6 @@ public interface Model {
 
     UndoManager getUndoManager();
 
-    void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException;
     //@@author
     int getTaskID(Task task);
 

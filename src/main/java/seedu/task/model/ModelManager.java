@@ -268,12 +268,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
-        indicateTaskManagerChanged();
-    }
-
-    @Override
     public UndoManager getUndoManager() {
         return undoManager;
     }
