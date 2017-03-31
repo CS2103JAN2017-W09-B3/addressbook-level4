@@ -151,7 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
     Predicate<ReadOnlyTask> isUnchecked = new Predicate<ReadOnlyTask> () {
         @Override
         public boolean test(ReadOnlyTask t) {
-            return t.getCompletionStatus().getStatus() == false;
+            return t.getCompletionStatus().getCompletion() == false;
         }
     };
 
@@ -159,7 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
     Predicate<ReadOnlyTask> isChecked = new Predicate<ReadOnlyTask> () {
         @Override
         public boolean test(ReadOnlyTask t) {
-            return t.getCompletionStatus().getStatus() == true;
+            return t.getCompletionStatus().getCompletion() == true;
         }
     };
 

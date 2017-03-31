@@ -41,7 +41,7 @@ public class UncheckCommand extends TaskCompleted {
 
         ReadOnlyTask taskToMarkComplete = lastShownList.get(filteredTaskListIndex);
 
-        if (taskToMarkComplete.getCompletionStatus().getStatus() == false) {
+        if (taskToMarkComplete.getCompletionStatus().getCompletion() == false) {
             throw new CommandException(String.format(MESSAGE_TASK_ALREADY_UNCHECKED, taskToMarkComplete.getName()));
         }
 

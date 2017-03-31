@@ -35,7 +35,7 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         startTime.setText(task.writeStartTime());
         endTime.setText(task.writeEndTime());
-        setCheckboxStatus(task.getCompletionStatus().getStatus());
+        setCheckboxStatus(task.getCompletionStatus().getCompletion());
         initTags(task);
     }
 

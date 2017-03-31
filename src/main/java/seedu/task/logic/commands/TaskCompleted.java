@@ -23,7 +23,7 @@ public abstract class TaskCompleted extends Command {
         EndTime endTime = taskToMarkComplete.getEndTime();
         UniqueTagList tagList = taskToMarkComplete.getTags();
         CompletionStatus updatedCompletionStatus = taskToMarkComplete.getCompletionStatus();
-        updatedCompletionStatus.swapStatus();
+        updatedCompletionStatus.swapCompletion();
 
         return new Task(name, startTime, endTime, updatedCompletionStatus, tagList);
     }
