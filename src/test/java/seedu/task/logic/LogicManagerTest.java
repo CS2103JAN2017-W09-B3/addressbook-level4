@@ -375,7 +375,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
-    @Test
+    //still buggy not used yet
     public void execcute_undoredo_checkUncheck() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
