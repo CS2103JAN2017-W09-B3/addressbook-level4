@@ -11,7 +11,6 @@ public class UndoCommand extends Command {
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_UNDO_SUCCESS_EDIT =
             "Undo Command Successful.\nRestored previously edited task: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS_ADD =
