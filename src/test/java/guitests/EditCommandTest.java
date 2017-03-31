@@ -105,9 +105,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     //TODO: fix after v0.4
     public void edit_duplicateTask_failure() {
-        commandBox.runCommand("checked 3");
-        commandBox.runCommand("edit 3 Alice Pauline from 03/06/17 00:00 to 03/06/17 00:00"
-                + " #friends");
+        commandBox.runCommand("edit 3 Attend Sharons birthday from "
+                + "1 Apr 6pm to 1 Apr 8pm");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
 

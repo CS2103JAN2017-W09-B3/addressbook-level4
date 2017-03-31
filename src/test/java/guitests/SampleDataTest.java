@@ -22,9 +22,11 @@ public class SampleDataTest extends TaskManagerGuiTest {
         return TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
     }
 
+    //@@author A0139938L
     @Test
     public void taskManager_dataFileDoesNotExist_loadSampleData() throws Exception {
         Task[] expectedList = SampleDataUtil.getSampleTasks();
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
+    //@@author
 }

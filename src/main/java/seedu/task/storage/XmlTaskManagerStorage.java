@@ -24,6 +24,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         this.filePath = filePath;
     }
 
+    @Override
     public String getTaskManagerFilePath() {
         return filePath;
     }
@@ -38,6 +39,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
+    @Override
     public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         assert filePath != null;
@@ -54,6 +56,29 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         return Optional.of(taskManagerOptional);
     }
 
+    //@@author A0139938L
+    /**
+     * Gets the ReadOnlyTaskManager object from the target file
+     * @param filePath location of the data. Cannot be null
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public ReadOnlyTaskManager getReadOnlyTaskManager(String filePath) throws DataConversionException,
+                                                                                 FileNotFoundException {
+        assert filePath != null;
+
+        File taskManagerFile = new File(filePath);
+
+        if (!taskManagerFile.exists()) {
+            logger.info("TaskManager file "  + taskManagerFile + " not found");
+            return null;
+        }
+
+        ReadOnlyTaskManager taskManager = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+
+        return taskManager;
+    }
+    //@@author
+
     @Override
     public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
         saveTaskManager(taskManager, filePath);
@@ -63,6 +88,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
      * @param filePath location of the data. Cannot be null
      */
+    @Override
     public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
         assert taskManager != null;
         assert filePath != null;
