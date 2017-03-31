@@ -41,4 +41,5 @@ public interface TaskManagerStorage {
      */
     void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException;
 
+    void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filePath) throws IOException;
 }

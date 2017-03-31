@@ -29,6 +29,26 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         return filePath;
     }
 
+    //@@author A0139938L
+
+    /**
+     * @param filePath the filePath to set
+     */
+    private void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * Changes the save location and performs a save operation
+     * @throws IOException
+     */
+    @Override
+    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath) throws IOException{
+        setFilePath(filepath);
+        this.saveTaskManager(taskManager, filepath);
+    }
+    //@@author
+
     @Override
     public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(filePath);
@@ -97,5 +117,6 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskManager(taskManager));
     }
+
 
 }
