@@ -23,18 +23,6 @@ public class SampleDataUtil {
         ReadOnlyTaskManager taskManager = sampleStorage.getReadOnlyTaskManager(SAMPLE_DATA_FILE_PATH);
         return taskManager;
     }
-
-//    public static ReadOnlyTaskManager getSampleTaskManager() {
-//        try {
-//            TaskManager sampleTM = new TaskManager();
-//            for (Task sampleTask : getSampleTasks()) {
-//                sampleTM.addTask(sampleTask);
-//            }
-//            return sampleTM;
-//        } catch (DuplicateTaskException e) {
-//            throw new AssertionError("sample data cannot contain duplicate tasks", e);
-//        }
-//    }
 }
 //@@author
 
