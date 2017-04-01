@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.AddTagCommand;
 import seedu.task.logic.commands.CheckCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
@@ -93,7 +94,7 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        //@@author A0138664W
         case CheckCommand.COMMAND_WORD:
             return new CheckedCommandParser().parse(arguments);
 
@@ -105,6 +106,9 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case AddTagCommand.COMMAND_WORD:
+        	return new AddTagsParser().parse(arguments);
         //@@author
         case SaveToCommand.COMMAND_WORD:
             return new SaveToCommandParser().parse(arguments);
