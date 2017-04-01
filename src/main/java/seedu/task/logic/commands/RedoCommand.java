@@ -22,7 +22,6 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_REDO_SUCCESS = "Redo Command Successful.";
     public static final String NOTHING_TO_REDO = "Nothing To Redo";
 
-
     @Override
     public CommandResult execute() throws CommandException {
 

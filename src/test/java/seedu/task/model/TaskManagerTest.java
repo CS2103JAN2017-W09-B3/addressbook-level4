@@ -2,6 +2,7 @@ package seedu.task.model;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,9 +15,11 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
+import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TypicalTestTasks;
 
 public class TaskManagerTest {
@@ -40,17 +43,30 @@ public class TaskManagerTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        TaskManager newData = new TypicalTestTasks().getTypicalTaskManager();
-        taskManager.resetData(newData);
-        assertEquals(newData, taskManager);
+        TaskManager newData;
+        try {
+            newData = new TypicalTestTasks().getTypicalTaskManager();
+            taskManager.resetData(newData);
+            assertEquals(newData, taskManager);
+        } catch (DataConversionException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsAssertionError() {
         TypicalTestTasks td = new TypicalTestTasks();
+        TestTask[] currentList = null;
+        try {
+            currentList = td.getTypicalTasks();
+        } catch (DataConversionException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         // Repeat td.alice twice
-        List<Task> newTasks = Arrays.asList(new Task(td.alice), new Task(td.alice));
-        List<Tag> newTags = td.alice.getTags().asObservableList();
+        List<Task> newTasks = Arrays.asList(new Task(currentList[0]), new Task(currentList[0]));
+        List<Tag> newTags = currentList[0].getTags().asObservableList();
         AddressBookStub newData = new AddressBookStub(newTasks, newTags);
 
         thrown.expect(AssertionError.class);
@@ -59,15 +75,22 @@ public class TaskManagerTest {
 
     @Test
     public void resetData_withDuplicateTags_throwsAssertionError() {
-        TaskManager typicalTaskManager = new TypicalTestTasks().getTypicalTaskManager();
-        List<ReadOnlyTask> newTasks = typicalTaskManager.getTaskList();
-        List<Tag> newTags = new ArrayList<>(typicalTaskManager.getTagList());
-        // Repeat the first tag twice
-        newTags.add(newTags.get(0));
-        AddressBookStub newData = new AddressBookStub(newTasks, newTags);
+        TaskManager typicalTaskManager;
+        try {
+            typicalTaskManager = new TypicalTestTasks().getTypicalTaskManager();
+            List<ReadOnlyTask> newTasks = typicalTaskManager.getTaskList();
+            List<Tag> newTags = new ArrayList<>(typicalTaskManager.getTagList());
+            // Repeat the first tag twice
+            newTags.add(newTags.get(0));
+            AddressBookStub newData = new AddressBookStub(newTasks, newTags);
 
-        thrown.expect(AssertionError.class);
-        taskManager.resetData(newData);
+            thrown.expect(AssertionError.class);
+            taskManager.resetData(newData);
+        } catch (DataConversionException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -90,6 +113,12 @@ public class TaskManagerTest {
         @Override
         public ObservableList<Tag> getTagList() {
             return tags;
+        }
+
+        @Override
+        public Task[] getTaskArray() {
+            // TODO Auto-generated method stub
+            return getTaskArray();
         }
     }
 

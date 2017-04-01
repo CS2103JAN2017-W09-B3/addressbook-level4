@@ -51,13 +51,14 @@ public class XmlUtilTest {
         XmlUtil.getDataFromFile(EMPTY_FILE, TaskManager.class);
     }
 
+    //@@author A0139938L
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskManager.class);
-        assertEquals(9, dataFromFile.getTaskList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
+        assertEquals(55, dataFromFile.getTaskList().size());
+        assertEquals(10, dataFromFile.getTagList().size());
     }
-
+    //@@author
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);

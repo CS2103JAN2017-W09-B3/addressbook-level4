@@ -8,6 +8,8 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.events.model.LoadFromRequestEvent;
+import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.exceptions.DataConversionException;
@@ -87,5 +89,32 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+
+    //@@author A0139938L
+    @Override
+    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filePath) {
+        try {
+            taskManagerStorage.changeSaveToLocation(taskManager, filePath);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleSaveToRequestEvent(SaveToRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing save to location to "+event.filepath));
+        changeSaveToLocation(event.taskManager, event.filepath);
+    }
+
+    @Override
+    @Subscribe
+    public void handleLoadFromRequestEvent(LoadFromRequestEvent event) throws IOException, DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing load from location to "+event.filepath));
+        event.taskManager = readTaskManager(event.filepath);
+    }
+
+    //@@author
 
 }
