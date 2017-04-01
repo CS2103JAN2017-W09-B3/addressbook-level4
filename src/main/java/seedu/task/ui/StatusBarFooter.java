@@ -35,6 +35,7 @@ public class StatusBarFooter extends UiPart<Region> {
         super(FXML);
         addToPlaceholder(placeHolder);
         updateProgressStatus(observableList);
+        updateBackgroundColor(observableList);
         setSaveLocation("Saving to: ./" + saveLocation);
         registerAsAnEventHandler(this);
     }
@@ -57,8 +58,24 @@ public class StatusBarFooter extends UiPart<Region> {
         this.progressStatus.setText(progress);
     }
 
-     public int getTotalTasks(ObservableList<ReadOnlyTask> observableList){
+    public int getTotalTasks(ObservableList<ReadOnlyTask> observableList){
         return observableList.size();
+    }
+
+    private void updateBackgroundColor(ObservableList<ReadOnlyTask> observableList){
+        double totalTasks = getTotalTasks(observableList);
+        double completedTasks = getTotalCompletedTasks(observableList);
+        double progress = 0;
+        if(totalTasks > 0) {
+            progress = completedTasks/totalTasks;
+        }
+        if(progress > 0.5) {
+            progressStatus.setStyle("-fx-background-color: #CFF48D;"); //green
+            saveLocationStatus.setStyle("-fx-background-color: #CFF48D;");
+        }else{
+            progressStatus.setStyle("-fx-background-color: #f4a68c;"); //pink
+            saveLocationStatus.setStyle("-fx-background-color: #f4a68c;");
+        }
     }
 
     public int getTotalCompletedTasks(ObservableList<ReadOnlyTask> observableList){
@@ -75,6 +92,7 @@ public class StatusBarFooter extends UiPart<Region> {
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce) {
         updateProgressStatus(abce.data.getTaskList());
+        updateBackgroundColor(abce.data.getTaskList());
     }
 
     @Subscribe
