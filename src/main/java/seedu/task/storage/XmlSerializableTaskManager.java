@@ -16,6 +16,8 @@ import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 
+//@@author A0139938L
+
 /**
  * An Immutable TaskManager that is serializable to XML format
  */
@@ -77,10 +79,12 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     public Task[] getTaskArray() {
         ObservableList<ReadOnlyTask> tasks = getTaskList();
         Task[] taskArray = new Task[getTaskList().size()];
-       for(int i=0; i<tasks.size(); i++){
-           taskArray[i] = (Task) tasks.get(i);
-       }
-       return taskArray;
+        for(int i=0; i<tasks.size(); i++){
+            taskArray[i] = (Task) tasks.get(i);
+        }
+        return taskArray;
 
     }
 }
+//@@author
+
