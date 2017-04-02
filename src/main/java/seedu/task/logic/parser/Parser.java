@@ -14,6 +14,7 @@ import seedu.task.logic.commands.CheckCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.DeleteTagCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
@@ -108,7 +109,10 @@ public class Parser {
             return new RedoCommand();
 
         case AddTagCommand.COMMAND_WORD:
-        	return new AddTagsParser().parse(arguments);
+            return new AddTagsParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagsParser().parse(arguments);
         //@@author
         case SaveToCommand.COMMAND_WORD:
             return new SaveToCommandParser().parse(arguments);

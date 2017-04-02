@@ -1,6 +1,6 @@
-//@@author A0138664W
 package seedu.task.logic.commands;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,14 +18,14 @@ import seedu.task.model.task.StartTime;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 
-public class AddTagCommand extends Command {
+public class DeleteTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtag";
+    public static final String COMMAND_WORD = "deltag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to existing task.\n"
             + "Parameters: INDEX [#tag]\n"
             + "Example: " + COMMAND_WORD
             + " 1 #CS2103 #uni";
-    public static final String ADD_TAG_SUCCESS = "Added new tags into task: %1$s";
+    public static final String ADD_TAG_SUCCESS = "Deleted tags from task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
     public static final String MESSAGE_DUPLICATE_TAGS = "This tag already exists in the task.";
@@ -34,7 +34,7 @@ public class AddTagCommand extends Command {
     private int filteredTaskListIndex;
     private Set<String> tags;
 
-    public AddTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
+    public DeleteTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
         assert tags != null;
         assert filteredTaskListIndex > 0;
         // converts filteredTaskListIndex from one-based to zero-based.
@@ -80,13 +80,25 @@ public class AddTagCommand extends Command {
         EndTime endTime = taskToEdit.getEndTime();
         CompletionStatus updatedCompletionStatus = taskToEdit.getCompletionStatus();
 
-        UniqueTagList tagList = taskToEdit.getTags();
-
-        for (String tagName: tags) {
-            tagList.add(new Tag(tagName));
+        UniqueTagList tagListToCheck = taskToEdit.getTags();
+        Set<Tag> tagSet = new HashSet<>();
+        for (Tag t : tagListToCheck) {
+            tagSet.add(t);
         }
 
-        return new Task(name, startTime, endTime, updatedCompletionStatus, tagList);
+        for (Tag t : tagListToCheck) {
+            for (String s : tags) {
+                if (s.equals(t.getTagName())) {
+                    System.out.println("Inside Check Loop");
+                    tagSet.remove(t);
+                }
+            }
+        }
+
+        UniqueTagList newTagList = new UniqueTagList(tagSet);
+
+        return new Task(name, startTime, endTime, updatedCompletionStatus, newTagList);
     }
+
 
 }

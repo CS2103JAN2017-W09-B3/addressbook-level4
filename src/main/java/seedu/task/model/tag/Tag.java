@@ -33,7 +33,11 @@ public class Tag {
     public static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);
     }
-
+    //@@author A0138664W
+    public String getTagName() {
+        return tagName;
+    }
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
