@@ -12,12 +12,13 @@ import seedu.task.logic.commands.ListUncheckedCommand;
 /**
  * Parses input arguments and creates a new ListCommand/ListUncheckedCommand/ListCheckedCommand object
  */
-public class ListCommandParser {
+public class ListCommandParser extends AbstractParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
      * and returns an istCommand/ListUncheckedCommand/ListCheckedCommand object for execution.
      */
+    @Override
     public Command parse(String args) {
 
         // keywords delimited by whitespace
@@ -37,6 +38,12 @@ public class ListCommandParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
+    }
+
+    //@@author A0146789H
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return ListCommand.isCommandWord(command);
     }
 
 }

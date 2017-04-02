@@ -116,10 +116,7 @@ public class AddCommandParser extends AbstractParser {
      */
     @Override
     public boolean isAcceptedCommand(String command) {
-        if (AddCommand.isCommandWord(command)) {
-            return true;
-        }
-        return false;
+        return AddCommand.isCommandWord(command);
     }
 }
 

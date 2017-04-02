@@ -10,7 +10,8 @@ import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.UncheckCommand;
 import seedu.task.model.UndoManager;
 
-public class UncheckedCommandParser {
+public class UncheckCommandParser extends AbstractParser {
+    @Override
     public Command parse(String args) {
 
         Optional<Integer> index = ParserUtil.parseIndex(args);
@@ -23,5 +24,11 @@ public class UncheckedCommandParser {
         UndoManager.pushUndoCommand(UncheckCommand.DEFACTO_COMMAND);
 
         return new UncheckCommand(index.get());
+    }
+
+    //@@author A0146789H
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return UncheckCommand.isCommandWord(command);
     }
 }

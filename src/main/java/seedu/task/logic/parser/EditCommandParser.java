@@ -20,7 +20,7 @@ import seedu.task.model.UndoManager;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser {
+public class EditCommandParser extends AbstractParser {
 
     private static final String PATTERN_MANDATORY_INDEX = "(?<index>[1-9]\\d*)";
     private static final String PATTERN_OPTIONAL_DESCRIPTION = "(?:\\s+(?<description>[^#]+?))?";
@@ -38,6 +38,7 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      */
+    @Override
     public Command parse(String args) {
         assert args != null;
 
@@ -90,6 +91,12 @@ public class EditCommandParser {
         return new EditCommand(index, editTaskDescriptor);
     }
 
-
+    /* (non-Javadoc)
+     * @see seedu.task.logic.parser.AbstractParser#isAcceptedCommand(java.lang.String)
+     */
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return EditCommand.isCommandWord(command);
+    }
 
 }
