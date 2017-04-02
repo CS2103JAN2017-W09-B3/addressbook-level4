@@ -85,7 +85,7 @@ public class EditCommandParser {
         }
 
         // Add the undo entry after successfully parsing an EditCommand.
-        UndoManager.pushUndoCommand(EditCommand.COMMAND_WORD);
+        UndoManager.pushUndoCommand(EditCommand.DEFACTO_COMMAND);
 
         return new EditCommand(index, editTaskDescriptor);
     }

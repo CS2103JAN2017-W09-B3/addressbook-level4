@@ -6,17 +6,28 @@ import seedu.task.model.ReadOnlyTaskManager;
 
 public class SaveToCommand extends Command {
 
-    public static final String COMMAND_WORD = "saveto";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Defines a new save location for your tasks "
+    //@@author A0146789H
+    public static final String[] COMMAND_WORDS = new String[] {"saveto"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
+
+    //@@author A0139938L
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Defines a new save location for your tasks "
             + "Parameters: FILE_PATH"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + DEFACTO_COMMAND
             + " ./taskmanager.xml";
 
     public static final String MESSAGE_SUCCESS = "Save location has been changed.";
 
     private String filepath = "";
 
+    //@@author A0146789H
+    protected SaveToCommand() {
+        super(COMMAND_WORDS);
+    }
+
+    //@@author A0139938L
     public SaveToCommand(String filepath){
+        this();
         this.setFilepath(filepath);
     }
 

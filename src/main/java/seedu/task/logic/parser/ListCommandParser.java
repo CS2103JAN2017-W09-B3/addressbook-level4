@@ -27,10 +27,10 @@ public class ListCommandParser {
         if (keywords.isEmpty()) {
             return new ListCommand();
         // if list is used with unchecked, return unchecked task list
-        } else if (keywords.equals(ListUncheckedCommand.LIST_COMMAND_WORD)) {
+        } else if (keywords.equals(ListUncheckedCommand.LIST_COMMAND_WORDS)) {
             return new ListUncheckedCommand();
         // if list is used with checked, return checked task list
-        } else if (keywords.equals(ListCheckedCommand.LIST_COMMAND_WORD)) {
+        } else if (keywords.equals(ListCheckedCommand.LIST_COMMAND_WORDS)) {
             return new ListCheckedCommand();
         // if keywords does not match either checked or unchecked, return incorrect usage
         } else {

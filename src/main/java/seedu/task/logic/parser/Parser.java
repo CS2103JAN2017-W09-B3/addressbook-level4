@@ -8,31 +8,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.logic.commands.AddCommand;
-import seedu.task.logic.commands.CheckCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.DeleteCommand;
-import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
-import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.commands.ListCommand;
-import seedu.task.logic.commands.LoadFromCommand;
 import seedu.task.logic.commands.RedoCommand;
-import seedu.task.logic.commands.SaveToCommand;
-import seedu.task.logic.commands.SelectCommand;
-import seedu.task.logic.commands.SortCommand;
-import seedu.task.logic.commands.UncheckCommand;
 import seedu.task.logic.commands.UndoCommand;
 
+//@@author A0146789H
 /**
  * Parses user input.
  */
 public class Parser {
 
-    //@@author A0146789H
     /**
      * Used for initial separation of command word and args.
      * Allows for case insensitive matching.
@@ -62,57 +51,104 @@ public class Parser {
 
         logger.info(logPrefix + " Command Word: '" + commandWord + "'");
         logger.info(logPrefix + " Arguments: '" + arguments + "'");
-
         switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
+        // TODO: Fix this immediately
+        /*
+        case AddCommand.COMMAND_WORDS:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORDS:
             return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_WORDS:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORDS:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
+        case ClearCommand.COMMAND_WORDS:
             return new ClearCommand();
 
-        //@@author A0139410N
-        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORDS:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORDS:
             return new ListCommandParser().parse(arguments);
 
-        //@@author
-        case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORDS:
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORDS:
             return new HelpCommand();
 
-        case CheckCommand.COMMAND_WORD:
+        case CheckCommand.COMMAND_WORDS:
             return new CheckedCommandParser().parse(arguments);
 
-        case UncheckCommand.COMMAND_WORD:
+        case UncheckCommand.COMMAND_WORDS:
             return new UncheckedCommandParser().parse(arguments);
-        //@@author A0138664W
-        case UndoCommand.COMMAND_WORD:
+
+        case UndoCommand.COMMAND_WORDS:
             return new UndoCommand();
 
-        case RedoCommand.COMMAND_WORD:
+        case RedoCommand.COMMAND_WORDS:
             return new RedoCommand();
-        //@@author
-        case SaveToCommand.COMMAND_WORD:
+
+        case SaveToCommand.COMMAND_WORDS:
             return new SaveToCommandParser().parse(arguments);
 
-        case LoadFromCommand.COMMAND_WORD:
+        case LoadFromCommand.COMMAND_WORDS:
             return new LoadFromCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+        */
+
+        case "add":
+            return new AddCommandParser().parse(arguments);
+
+        case "edit":
+            return new EditCommandParser().parse(arguments);
+
+        case "select":
+            return new SelectCommandParser().parse(arguments);
+
+        case "delete":
+            return new DeleteCommandParser().parse(arguments);
+
+        case "clear":
+            return new ClearCommand();
+
+        case "find":
+            return new FindCommandParser().parse(arguments);
+
+        case "list":
+            return new ListCommandParser().parse(arguments);
+
+        case "exit":
+            return new ExitCommand();
+
+        case "help":
+            return new HelpCommand();
+
+        case "checked":
+            return new CheckedCommandParser().parse(arguments);
+
+        case "unchecked":
+            return new UncheckedCommandParser().parse(arguments);
+
+        case "undo":
+            return new UndoCommand();
+
+        case "redo":
+            return new RedoCommand();
+
+        case "saveto":
+            return new SaveToCommandParser().parse(arguments);
+
+        case "loadfrom":
+            return new LoadFromCommandParser().parse(arguments);
+
+        case "sort":
             return new SortCommandParser().parse(arguments);
 
         default:
