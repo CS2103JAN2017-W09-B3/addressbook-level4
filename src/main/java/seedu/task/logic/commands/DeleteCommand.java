@@ -8,31 +8,38 @@ import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0146789H
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String[] COMMAND_WORDS = new String[] {"delete", "del", "remove"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + DEFACTO_COMMAND + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
     public int targetIndex;
 
+    /**
+     *  Creates an empty delete command with the relevant commands words.
+     *
+     */
+    protected DeleteCommand() {
+        super(COMMAND_WORDS);
+    }
+
     public DeleteCommand(int targetIndex) {
+        this();
         this.targetIndex = targetIndex;
     }
 
-
-    public DeleteCommand() {
-    }
-
-
+    //@@author
     @Override
     public CommandResult execute() throws CommandException {
 

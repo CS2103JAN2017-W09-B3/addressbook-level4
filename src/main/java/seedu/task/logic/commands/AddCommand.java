@@ -22,11 +22,12 @@ import seedu.task.model.task.UniqueTaskList;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String[] COMMAND_WORDS = new String[] {"add"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Adds a task to the task manager. "
             + "Parameters: DESCRIPTION from START_DATE to END_DATE #TAGS\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + DEFACTO_COMMAND
             + " Do CS2103 tutorial from 03/06/17 to 03/08/17 #CS2103 #uni";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
@@ -34,7 +35,30 @@ public class AddCommand extends Command {
 
     private Task toAdd;
 
+    /**
+     * Creates an empty command with the relevant command words.
+     *
+     */
     public AddCommand(){
+        super(COMMAND_WORDS);
+    }
+
+    /**
+     * Creates an AddCommand using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name)
+            throws IllegalValueException {
+        this();
+        final Set<Tag> tagSet = new HashSet<>();
+        this.toAdd = new Task(
+                new Name(name),
+                new StartTime(null),
+                new EndTime(null),
+                new CompletionStatus(false),
+                new UniqueTagList(tagSet)
+        );
     }
 
     /**
@@ -44,6 +68,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, Date startDate, Date endDate, boolean completionStatus, Set<String> tags)
             throws IllegalValueException {
+        this();
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -57,30 +82,11 @@ public class AddCommand extends Command {
                 );
     }
 
-    //@@author A0146789H
     /**
      * @return the task to be added
      */
     public Task getToAdd() {
         return toAdd;
-    }
-
-    //@@author
-    /**
-     * Creates an AddCommand using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        this.toAdd = new Task(
-                new Name(name),
-                new StartTime(null),
-                new EndTime(null),
-                new CompletionStatus(false),
-                new UniqueTagList(tagSet)
-        );
     }
 
     @Override
