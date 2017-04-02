@@ -71,4 +71,10 @@ public class UndoCommand extends Command {
         }
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert UndoCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(UndoCommand.COMMAND_WORDS, command);
+    }
 }

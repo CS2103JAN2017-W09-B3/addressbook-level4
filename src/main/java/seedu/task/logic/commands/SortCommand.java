@@ -20,4 +20,10 @@ public class SortCommand extends Command {
         return null;
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert SortCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(SortCommand.COMMAND_WORDS, command);
+    }
 }

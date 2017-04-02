@@ -46,4 +46,10 @@ public class LoadFromCommand extends Command {
         this.filepath = filepath;
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert LoadFromCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(LoadFromCommand.COMMAND_WORDS, command);
+    }
 }

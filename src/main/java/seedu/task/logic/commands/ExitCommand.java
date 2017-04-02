@@ -26,4 +26,10 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert ExitCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(ExitCommand.COMMAND_WORDS, command);
+    }
 }

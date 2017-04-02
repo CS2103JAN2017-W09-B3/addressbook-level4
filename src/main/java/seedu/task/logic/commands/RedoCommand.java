@@ -70,4 +70,11 @@ public class RedoCommand extends Command {
             return new CommandResult(NOTHING_TO_REDO);
         }
     }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert RedoCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(RedoCommand.COMMAND_WORDS, command);
+    }
 }

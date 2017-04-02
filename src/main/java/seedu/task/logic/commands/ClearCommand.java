@@ -24,4 +24,11 @@ public class ClearCommand extends Command {
         model.resetData(new TaskManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert ClearCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(ClearCommand.COMMAND_WORDS, command);
+    }
 }

@@ -57,4 +57,10 @@ public class SelectCommand extends Command {
         return targetIndex;
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert SelectCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(SelectCommand.COMMAND_WORDS, command);
+    }
 }

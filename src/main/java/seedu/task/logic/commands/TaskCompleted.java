@@ -38,5 +38,4 @@ public abstract class TaskCompleted extends Command {
 
         return new Task(name, startTime, endTime, updatedCompletionStatus, tagList);
     }
-
 }

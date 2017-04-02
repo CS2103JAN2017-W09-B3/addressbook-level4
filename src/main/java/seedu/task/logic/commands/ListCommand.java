@@ -28,4 +28,11 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert ListCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(ListCommand.COMMAND_WORDS, command);
+    }
 }

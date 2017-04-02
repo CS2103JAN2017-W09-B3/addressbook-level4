@@ -77,5 +77,11 @@ public class DeleteCommand extends Command {
         }
         return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_DELETE, previousTask));
     }
-    //@@author
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert DeleteCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(DeleteCommand.COMMAND_WORDS, command);
+    }
 }

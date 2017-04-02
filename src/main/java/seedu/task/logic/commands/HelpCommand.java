@@ -29,4 +29,11 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert HelpCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(HelpCommand.COMMAND_WORDS, command);
+    }
 }

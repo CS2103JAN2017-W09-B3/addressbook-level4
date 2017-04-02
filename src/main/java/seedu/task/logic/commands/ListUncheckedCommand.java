@@ -23,4 +23,10 @@ public class ListUncheckedCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert ListUncheckedCommand.LIST_COMMAND_WORDS != null;
+
+        return isCommandWord(ListUncheckedCommand.LIST_COMMAND_WORDS, command);
+    }
 }

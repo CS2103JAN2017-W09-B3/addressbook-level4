@@ -27,5 +27,9 @@ public class IncorrectCommand extends Command {
         throw new CommandException(feedbackToUser);
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        return false;
+    }
 }
 
