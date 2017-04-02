@@ -173,6 +173,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         return new UnmodifiableObservableList<>(tasks.asObservableList());
     }
 
+    //@@author A0139938L
+    @Override
+    public Task[] getTaskArray(){
+        return tasks.asArray();
+    }
+    //@@author
+
     @Override
     public ObservableList<Tag> getTagList() {
         return new UnmodifiableObservableList<>(tags.asObservableList());
@@ -200,4 +207,5 @@ public class TaskManager implements ReadOnlyTaskManager {
     public int getTaskID(Task task) {
         return tasks.getTaskID(task);
     }
+
 }

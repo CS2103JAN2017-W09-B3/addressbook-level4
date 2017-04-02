@@ -42,7 +42,7 @@ public class CheckCommand extends TaskCompleted {
 
         ReadOnlyTask taskToMarkComplete = lastShownList.get(filteredTaskListIndex);
 
-        if (taskToMarkComplete.getCompletionStatus().getStatus() == true) {
+        if (taskToMarkComplete.getCompletionStatus().getCompletion() == true) {
             throw new CommandException(String.format(MESSAGE_TASK_ALREADY_CHECKED, taskToMarkComplete.getName()));
         }
 

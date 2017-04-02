@@ -96,6 +96,16 @@ public class UniqueTaskList implements Iterable<Task> {
         return new UnmodifiableObservableList<>(internalList);
     }
 
+    //@@author A0139938L
+    public Task[] asArray(){
+        Task[] tasks = new Task[internalList.size()];
+        for(int i=0;i<internalList.size(); i++){
+            tasks[i] = internalList.get(i);
+        }
+        return tasks;
+    }
+    //@@author
+
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();

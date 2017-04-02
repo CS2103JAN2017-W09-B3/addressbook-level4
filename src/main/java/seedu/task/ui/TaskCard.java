@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart<Region> {
@@ -28,6 +30,8 @@ public class TaskCard extends UiPart<Region> {
     private ImageView imgChecked;
     @FXML
     private ImageView imgUnchecked;
+    @FXML
+    private Text taskTypeText;
 
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
@@ -35,7 +39,10 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         startTime.setText(task.writeStartTime());
         endTime.setText(task.writeEndTime());
-        setCheckboxStatus(task.getCompletionStatus().getStatus());
+        String completionStatus = task.getCompletionStatus().toString().toUpperCase();
+        taskTypeText.setText(completionStatus);
+        setTaskTypeTextColor(completionStatus);
+        setCheckboxStatus(task.getCompletionStatus().getCompletion());
         initTags(task);
     }
 
@@ -61,6 +68,23 @@ public class TaskCard extends UiPart<Region> {
         imgUnchecked.setVisible(false);
     }
 
+    /**
+     * Sets the color of the task type label.
+     * @param type
+     */
+    private void setTaskTypeTextColor(String type) {
+        switch(type) {
+        case "OVERDUE":
+            taskTypeText.setFill(Color.DARKRED);
+            break;
+        case "UPCOMING":
+            taskTypeText.setFill(Color.ORANGE);
+            break;
+        default:
+            taskTypeText.setFill(Color.TRANSPARENT);
+            break;
+        }
+    }
 
 }
 //@@author

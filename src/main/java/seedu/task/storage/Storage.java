@@ -3,6 +3,8 @@ package seedu.task.storage;
 import java.io.IOException;
 import java.util.Optional;
 
+import seedu.task.commons.events.model.LoadFromRequestEvent;
+import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.exceptions.DataConversionException;
@@ -35,4 +37,8 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce);
+
+    void handleSaveToRequestEvent(SaveToRequestEvent event) throws IOException;
+
+    void handleLoadFromRequestEvent(LoadFromRequestEvent event) throws IOException, DataConversionException;
 }

@@ -16,14 +16,16 @@ import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 
+//@@author A0139938L
+
 /**
  * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> task;
     @XmlElement
     private List<XmlAdaptedTag> tags;
 
@@ -32,7 +34,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableTaskManager() {
-        tasks = new ArrayList<>();
+        task = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -41,13 +43,13 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         this();
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        task.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
 
     @Override
     public ObservableList<ReadOnlyTask> getTaskList() {
-        final ObservableList<Task> tasks = this.tasks.stream().map(p -> {
+        final ObservableList<Task> tasks = this.task.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
@@ -73,4 +75,16 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         return new UnmodifiableObservableList<>(tags);
     }
 
+    @Override
+    public Task[] getTaskArray() {
+        ObservableList<ReadOnlyTask> tasks = getTaskList();
+        Task[] taskArray = new Task[getTaskList().size()];
+        for(int i=0; i<tasks.size(); i++){
+            taskArray[i] = (Task) tasks.get(i);
+        }
+        return taskArray;
+
+    }
 }
+//@@author
+

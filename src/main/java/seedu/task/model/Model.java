@@ -72,5 +72,10 @@ public interface Model {
     //@@author
     int getTaskID(Task task);
 
+    //@@author A0139938L
+    void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath);
+
+    void changeLoadFromLocation(String filepath);
+    //@@author
 
 }

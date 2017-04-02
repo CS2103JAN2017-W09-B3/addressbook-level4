@@ -3,8 +3,11 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static seedu.task.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
+import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
@@ -14,7 +17,13 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = null;
+        try {
+            currentList = td.getTypicalTasks();
+        } catch (DataConversionException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 

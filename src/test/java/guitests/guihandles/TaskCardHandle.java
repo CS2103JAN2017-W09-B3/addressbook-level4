@@ -1,7 +1,6 @@
 package guitests.guihandles;
 //@@author A0139938L
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class TaskCardHandle extends GuiHandle {
         String time = getTextFromLabel(label);
         Matcher matcher = ARGUMENTS_FORMAT.matcher(time);
         if (!matcher.matches()) {
-            throw new NoSuchElementException();
+            return "";
         } else {
             time = matcher.group("time");
             return time;

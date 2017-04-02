@@ -1,5 +1,6 @@
 package seedu.task.model;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -8,6 +9,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.model.LoadFromRequestEvent;
+import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.commons.util.StringUtil;
@@ -151,7 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
     Predicate<ReadOnlyTask> isUnchecked = new Predicate<ReadOnlyTask> () {
         @Override
         public boolean test(ReadOnlyTask t) {
-            return t.getCompletionStatus().getStatus() == false;
+            return t.getCompletionStatus().getCompletion() == false;
         }
     };
 
@@ -159,7 +162,7 @@ public class ModelManager extends ComponentManager implements Model {
     Predicate<ReadOnlyTask> isChecked = new Predicate<ReadOnlyTask> () {
         @Override
         public boolean test(ReadOnlyTask t) {
-            return t.getCompletionStatus().getStatus() == true;
+            return t.getCompletionStatus().getCompletion() == true;
         }
     };
 
@@ -277,4 +280,33 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager.getTaskID(task);
     }
 //@@author
+
+    //@@author A0139938L
+    @Override
+    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath) {
+        triggerSaveToRequest(taskManager, filepath);
+    }
+    /** Raises an event to request change in save to location */
+    protected void triggerSaveToRequest(ReadOnlyTaskManager taskManager, String filepath) {
+        raise(new SaveToRequestEvent(taskManager, filepath));
+    }
+
+    @Override
+    public void changeLoadFromLocation(String filepath) {
+        triggerLoadFromRequest(filepath);
+    }
+
+    private void triggerLoadFromRequest(String filepath) {
+        LoadFromRequestEvent event = new LoadFromRequestEvent(filepath);
+        raise(event);
+        this.resetData(event.getTaskManager());
+    }
+
+    private void resetData(Optional<ReadOnlyTaskManager> taskManager) {
+        ReadOnlyTaskManager readOnly = taskManager.get();
+        this.resetData(readOnly);
+    }
+
+    //@@author
+
 }

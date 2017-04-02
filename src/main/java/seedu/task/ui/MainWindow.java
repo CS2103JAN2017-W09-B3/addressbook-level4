@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Region> {
     void fillInnerParts() {
         taskListPanel = new TaskListPanel(getTaskListPlaceholder(), logic.getFilteredTaskList());
         new ChatPanel(getChatPanelPlaceholder(), logic.getChatList());
-        new StatusBarFooter(getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+        new StatusBarFooter(getStatusbarPlaceholder(), config.getTaskManagerFilePath(), logic.getFilteredTaskList());
         new CommandBox(getCommandBoxPlaceholder(), logic);
     }
 

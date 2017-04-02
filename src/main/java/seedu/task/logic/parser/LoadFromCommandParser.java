@@ -11,6 +11,6 @@ public class LoadFromCommandParser {
      * and returns an SelectCommand object for execution.
      */
     public Command parse(String args) {
-        return new LoadFromCommand();
+        return new LoadFromCommand(args);
     }
 }
