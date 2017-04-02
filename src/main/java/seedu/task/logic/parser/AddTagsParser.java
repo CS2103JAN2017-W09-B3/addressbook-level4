@@ -1,3 +1,4 @@
+//@@author A0138664W
 package seedu.task.logic.parser;
 
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -10,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.AddTagCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
@@ -58,7 +58,7 @@ public class AddTagsParser {
             return new AddTagCommand(index, tagSet);
         } catch (NoSuchElementException nsee) {
             // TODO: This needs to be changed to the default case of search.
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

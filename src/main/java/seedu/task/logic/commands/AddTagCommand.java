@@ -1,3 +1,4 @@
+//@@author A0138664W
 package seedu.task.logic.commands;
 
 import java.util.List;
@@ -20,13 +21,18 @@ import seedu.task.model.task.UniqueTaskList;
 public class AddTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addtag";
-    public static final String ADD_TAG_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to existing task.\n"
+            + "Parameters: INDEX [#tag]\n"
+            + "Example: " + COMMAND_WORD
+            + " 1 #CS2103 #uni";
+    public static final String ADD_TAG_SUCCESS = "Added new tags into task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
+    public static final String MESSAGE_DUPLICATE_TAGS = "This tag already exists in the task.";
+
 
     private int filteredTaskListIndex;
     private Set<String> tags;
-//    private Set<Tag> tagSet = new HashSet<>();
 
     public AddTagCommand(int filteredTaskListIndex, Set<String> tags)
     		throws IllegalValueException {
@@ -35,11 +41,7 @@ public class AddTagCommand extends Command {
 
         // converts filteredTaskListIndex from one-based to zero-based.
         this.filteredTaskListIndex = filteredTaskListIndex - 1;
-
         this.tags = tags;
-//        for (String tagName : tags) {
-//            tagSet.add(new Tag(tagName));
-//        }
     }
 
 	@Override
@@ -57,10 +59,8 @@ public class AddTagCommand extends Command {
 	    try {
 			editedTask = createEditedTask(taskToEdit, tags);
 		} catch (DuplicateTagException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new CommandException(MESSAGE_DUPLICATE_TAGS);
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -70,7 +70,7 @@ public class AddTagCommand extends Command {
 			throw new CommandException(MESSAGE_DUPLICATE_TASK);
 		}
 	    model.updateFilteredListToShowAll();
-	    return new CommandResult(String.format(ADD_TAG_SUCCESS));
+	    return new CommandResult(String.format(ADD_TAG_SUCCESS, editedTask));
 	}
 
 	private static Task createEditedTask(ReadOnlyTask taskToEdit, Set<String> tags) throws DuplicateTagException, IllegalValueException {
@@ -86,7 +86,6 @@ public class AddTagCommand extends Command {
         for (String tagName: tags) {
         	tagList.add(new Tag(tagName));
         }
-
 
         return new Task(name, startTime, endTime, updatedCompletionStatus, tagList);
 	}
