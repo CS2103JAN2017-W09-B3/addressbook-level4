@@ -6,6 +6,7 @@ import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartTime;
+import seedu.task.model.task.TaskType;
 
 //@@author A0146789H
 /**
@@ -17,6 +18,7 @@ public class TestTask implements ReadOnlyTask {
     private CompletionStatus completionStatus;
     private StartTime startTime;
     private EndTime endTime;
+    private TaskType taskType;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -32,6 +34,7 @@ public class TestTask implements ReadOnlyTask {
         this.endTime = taskToCopy.getEndTime();
         this.completionStatus = taskToCopy.getCompletionStatus();
         this.tags = taskToCopy.getTags();
+        this.taskType = taskToCopy.getTaskType();
     }
 
     public void setName(Name name) {
@@ -52,6 +55,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setTags(UniqueTagList tags) {
         this.tags = tags;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 
     @Override
@@ -91,5 +98,10 @@ public class TestTask implements ReadOnlyTask {
         sb.append(" to " + this.getEndTime().value + " ");
         this.getTags().asObservableList().stream().forEach(s -> sb.append(" #" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return taskType;
     }
 }
