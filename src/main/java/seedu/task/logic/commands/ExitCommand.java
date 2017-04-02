@@ -9,7 +9,7 @@ import seedu.task.commons.events.ui.ExitAppRequestEvent;
  */
 public class ExitCommand extends Command {
 
-    public static final String[] COMMAND_WORDS = new String[] {"exit"};
+    public static final String[] COMMAND_WORDS = new String[] {"exit", "quit"};
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting suru as requested ...";
 
