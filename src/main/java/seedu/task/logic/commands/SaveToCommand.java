@@ -16,7 +16,7 @@ public class SaveToCommand extends Command {
 
     private String filepath = "";
 
-    public SaveToCommand(String filepath){
+    public SaveToCommand(String filepath) {
         this.setFilepath(filepath);
     }
 

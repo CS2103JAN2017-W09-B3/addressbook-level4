@@ -79,7 +79,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     public Task[] getTaskArray() {
         ObservableList<ReadOnlyTask> tasks = getTaskList();
         Task[] taskArray = new Task[getTaskList().size()];
-        for(int i=0; i<tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             taskArray[i] = (Task) tasks.get(i);
         }
         return taskArray;

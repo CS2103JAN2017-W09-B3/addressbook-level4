@@ -175,7 +175,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //@@author A0139938L
     @Override
-    public Task[] getTaskArray(){
+    public Task[] getTaskArray() {
         return tasks.asArray();
     }
     //@@author
