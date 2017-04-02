@@ -23,4 +23,10 @@ public class ListCheckedCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert ListCheckedCommand.LIST_COMMAND_WORDS != null;
+
+        return isCommandWord(ListCheckedCommand.LIST_COMMAND_WORDS, command);
+    }
 }

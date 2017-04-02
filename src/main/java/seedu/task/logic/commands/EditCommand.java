@@ -206,4 +206,11 @@ public class EditCommand extends Command {
             return tags;
         }
     }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert EditCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(EditCommand.COMMAND_WORDS, command);
+    }
 }

@@ -89,6 +89,11 @@ public class CheckCommand extends TaskCompleted {
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_CHECKED, previousTask));
     }
-    //@@author
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert CheckCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(CheckCommand.COMMAND_WORDS, command);
+    }
 }

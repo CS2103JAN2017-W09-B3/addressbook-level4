@@ -51,4 +51,10 @@ public class SaveToCommand extends Command {
         this.filepath = filepath;
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert SaveToCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(SaveToCommand.COMMAND_WORDS, command);
+    }
 }

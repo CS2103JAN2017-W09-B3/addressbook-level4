@@ -23,7 +23,11 @@ import seedu.task.model.UndoManager;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser {
+/**
+ * @author amon
+ *
+ */
+public class AddCommandParser extends AbstractParser {
 
     private static final String PATTERN_MANDATORY_DESCRIPTION = "(?<description>.+?)";
     private static final String PATTERN_OPTIONAL_STARTDATE = "(?:\\s+from\\s+(?<startdate>.+?))?";
@@ -36,11 +40,11 @@ public class AddCommandParser {
     private static final Logger logger = LogsCenter.getLogger(AddCommandParser.class);
     private static final String logPrefix = "[AddCommandParser]";
 
-
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      */
+    @Override
     public Command parse(String args) {
 
         assert args != null;
@@ -107,5 +111,15 @@ public class AddCommandParser {
         }
     }
 
+    /* (non-Javadoc)
+     * @see seedu.task.logic.parser.AbstractParser#isAcceptedCommand(java.lang.String)
+     */
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        if (AddCommand.isCommandWord(command)) {
+            return true;
+        }
+        return false;
+    }
 }
 

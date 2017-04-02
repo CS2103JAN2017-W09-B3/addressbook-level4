@@ -10,7 +10,6 @@ import seedu.task.model.Model;
  */
 public abstract class Command {
     protected Model model;
-    private final String[] commandWords;
 
     /**
      * Constructs the class with an array of valid command words.
@@ -19,7 +18,6 @@ public abstract class Command {
      */
     public Command(String[] commandWords) {
         super();
-        this.commandWords = commandWords;
     }
 
     /**
@@ -55,8 +53,8 @@ public abstract class Command {
      * @param commmand
      * @return true if it is a command word, false if not.
      */
-    public boolean isCommandWord(String command) {
-        for (String i : this.commandWords) {
+    public static boolean isCommandWord(String[] commandWords, String command) {
+        for (String i : commandWords) {
             if (i.equals(command)) {
                 return true;
             }

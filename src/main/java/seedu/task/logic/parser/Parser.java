@@ -3,18 +3,15 @@ package seedu.task.logic.parser;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.commands.RedoCommand;
-import seedu.task.logic.commands.UndoCommand;
 
 //@@author A0146789H
 /**
@@ -31,6 +28,18 @@ public class Parser {
 
     private static final Logger logger = LogsCenter.getLogger(Parser.class);
     private static final String logPrefix = "[PARSER]";
+
+    // Parsers are registered here as an AbstractParser ArrayList.
+    private static final ArrayList<AbstractParser> registeredParsers = new ArrayList<AbstractParser>();
+
+    public Parser() {
+        /*
+         *  Register the parsers individually on setup.
+         *  The order of the parsers registered is important.
+         */
+
+        registeredParsers.add(new AddCommandParser());
+    }
 
     /**
      * Parses user input into command for execution.
@@ -51,9 +60,20 @@ public class Parser {
 
         logger.info(logPrefix + " Command Word: '" + commandWord + "'");
         logger.info(logPrefix + " Arguments: '" + arguments + "'");
+
+        // Run through the registered parsers and return the command if valid
+        for (AbstractParser parser : registeredParsers) {
+            if (parser.isAcceptedCommand(commandWord)) {
+                return parser.parse(arguments);
+            }
+        }
+
+        // Handle the default case.
+        return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+
+       /*
         switch (commandWord) {
         // TODO: Fix this immediately
-        /*
         case AddCommand.COMMAND_WORDS:
             return new AddCommandParser().parse(arguments);
 
@@ -101,7 +121,6 @@ public class Parser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
-        */
 
         case "add":
             return new AddCommandParser().parse(arguments);
@@ -154,6 +173,6 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+        */
     }
-
 }

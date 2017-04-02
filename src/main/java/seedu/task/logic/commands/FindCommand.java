@@ -53,4 +53,10 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert FindCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(FindCommand.COMMAND_WORDS, command);
+    }
 }

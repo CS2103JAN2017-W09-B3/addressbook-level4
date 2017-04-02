@@ -120,6 +120,11 @@ public class AddCommand extends Command {
         }
 
     }
-    //@@author
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert AddCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(AddCommand.COMMAND_WORDS, command);
+    }
 }

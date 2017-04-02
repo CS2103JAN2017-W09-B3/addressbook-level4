@@ -88,5 +88,11 @@ public class UncheckCommand extends TaskCompleted {
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_UNCHEKED, previousTask));
     }
-    //@@author
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert UncheckCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(UncheckCommand.COMMAND_WORDS, command);
+    }
 }
