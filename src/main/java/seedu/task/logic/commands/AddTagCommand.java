@@ -7,6 +7,7 @@ import java.util.Set;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.exceptions.CommandException;
+import seedu.task.model.Model;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.tag.UniqueTagList.DuplicateTagException;
@@ -34,6 +35,8 @@ public class AddTagCommand extends Command {
     private int filteredTaskListIndex;
     private Set<String> tags;
 
+    public AddTagCommand () {}
+
     public AddTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
         assert tags != null;
         assert filteredTaskListIndex > 0;
@@ -55,7 +58,7 @@ public class AddTagCommand extends Command {
         Task editedTask = null;
 
         try {
-            editedTask = createEditedTask(taskToEdit, tags);
+            editedTask = createTaskAfterAddedTags(taskToEdit, tags);
         } catch (DuplicateTagException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TAGS);
         } catch (IllegalValueException e) {
@@ -71,7 +74,29 @@ public class AddTagCommand extends Command {
         return new CommandResult(String.format(ADD_TAG_SUCCESS, editedTask));
     }
 
-    private static Task createEditedTask(ReadOnlyTask taskToEdit, Set<String> tags)
+    public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {
+        int taskId = model.getTaskID(editedTask);
+        try {
+            model.updateTaskUndo(taskId, previousTask);
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+        model.updateFilteredListToShowAll();
+        return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
+    }
+
+    public CommandResult executeRedo(Task previousTask, Task editedTask, Model model) throws CommandException {
+        int taskID = model.getTaskID(editedTask);
+        try {
+            model.updateTaskUndo(taskID, previousTask);
+        } catch (UniqueTaskList.DuplicateTaskException dte) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+        model.updateFilteredListToShowAll();
+        return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, previousTask));
+    }
+
+    private static Task createTaskAfterAddedTags(ReadOnlyTask taskToEdit, Set<String> tags)
            throws DuplicateTagException, IllegalValueException {
         assert taskToEdit != null;
 

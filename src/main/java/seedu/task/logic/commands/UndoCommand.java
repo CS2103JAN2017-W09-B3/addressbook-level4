@@ -21,7 +21,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_UNDO_SUCCESS = "Undo Command Successful.";
     public static final String NOTHING_TO_UNDO = "Nothing To Undo";
 
-
     @Override
     public CommandResult execute() throws CommandException {
 
@@ -57,6 +56,14 @@ public class UndoCommand extends Command {
             previousTask = model.getUndoManager().popUndoTask();
             editedTask = model.getUndoManager().popEditedTask();
             return new CheckCommand().executeUndo(previousTask, editedTask, model);
+        case AddTagCommand.COMMAND_WORD:
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new DeleteTagCommand().executeUndo(previousTask, editedTask, model);
+        case DeleteTagCommand.COMMAND_WORD:
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new AddTagCommand().executeUndo(previousTask, editedTask, model);
         default:
             return new CommandResult(NOTHING_TO_UNDO);
         }

@@ -101,7 +101,7 @@ public class Parser {
 
         case UncheckCommand.COMMAND_WORD:
             return new UncheckedCommandParser().parse(arguments);
-        //@@author A0138664W
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 

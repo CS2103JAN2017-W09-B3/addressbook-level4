@@ -1,3 +1,4 @@
+//@@author A0138664W
 package seedu.task.logic.commands;
 
 import java.util.HashSet;
@@ -7,9 +8,9 @@ import java.util.Set;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.exceptions.CommandException;
+import seedu.task.model.Model;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.task.model.task.CompletionStatus;
 import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
@@ -21,7 +22,7 @@ import seedu.task.model.task.UniqueTaskList;
 public class DeleteTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deltag";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to existing task.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete existing tags in existing task.\n"
             + "Parameters: INDEX [#tag]\n"
             + "Example: " + COMMAND_WORD
             + " 1 #CS2103 #uni";
@@ -29,10 +30,13 @@ public class DeleteTagCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
     public static final String MESSAGE_DUPLICATE_TAGS = "This tag already exists in the task.";
+    public static final String MESSAGE_TASK_WITHOUT_TAGS = "This task has no tags.";
 
 
     private int filteredTaskListIndex;
     private Set<String> tags;
+
+    public DeleteTagCommand() {}
 
     public DeleteTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
         assert tags != null;
@@ -52,15 +56,7 @@ public class DeleteTagCommand extends Command {
 
         ReadOnlyTask taskToEdit = lastShownList.get(filteredTaskListIndex);
 
-        Task editedTask = null;
-
-        try {
-            editedTask = createEditedTask(taskToEdit, tags);
-        } catch (DuplicateTagException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_TAGS);
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        Task editedTask = createTaskAfterDeletedTags(taskToEdit, tags);
 
         try {
             model.updateTask(filteredTaskListIndex, editedTask);
@@ -71,9 +67,35 @@ public class DeleteTagCommand extends Command {
         return new CommandResult(String.format(ADD_TAG_SUCCESS, editedTask));
     }
 
-    private static Task createEditedTask(ReadOnlyTask taskToEdit, Set<String> tags)
-           throws DuplicateTagException, IllegalValueException {
+    public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {
+        int taskID = model.getTaskID(editedTask);
+        try {
+            model.updateTaskUndo(taskID, previousTask);
+        } catch (UniqueTaskList.DuplicateTaskException dte) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+        model.updateFilteredListToShowAll();
+        return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
+    }
+
+    public CommandResult executeRedo(Task previousTask, Task editedTask, Model model) throws CommandException {
+        int taskID = model.getTaskID(editedTask);
+        try {
+            model.updateTaskUndo(taskID, previousTask);
+        } catch (UniqueTaskList.DuplicateTaskException dte) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+        model.updateFilteredListToShowAll();
+        return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, previousTask));
+    }
+
+    private static Task createTaskAfterDeletedTags(ReadOnlyTask taskToEdit, Set<String> tags) throws CommandException {
         assert taskToEdit != null;
+
+        //current won't enter cause getTags will not equal null
+        if (taskToEdit.getTags() == null) {
+            throw new CommandException(MESSAGE_TASK_WITHOUT_TAGS);
+        }
 
         Name name = taskToEdit.getName();
         StartTime startTime = taskToEdit.getStartTime();
@@ -89,7 +111,6 @@ public class DeleteTagCommand extends Command {
         for (Tag t : tagListToCheck) {
             for (String s : tags) {
                 if (s.equals(t.getTagName())) {
-                    System.out.println("Inside Check Loop");
                     tagSet.remove(t);
                 }
             }

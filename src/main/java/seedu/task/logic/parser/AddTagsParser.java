@@ -14,6 +14,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.AddTagCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.model.UndoManager;
 
 public class AddTagsParser {
     private static final String PATTERN_MANDATORY_INDEX = "(?<index>[1-9]\\d*)";
@@ -53,7 +54,7 @@ public class AddTagsParser {
 //            logger.info(String.format("%s tagSet: %s", logPrefix, tagSet.toString()));
 
             // Add the undo entry after successfully parsing an AddCommand
-//            UndoManager.pushUndoCommand(AddCommand.COMMAND_WORD);
+            UndoManager.pushUndoCommand(AddTagCommand.COMMAND_WORD);
 
             return new AddTagCommand(index, tagSet);
         } catch (NoSuchElementException nsee) {

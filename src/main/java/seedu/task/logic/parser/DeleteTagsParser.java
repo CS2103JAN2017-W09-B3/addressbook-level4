@@ -11,10 +11,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.AddTagCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.DeleteTagCommand;
 import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.model.UndoManager;
 
 public class DeleteTagsParser {
     private static final String PATTERN_MANDATORY_INDEX = "(?<index>[1-9]\\d*)";
@@ -54,12 +54,12 @@ public class DeleteTagsParser {
 //            logger.info(String.format("%s tagSet: %s", logPrefix, tagSet.toString()));
 
             // Add the undo entry after successfully parsing an AddCommand
-//            UndoManager.pushUndoCommand(AddCommand.COMMAND_WORD);
+            UndoManager.pushUndoCommand(DeleteTagCommand.COMMAND_WORD);
 
             return new DeleteTagCommand(index, tagSet);
         } catch (NoSuchElementException nsee) {
             // TODO: This needs to be changed to the default case of search.
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
