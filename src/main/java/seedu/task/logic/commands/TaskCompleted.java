@@ -12,7 +12,18 @@ import seedu.task.model.task.Task;
 
 public abstract class TaskCompleted extends Command {
 
+    //@@author A0146789H
+    /**
+     * Constructor to pass the valid command words back up to the base class.
+     *
+     * Protected access modifier is used to restrict access to the subclass.
+     * @param COMMAND_WORDS
+     */
+    protected TaskCompleted(String[] COMMAND_WORDS) {
+        super(COMMAND_WORDS);
+    }
 
+    //@@author A0138664W
     @Override
     public abstract CommandResult execute() throws CommandException;
 

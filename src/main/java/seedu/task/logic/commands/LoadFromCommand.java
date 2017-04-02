@@ -4,20 +4,29 @@ package seedu.task.logic.commands;
 
 public class LoadFromCommand extends Command {
 
-    public static final String COMMAND_WORD = "loadfrom";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Defines a new load location for your tasks "
+    public static final String MESSAGE_SUCCESS = "Load location has been changed.";
+    private String filepath = "";
+    //@@author A0146789H
+
+    public static final String[] COMMAND_WORDS = new String[] {"loadfrom"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
+
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Defines a new load location for your tasks "
             + "Parameters: FILE_PATH"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + DEFACTO_COMMAND
             + " ./taskmanager.xml";
 
-    public static final String MESSAGE_SUCCESS = "Load location has been changed.";
 
-    private String filepath = "";
+    private LoadFromCommand() {
+        super(COMMAND_WORDS);
+    }
 
     public LoadFromCommand(String filepath){
+        this();
         this.setFilepath(filepath);
     }
 
+    //@@author A0139938L
     @Override
     public CommandResult execute() {
         model.changeLoadFromLocation(filepath);
