@@ -10,7 +10,8 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.model.UndoManager;
 
-public class CheckedCommandParser {
+public class CheckCommandParser extends AbstractParser {
+    @Override
     public Command parse(String args) {
 
         Optional<Integer> index = ParserUtil.parseIndex(args);
@@ -23,5 +24,11 @@ public class CheckedCommandParser {
         UndoManager.pushUndoCommand(CheckCommand.DEFACTO_COMMAND);
 
         return new CheckCommand(index.get());
+    }
+
+    //@@author A0146789H
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return CheckCommand.isCommandWord(command);
     }
 }

@@ -13,12 +13,13 @@ import seedu.task.model.UndoManager;
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser {
+public class DeleteCommandParser extends AbstractParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
      */
+    @Override
     public Command parse(String args) {
 
         Optional<Integer> index = ParserUtil.parseIndex(args);
@@ -33,4 +34,11 @@ public class DeleteCommandParser {
         return new DeleteCommand(index.get());
     }
 
+    /* (non-Javadoc)
+     * @see seedu.task.logic.parser.AbstractParser#isAcceptedCommand(java.lang.String)
+     */
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return DeleteCommand.isCommandWord(command);
+    }
 }

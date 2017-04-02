@@ -53,7 +53,7 @@ public abstract class Command {
      * @param commmand
      * @return true if it is a command word, false if not.
      */
-    public static boolean isCommandWord(String[] commandWords, String command) {
+    protected static boolean isCommandWord(String[] commandWords, String command) {
         for (String i : commandWords) {
             if (i.equals(command)) {
                 return true;
