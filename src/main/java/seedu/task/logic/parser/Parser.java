@@ -9,10 +9,12 @@ import java.util.regex.Pattern;
 
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.AddTagCommand;
 import seedu.task.logic.commands.CheckCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.DeleteTagCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
@@ -93,18 +95,24 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        //@@author A0138664W
         case CheckCommand.COMMAND_WORD:
             return new CheckedCommandParser().parse(arguments);
 
         case UncheckCommand.COMMAND_WORD:
             return new UncheckedCommandParser().parse(arguments);
-        //@@author A0138664W
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagsParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagsParser().parse(arguments);
         //@@author
         case SaveToCommand.COMMAND_WORD:
             return new SaveToCommandParser().parse(arguments);

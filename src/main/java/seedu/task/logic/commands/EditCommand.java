@@ -53,8 +53,7 @@ public class EditCommand extends Command {
     private int filteredTaskListIndex;
     private EditTaskDescriptor editTaskDescriptor;
 
-    public EditCommand(){
-
+    public EditCommand() {
     }
 
     /**

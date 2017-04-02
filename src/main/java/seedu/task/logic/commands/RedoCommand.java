@@ -13,7 +13,7 @@ public class RedoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_REDO_SUCCESS_EDIT =
-            "Undo Command Successful.\nRestored previously edited task: %1$s";
+            "Redo Command Successful.\nRestored previously edited task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_ADD =
             "Redo Command Successful.\nRestored previously added task: %1$s";
     public static final String MESSAGE_REDO_SUCCESS_DELETE = "Redo Command Successful.\nDeleted task: %1$s";
@@ -56,6 +56,14 @@ public class RedoCommand extends Command {
             previousTask = model.getUndoManager().popRedoEditedTask();
             editedTask = model.getUndoManager().popRedoTask();
             return new UncheckCommand().executeUndo(previousTask, editedTask, model);
+        case AddTagCommand.COMMAND_WORD:
+            previousTask = model.getUndoManager().popRedoEditedTask();
+            editedTask = model.getUndoManager().popRedoTask();
+            return new AddTagCommand().executeRedo(previousTask, editedTask, model);
+        case DeleteTagCommand.COMMAND_WORD:
+            previousTask = model.getUndoManager().popRedoEditedTask();
+            editedTask = model.getUndoManager().popRedoTask();
+            return new DeleteTagCommand().executeRedo(previousTask, editedTask, model);
         default:
             return new CommandResult(NOTHING_TO_REDO);
         }
