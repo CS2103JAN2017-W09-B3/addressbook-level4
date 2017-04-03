@@ -8,15 +8,23 @@ import seedu.task.model.task.TaskType;
  */
 public class ListFloatingCommand extends Command {
 
-    public static final String LIST_COMMAND_WORD = TaskType.SOMEDAY.toString();
+    public static final String[] LIST_COMMAND_WORDS = new String[] {TaskType.SOMEDAY.toString()};
+    public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + LIST_COMMAND_WORD + " tasks";
+    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
 
+    public ListFloatingCommand() {
+        super(LIST_COMMAND_WORDS);
+    }
 
     @Override
     public CommandResult execute() {
         model.updateFilteredListToShowFloating();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    public static boolean isCommandWord(String command) {
+        assert ListFloatingCommand.LIST_COMMAND_WORDS != null;
 
+        return isCommandWord(ListFloatingCommand.LIST_COMMAND_WORDS, command);
+    }
 }

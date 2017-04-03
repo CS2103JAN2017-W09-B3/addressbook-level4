@@ -8,10 +8,14 @@ import seedu.task.model.task.CompletionStatus;
  */
 public class ListUpcomingCommand extends Command {
 
-    public static final String LIST_COMMAND_WORD = CompletionStatus.IncompleteType.UPCOMING.toString();
+    public static final String[] LIST_COMMAND_WORDS = new String[] {CompletionStatus.IncompleteType.UPCOMING.toString()};
+    public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + LIST_COMMAND_WORD + " tasks";
+    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
 
+    public ListUpcomingCommand() {
+        super(LIST_COMMAND_WORDS);
+    }
 
     @Override
     public CommandResult execute() {
@@ -19,4 +23,9 @@ public class ListUpcomingCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    public static boolean isCommandWord(String command) {
+        assert ListUpcomingCommand.LIST_COMMAND_WORDS != null;
+
+        return isCommandWord(ListUpcomingCommand.LIST_COMMAND_WORDS, command);
+    }
 }

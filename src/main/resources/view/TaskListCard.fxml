@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- @@author A0139938L -->
 
 <?import java.net.URL?>
@@ -13,6 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<!-- @@author -->
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -63,6 +67,10 @@
             <RowConstraints />
          </rowConstraints>
         </GridPane>
+      <Text fx:id="taskTypeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <HBox.margin>
+            <Insets right="16.0" top="8.0" />
+         </HBox.margin>
+      </Text>
     </children>
 </HBox>
-<!-- @@author -->

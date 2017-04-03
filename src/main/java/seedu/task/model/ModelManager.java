@@ -1,5 +1,6 @@
 package seedu.task.model;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -10,6 +11,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.model.LoadFromRequestEvent;
+import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.model.UpdateTasksEvent;
 import seedu.task.commons.util.CollectionUtil;
@@ -62,6 +65,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
+    }
+
+    private void resetData(Optional<ReadOnlyTaskManager> taskManager) {
+        ReadOnlyTaskManager readOnly = taskManager.get();
+        this.resetData(readOnly);
     }
 
     @Override
@@ -347,12 +355,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTaskRedo(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
-        indicateTaskManagerChanged();
-    }
-
-    @Override
     public UndoManager getUndoManager() {
         return undoManager;
     }
@@ -362,4 +364,29 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager.getTaskID(task);
     }
 //@@author
+
+    //@@author A0139938L
+    @Override
+    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath) {
+        triggerSaveToRequest(taskManager, filepath);
+    }
+    /** Raises an event to request change in save to location */
+    protected void triggerSaveToRequest(ReadOnlyTaskManager taskManager, String filepath) {
+        raise(new SaveToRequestEvent(taskManager, filepath));
+    }
+
+    @Override
+    public void changeLoadFromLocation(String filepath) {
+        triggerLoadFromRequest(filepath);
+    }
+
+    private void triggerLoadFromRequest(String filepath) {
+        LoadFromRequestEvent event = new LoadFromRequestEvent(filepath);
+        raise(event);
+        this.resetData(event.getTaskManager());
+    }
+
+
+    //@@author
+
 }

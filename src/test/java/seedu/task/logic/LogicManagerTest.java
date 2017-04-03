@@ -26,17 +26,21 @@ import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
 import seedu.task.commons.util.NattyDateUtil;
 import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.CheckCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.ListCheckedCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.ListUncheckedCommand;
+import seedu.task.logic.commands.RedoCommand;
 import seedu.task.logic.commands.SelectCommand;
+import seedu.task.logic.commands.UndoCommand;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
 import seedu.task.model.ModelManager;
@@ -219,13 +223,13 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare address book state
+        // prepare task manager state
         helper.addToModel(model, 2);
 
         assertCommandSuccess("list",
@@ -279,6 +283,121 @@ public class LogicManagerTest {
     }
 
     //@@author
+    //@@author A0138664W
+    @Test
+    public void execute_undo_noPreviousCommandInput() throws Exception {
+        assertCommandSuccess("undo", UndoCommand.NOTHING_TO_UNDO, new TaskManager(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_redo_noPreviousCommandInput() throws Exception {
+        assertCommandSuccess("redo", RedoCommand.NOTHING_TO_REDO, new TaskManager(), Collections.emptyList());
+    }
+
+    @Test
+    public void execcute_undoredo_add_delete() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        assertCommandSuccess("delete 1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+
+        expectedAB.addTask(toBeAdded);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_ADD, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_DELETE, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.addTask(toBeAdded);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_ADD, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_DELETE, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+
+    @Test
+    public void execcute_undoredo_edit() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.toEditTask();
+        Task editedTask = helper.editedTask();
+        Task toBeEdited = helper.toEditTask();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, editedTask);
+        assertCommandSuccess("edit 1 This is edited Task #edit",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, toBeEdited);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, toBeEdited),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, editedTask);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, editedTask),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+
+    //still buggy not used yet
+    public void execcute_undoredo_checkUncheck() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeChecked = helper.adam();
+        Task completed = helper.adamCompleted();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeChecked);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeChecked),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeChecked),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, completed);
+        assertCommandSuccess("checked 1",
+                String.format(CheckCommand.MESSAGE_CHECK_SUCCESS, completed),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    //@@author
+
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -451,6 +570,38 @@ public class LogicManagerTest {
         //@@author A0139410N
         Task completedTask() throws Exception {
             Name name = new Name("I am done");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            CompletionStatus completion = new CompletionStatus(true);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        //@@author A0138664W
+        Task toEditTask() throws Exception {
+            Name name = new Name("Before edit task");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            CompletionStatus completion = new CompletionStatus(false);
+            Tag tag1 = new Tag("beforeEdit");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        Task editedTask() throws Exception {
+            Name name = new Name("This is edited Task");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            CompletionStatus completion = new CompletionStatus(false);
+            Tag tag1 = new Tag("edit");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        Task adamCompleted() throws Exception {
+            Name name = new Name("Adam Brown");
             StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             CompletionStatus completion = new CompletionStatus(true);

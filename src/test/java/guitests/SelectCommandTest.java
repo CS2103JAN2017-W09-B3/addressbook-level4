@@ -2,8 +2,11 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
+import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class SelectCommandTest extends TaskManagerGuiTest {
@@ -11,20 +14,23 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void selectPerson_nonEmptyList() {
-
         assertSelectionInvalid(10); // invalid index
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); // first person in the list
-        int personCount = td.getTypicalTasks().length;
+        int personCount = 0;
+        try {
+            personCount = td.getTypicalTasks().length;
+        } catch (DataConversionException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         assertSelectionSuccess(personCount); // last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); // a person in the middle of the list
 
         assertSelectionInvalid(personCount + 1); // invalid index
         assertPersonSelected(middleIndex); // assert previous selection remains
-
-        /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
     }
 
     @Test

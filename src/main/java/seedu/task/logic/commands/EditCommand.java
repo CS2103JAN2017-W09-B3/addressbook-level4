@@ -16,21 +16,47 @@ import seedu.task.model.task.StartTime;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 
+//@@author A0146789H
 /**
  * Edits the details of an existing task in the task manager.
  */
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String[] COMMAND_WORDS = new String[] {"edit", "change", "-e"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Edits the details of the task identified "
             + "by the index number used in the last task listing. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) [NAME] [s/STARTDATE] [e/ENDDATE]"
-            + " [c/COMPLETIONSTATUS]  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 e/090617 c/Done";
+            + "Parameters: INDEX (must be a positive integer) [NAME] [from STARTDATE] [to ENDDATE] [tags]"
+            + " ...\n"
+            + "Example: " + DEFACTO_COMMAND + " 1 another task from tomorrow to next wednesday #first";
 
-    //@@author A0146789H
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
+
+    private int filteredTaskListIndex;
+    private EditTaskDescriptor editTaskDescriptor;
+
+    public EditCommand() {
+        super(COMMAND_WORDS);
+    }
+
+    /**
+     * @param filteredTaskListIndex the index of the task in the filtered task list to edit
+     * @param editTaskDescriptor details to edit the task with
+     */
+    public EditCommand(int filteredTaskListIndex, EditTaskDescriptor editTaskDescriptor) {
+        this();
+        assert filteredTaskListIndex > 0;
+        assert editTaskDescriptor != null;
+
+        // converts filteredTaskListIndex from one-based to zero-based.
+        this.filteredTaskListIndex = filteredTaskListIndex - 1;
+        this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
+    }
+
     /**
      * @return the editTaskDescriptor
      */
@@ -44,30 +70,6 @@ public class EditCommand extends Command {
      */
     public void setEditTaskDescriptor(EditTaskDescriptor editTaskDescriptor) {
         this.editTaskDescriptor = editTaskDescriptor;
-    }
-
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
-
-    private int filteredTaskListIndex;
-    private EditTaskDescriptor editTaskDescriptor;
-
-    public EditCommand(){
-
-    }
-
-    /**
-     * @param filteredTaskListIndex the index of the task in the filtered task list to edit
-     * @param editTaskDescriptor details to edit the task with
-     */
-    public EditCommand(int filteredTaskListIndex, EditTaskDescriptor editTaskDescriptor) {
-        assert filteredTaskListIndex > 0;
-        assert editTaskDescriptor != null;
-
-        // converts filteredTaskListIndex from one-based to zero-based.
-        this.filteredTaskListIndex = filteredTaskListIndex - 1;
-        this.editTaskDescriptor = new EditTaskDescriptor(editTaskDescriptor);
     }
 
     @Override
@@ -203,5 +205,12 @@ public class EditCommand extends Command {
         public Optional<UniqueTagList> getTags() {
             return tags;
         }
+    }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert EditCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(EditCommand.COMMAND_WORDS, command);
     }
 }

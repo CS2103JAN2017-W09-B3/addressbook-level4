@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
@@ -150,18 +151,20 @@ public class TaskListPanelHandle extends GuiHandle {
         return getTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 
+    //@@author A0139938L
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
         Set<Node> nodes = getAllCardNodes();
-        Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
-                .findFirst();
+        Stream<Node> taskCardNodeStream = nodes.stream();
+        taskCardNodeStream = taskCardNodeStream.filter(n ->
+        new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task));
+        Optional<Node> taskCardNode = taskCardNodeStream.findFirst();
         if (taskCardNode.isPresent()) {
             return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
         } else {
             return null;
         }
     }
-
+    //@@author
     protected Set<Node> getAllCardNodes() {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }

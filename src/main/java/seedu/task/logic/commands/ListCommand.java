@@ -7,18 +7,32 @@ package seedu.task.logic.commands;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    //@@author A0146789H
+    public static final String[] COMMAND_WORDS = new String[] {"list"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks with index numbers, "
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Lists all tasks with index numbers, "
             + "use checked or unchecked as keyword to only show checked or unchecked tasks\n"
-            + "Parameters: [" + ListUncheckedCommand.LIST_COMMAND_WORD + "][unchecked] \n"
-            + "Example: " + COMMAND_WORD + " " + ListUncheckedCommand.LIST_COMMAND_WORD;
+            + "Parameters: [" + ListUncheckedCommand.DEFACTO_COMMAND + "][unchecked] \n"
+            + "Example: " + DEFACTO_COMMAND + " " + ListUncheckedCommand.DEFACTO_COMMAND;
 
+    public ListCommand() {
+        super(COMMAND_WORDS);
+    }
+
+    //@@author A0139410N
     @Override
     public CommandResult execute() {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert ListCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(ListCommand.COMMAND_WORDS, command);
     }
 }

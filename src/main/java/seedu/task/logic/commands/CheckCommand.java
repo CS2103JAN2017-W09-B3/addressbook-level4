@@ -12,12 +12,15 @@ import seedu.task.model.task.UniqueTaskList;
 
 public class CheckCommand extends TaskCompleted {
 
-    public static final String COMMAND_WORD = "checked";
+    //@@author A0146789H
+    public static final String[] COMMAND_WORDS = new String[] {"check", "checked", "complete"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Mark task completion status to check/completed.\n"
-            + "Example: " + COMMAND_WORD + " 1\n"
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Mark task completion status to check/completed.\n"
+            + "Example: " + DEFACTO_COMMAND + " 1\n"
             + "Parameters: INDEX (must be a positive integer)";
 
+    //@@author A0138664W
     public static final String MESSAGE_CHECK_SUCCESS = "Task %1$s checked/completed!";
     public static final String MESSAGE_TASK_ALREADY_CHECKED = "Task %1$s is already checked.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -26,9 +29,14 @@ public class CheckCommand extends TaskCompleted {
 
     private int filteredTaskListIndex;
 
-    public CheckCommand () {}
+    //@@author A0146789H
+    protected CheckCommand () {
+        super(COMMAND_WORDS);
+    }
 
+    //@@author A0138664W
     public CheckCommand (int filteredTaskListIndex) {
+        this();
         this.filteredTaskListIndex = filteredTaskListIndex - 1;
     }
 
@@ -81,6 +89,11 @@ public class CheckCommand extends TaskCompleted {
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_CHECKED, previousTask));
     }
-    //@@author
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert CheckCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(CheckCommand.COMMAND_WORDS, command);
+    }
 }

@@ -3,6 +3,7 @@ package guitests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import seedu.task.TestApp;
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.BaseEvent;
+import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.TaskManager;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
@@ -87,7 +89,13 @@ public abstract class TaskManagerGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = new TaskManager();
-        TypicalTestTasks.loadTaskManagerWithSampleData(ab);
+        try {
+            TypicalTestTasks.loadTaskManagerWithSampleData(ab);
+        } catch (IOException ioe) {
+
+        } catch (DataConversionException dce) {
+
+        }
         return ab;
     }
 

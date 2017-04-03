@@ -3,22 +3,36 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.task.commons.core.Messages;
+import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.model.task.Name;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskBuilder;
 
+//@@author A0139938L
+
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends TaskManagerGuiTest {
+
+    private TestTask[] expectedTasksList;
 
     // The list of tasks in the task list panel
     // is expected to match this list.
     // This list is updated with every successful call to assertEditSuccess().
-    TestTask[] expectedTasksList = td.getTypicalTasks();
+    public EditCommandTest() {
+        try {
+            expectedTasksList = td.getTypicalTasks();
+        } catch (DataConversionException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
@@ -42,18 +56,6 @@ public class EditCommandTest extends TaskManagerGuiTest {
 
         assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
     }
-
-    //    @Test
-    //    public void edit_clearTags_success() throws Exception {
-    //        String detailsToEdit = "#";
-    //        int taskManagerIndex = 2;
-    //
-    //        TestTask taskToEdit = expectedTasksList[taskManagerIndex - 1];
-    //
-    //        TestTask editedTask = new TestTaskBuilder(taskToEdit).withTags().build();
-    //
-    //        assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
-    //    }
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
@@ -105,9 +107,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     //TODO: fix after v0.4
     public void edit_duplicateTask_failure() {
-        commandBox.runCommand("checked 3");
-        commandBox.runCommand("edit 3 Alice Pauline from 03/06/17 00:00 to 03/06/17 00:00"
-                + " #friends");
+        commandBox.runCommand("edit 3 Attend Sharons birthday from "
+                + "1 Apr 6pm to 1 Apr 8pm");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
 
@@ -134,3 +135,5 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 }
+//@@author
+

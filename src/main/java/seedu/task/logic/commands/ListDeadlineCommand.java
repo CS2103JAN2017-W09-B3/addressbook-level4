@@ -8,10 +8,14 @@ import seedu.task.model.task.TaskType;
  */
 public class ListDeadlineCommand extends Command {
 
-    public static final String LIST_COMMAND_WORD = TaskType.DEADLINE.toString();
+    public static final String[] LIST_COMMAND_WORDS = new String[] {TaskType.DEADLINE.toString()};
+    public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + LIST_COMMAND_WORD + " tasks";
+    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
 
+    public ListDeadlineCommand() {
+        super(LIST_COMMAND_WORDS);
+    }
 
     @Override
     public CommandResult execute() {
@@ -19,4 +23,9 @@ public class ListDeadlineCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    public static boolean isCommandWord(String command) {
+        assert ListDeadlineCommand.LIST_COMMAND_WORDS != null;
+
+        return isCommandWord(ListDeadlineCommand.LIST_COMMAND_WORDS, command);
+    }
 }
