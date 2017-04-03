@@ -14,7 +14,8 @@ public class UncheckCommand extends TaskCompleted {
     public static final String[] COMMAND_WORDS = new String[] {"uncheck", "incomplete"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Mark task completion status to unchecked/incompleted."
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Mark task completion status "
+            + "to unchecked/incompleted."
             + "\n"
             + "Example: " + DEFACTO_COMMAND + " 1\n"
             + "Parameters: INDEX (must be a positive integer)";

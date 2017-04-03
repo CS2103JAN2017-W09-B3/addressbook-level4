@@ -60,7 +60,7 @@ public class TypicalTestTasks {
     public TestTask[] getTypicalTasks() throws DataConversionException, IOException {
         Task[] tasks = SampleDataUtil.getSampleTasks();
         TestTask[] testTasks = new TestTask[tasks.length];
-        for (int i=0; i<tasks.length; i++){
+        for (int i = 0; i < tasks.length; i++) {
             Task task = tasks[i];
             TestTask testTask = new TestTask();
 

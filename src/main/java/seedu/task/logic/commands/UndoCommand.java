@@ -45,36 +45,37 @@ public class UndoCommand extends Command {
         }
 
         System.out.println(previousCommand);
+        Task previousTask;
+        Task editedTask;
 
-        switch (previousCommand) {
-        //TODO: FIX THIS
-        case "add":
-            Task previousTask = model.getUndoManager().popUndoTask();
-            return new DeleteCommand().executeUndo(previousTask, model);
-        case "delete":
+       // TODO: This looks really ugly. Should fix this  Maybe use enums? - Jeremy
+        if (previousCommand.equals(DeleteCommand.DEFACTO_COMMAND)) {
             previousTask = model.getUndoManager().popUndoTask();
             return new AddCommand().executeUndo(previousTask, model);
-        case "edit":
+        } else if (previousCommand.equals(AddCommand.DEFACTO_COMMAND)) {
             previousTask = model.getUndoManager().popUndoTask();
-            Task editedTask = model.getUndoManager().popEditedTask();
-            return new EditCommand().executeUndo(previousTask, editedTask, model);
-        case "uncheck":
+            return new DeleteCommand().executeUndo(previousTask, model);
+        } else if (previousCommand.equals(EditCommand.DEFACTO_COMMAND)) {
             previousTask = model.getUndoManager().popUndoTask();
             editedTask = model.getUndoManager().popEditedTask();
-            return new UncheckCommand().executeUndo(previousTask, editedTask, model);
-        case "check":
+            return new EditCommand().executeUndo(previousTask, editedTask, model);
+        } else if (previousCommand.equals(CheckCommand.DEFACTO_COMMAND)) {
             previousTask = model.getUndoManager().popUndoTask();
             editedTask = model.getUndoManager().popEditedTask();
             return new CheckCommand().executeUndo(previousTask, editedTask, model);
-        case AddTagCommand.COMMAND_WORD:
+        } else if (previousCommand.equals(UncheckCommand.DEFACTO_COMMAND)) {
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new UncheckCommand().executeUndo(previousTask, editedTask, model);
+        } else if (previousCommand.equals(AddTagCommand.DEFACTO_COMMAND)) {
             previousTask = model.getUndoManager().popUndoTask();
             editedTask = model.getUndoManager().popEditedTask();
             return new DeleteTagCommand().executeUndo(previousTask, editedTask, model);
-        case DeleteTagCommand.COMMAND_WORD:
+        } else if (previousCommand.equals(DeleteTagCommand.DEFACTO_COMMAND)) {
             previousTask = model.getUndoManager().popUndoTask();
             editedTask = model.getUndoManager().popEditedTask();
             return new AddTagCommand().executeUndo(previousTask, editedTask, model);
-        default:
+        } else {
             return new CommandResult(NOTHING_TO_UNDO);
         }
     }

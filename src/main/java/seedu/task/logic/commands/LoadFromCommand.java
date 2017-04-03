@@ -21,7 +21,7 @@ public class LoadFromCommand extends Command {
         super(COMMAND_WORDS);
     }
 
-    public LoadFromCommand(String filepath){
+    public LoadFromCommand(String filepath) {
         this();
         this.setFilepath(filepath);
     }
