@@ -30,13 +30,14 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
     private static final String FXML = "StatusBarFooter.fxml";
+    private final String SAVING_MESSAGE = "Saving to: ./";
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation, ObservableList<ReadOnlyTask> observableList) {
         super(FXML);
         addToPlaceholder(placeHolder);
         updateProgressStatus(observableList);
         updateBackgroundColor(observableList);
-        setSaveLocation("Saving to: ./" + saveLocation);
+        setSaveLocation(SAVING_MESSAGE + saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -97,7 +98,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleSaveToRequestEvent(SaveToRequestEvent event) {
-        setSaveLocation(event.filepath);
+        setSaveLocation(SAVING_MESSAGE + event.filepath);
     }
 
 }
