@@ -127,6 +127,6 @@ public class AddTagCommand extends Command {
     public static boolean isCommandWord(String command) {
         assert CheckCommand.COMMAND_WORDS != null;
 
-        return isCommandWord(CheckCommand.COMMAND_WORDS, command);
+        return isCommandWord(AddTagCommand.COMMAND_WORDS, command);
     }
 }
