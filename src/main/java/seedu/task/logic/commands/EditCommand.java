@@ -3,7 +3,9 @@ package seedu.task.logic.commands;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
@@ -89,6 +91,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(editedTask)));
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
     //@@author A0138664W
