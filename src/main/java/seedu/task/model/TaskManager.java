@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.ObservableList;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.model.chat.ChatList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
@@ -199,5 +203,15 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author
     public int getTaskID(Task task) {
         return tasks.getTaskID(task);
+    }
+
+    //@@author A0139410N
+    //Consumer that makes task update incompleteType to be used in handleNewResultAvailableEvent
+    Consumer<Task> updateIncompleteType = (Task t) -> t.updateIncompleteType(t.getTaskType());
+
+    //updates the incompleteType for all events every time there is new result update
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        tasks.forEach(updateIncompleteType);
     }
 }

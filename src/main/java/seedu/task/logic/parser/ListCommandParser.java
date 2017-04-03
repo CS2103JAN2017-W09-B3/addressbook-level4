@@ -7,6 +7,9 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCheckedCommand;
 import seedu.task.logic.commands.ListCommand;
+import seedu.task.logic.commands.ListDeadlineCommand;
+import seedu.task.logic.commands.ListEventCommand;
+import seedu.task.logic.commands.ListFloatingCommand;
 import seedu.task.logic.commands.ListUncheckedCommand;
 
 /**
@@ -32,6 +35,15 @@ public class ListCommandParser {
         // if list is used with checked, return checked task list
         } else if (keywords.equals(ListCheckedCommand.LIST_COMMAND_WORD)) {
             return new ListCheckedCommand();
+        // if list is used with floating, return floating task list
+        } else if (keywords.equals(ListFloatingCommand.LIST_COMMAND_WORD)) {
+            return new ListFloatingCommand();
+        // if list is used with deadline, return deadline task list
+        } else if (keywords.equals(ListDeadlineCommand.LIST_COMMAND_WORD)) {
+            return new ListDeadlineCommand();
+        // if list is used with event, return event task list
+        } else if (keywords.equals(ListEventCommand.LIST_COMMAND_WORD)) {
+            return new ListEventCommand();
         // if keywords does not match either checked or unchecked, return incorrect usage
         } else {
             return new IncorrectCommand(

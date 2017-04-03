@@ -16,6 +16,7 @@ import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
+import seedu.task.model.task.TaskType;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -121,6 +122,21 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(isChecked);
     }
 
+    @Override
+    public void updateFilteredListToShowFloating() {
+        filteredTasks.setPredicate(isFloating);
+    }
+
+    @Override
+    public void updateFilteredListToShowDeadline() {
+        filteredTasks.setPredicate(isDeadline);
+    }
+
+    @Override
+    public void updateFilteredListToShowEvent() {
+        filteredTasks.setPredicate(isEvent);
+    }
+
     //@@author
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
@@ -160,6 +176,30 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean test(ReadOnlyTask t) {
             return t.getCompletionStatus().getCompletion() == true;
+        }
+    };
+
+    /** Predicate to check if TaskType is floating */
+    Predicate<ReadOnlyTask> isFloating = new Predicate<ReadOnlyTask> () {
+        @Override
+        public boolean test(ReadOnlyTask t) {
+            return t.getTaskType().equals(TaskType.SOMEDAY);
+        }
+    };
+
+    /** Predicate to check if TaskType is deadline */
+    Predicate<ReadOnlyTask> isDeadline = new Predicate<ReadOnlyTask> () {
+        @Override
+        public boolean test(ReadOnlyTask t) {
+            return t.getTaskType().equals(TaskType.DEADLINE);
+        }
+    };
+
+    /** Predicate to check if TaskType is event */
+    Predicate<ReadOnlyTask> isEvent = new Predicate<ReadOnlyTask> () {
+        @Override
+        public boolean test(ReadOnlyTask t) {
+            return t.getTaskType().equals(TaskType.EVENT);
         }
     };
 
