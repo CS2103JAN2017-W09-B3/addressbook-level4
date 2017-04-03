@@ -4,16 +4,20 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.events.model.UpdateTasksEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.chat.ChatList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.CompletionStatus;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.TaskType;
@@ -97,7 +101,14 @@ public class ModelManager extends ComponentManager implements Model {
         undoManager.pushEditedTask(new Task(editedTask));
         indicateTaskManagerChanged();
     }
-//@@author
+
+    //@@author A0139410N
+    //updates the incompleteType for all events every time there is new result update
+    @Subscribe
+    private void handleUpdateTasksEvent(UpdateTasksEvent event) {
+        taskManager.UpdateTasksStatus();
+    }
+    //@@author
 
     //=========== Filtered Task List Accessors =============================================================
 
@@ -135,6 +146,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowEvent() {
         filteredTasks.setPredicate(isEvent);
+    }
+
+    @Override
+    public void updateFilteredListToShowUpcoming() {
+        filteredTasks.setPredicate(isUpcoming);
+    }
+
+    @Override
+    public void updateFilteredListToShowOverdue() {
+        filteredTasks.setPredicate(isOverdue);
     }
 
     //@@author
@@ -200,6 +221,24 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean test(ReadOnlyTask t) {
             return t.getTaskType().equals(TaskType.EVENT);
+        }
+    };
+
+    /** Predicate to check if TaskType is upcoming */
+    Predicate<ReadOnlyTask> isUpcoming = new Predicate<ReadOnlyTask> () {
+        @Override
+        public boolean test(ReadOnlyTask t) {
+            return t.getCompletionStatus().toString()
+                    .equals(CompletionStatus.IncompleteType.UPCOMING.toString());
+        }
+    };
+
+    /** Predicate to check if TaskType is overdue */
+    Predicate<ReadOnlyTask> isOverdue = new Predicate<ReadOnlyTask> () {
+        @Override
+        public boolean test(ReadOnlyTask t) {
+            return t.getCompletionStatus().toString()
+                    .equals(CompletionStatus.IncompleteType.OVERDUE.toString());
         }
     };
 

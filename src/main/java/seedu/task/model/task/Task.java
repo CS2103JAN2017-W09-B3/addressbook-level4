@@ -125,24 +125,24 @@ public class Task implements ReadOnlyTask {
         //if task is EVENT task
         case EVENT:
             if (today.after(this.getEndTime().getValue())) {
-                this.getCompletionStatus().setIncompleteType(IncompleteType.OVERDUE);
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.OVERDUE);
             } else if (upcoming.after(this.getStartTime().getValue())) {
-                this.getCompletionStatus().setIncompleteType(IncompleteType.UPCOMING);
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.UPCOMING);
             } else {
-                this.getCompletionStatus().setIncompleteType(IncompleteType.NORMAL);
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.NORMAL);
             }
             break;
         case DEADLINE:
             if (today.after(this.getEndTime().getValue())) {
-                this.getCompletionStatus().setIncompleteType(IncompleteType.OVERDUE);
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.OVERDUE);
             } else if (upcoming.after(this.getEndTime().getValue())) {
-                this.getCompletionStatus().setIncompleteType(IncompleteType.UPCOMING);
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.UPCOMING);
             } else {
-                this.getCompletionStatus().setIncompleteType(IncompleteType.NORMAL);
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.NORMAL);
             }
             break;
         case SOMEDAY:
-            this.getCompletionStatus().setIncompleteType(IncompleteType.NORMAL);
+            this.getCompletionStatus().setCurrentStatus(IncompleteType.NORMAL);
             break;
         //should never waterfall down to default case
         default:

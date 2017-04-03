@@ -28,6 +28,11 @@ public class CompletionStatus {
             return this.type;
         }
 
+        @Override
+        public String toString() {
+            return this.getType();
+        }
+
     }
 
     private IncompleteType currentStatus;
@@ -48,7 +53,7 @@ public class CompletionStatus {
         return isComplete;
     }
 
-    public void setIncompleteType(IncompleteType type) {
+    public void setCurrentStatus(IncompleteType type) {
         assert type != null;
         switch (type) {
         case NORMAL:
@@ -67,12 +72,19 @@ public class CompletionStatus {
     }
 
 
+    /**
+     * @return the currentStatus
+     */
+    public IncompleteType getCurrentStatus() {
+        return currentStatus;
+    }
+
     @Override
     public String toString() {
         if (this.isComplete) {
             return String.valueOf(isComplete);
         } else {
-            return this.currentStatus.getType();
+            return this.currentStatus.toString();
         }
     }
 

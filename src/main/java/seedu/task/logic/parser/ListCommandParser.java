@@ -10,7 +10,9 @@ import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.ListDeadlineCommand;
 import seedu.task.logic.commands.ListEventCommand;
 import seedu.task.logic.commands.ListFloatingCommand;
+import seedu.task.logic.commands.ListOverdueCommand;
 import seedu.task.logic.commands.ListUncheckedCommand;
+import seedu.task.logic.commands.ListUpcomingCommand;
 
 /**
  * Parses input arguments and creates a new ListCommand/ListUncheckedCommand/ListCheckedCommand object
@@ -44,7 +46,13 @@ public class ListCommandParser {
         // if list is used with event, return event task list
         } else if (keywords.equals(ListEventCommand.LIST_COMMAND_WORD)) {
             return new ListEventCommand();
-        // if keywords does not match either checked or unchecked, return incorrect usage
+        // if list is used with upcoming, return upcoming task list
+        } else if (keywords.equals(ListUpcomingCommand.LIST_COMMAND_WORD)) {
+            return new ListUpcomingCommand();
+        // if list is used with overdue, return overdue task list
+        } else if (keywords.equals(ListOverdueCommand.LIST_COMMAND_WORD)) {
+            return new ListOverdueCommand();
+        // if keywords does not match any of the above, return incorrect usage
         } else {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
