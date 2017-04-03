@@ -1,6 +1,8 @@
 package seedu.task.model.task;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import seedu.task.commons.util.CollectionUtil;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -42,6 +44,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        FXCollections.sort(internalList, new UniqueTaskList());
     }
 
     /**
@@ -64,6 +67,7 @@ public class UniqueTaskList implements Iterable<Task> {
         // The right way is to implement observable properties in the Task class.
         // Then, TaskCard should then bind its text labels to those observable properties.
         internalList.set(index, taskToUpdate);
+        FXCollections.sort(internalList, new UniqueTaskList());
     }
 
     /**
@@ -77,6 +81,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
+        FXCollections.sort(internalList, new UniqueTaskList());
         return taskFoundAndDeleted;
     }
 
@@ -142,6 +147,34 @@ public class UniqueTaskList implements Iterable<Task> {
     public int getTaskID(Task task) {
         return internalList.indexOf(task);
     }
+
+    //@@author A0138664W
+	@Override
+	public int compare(Task task1, Task task2) {
+		Date task1Date = task1.getEndTime().getValue();
+		Date task2Date = task2.getEndTime().getValue();
+
+
+		if (!task1.hasEndTime()) {
+			if (!task2.hasEndTime()){
+				return 0;
+			}
+			return 1;
+		} else if (task1.hasEndTime()) {
+			if(!task2.hasEndTime()){
+				return -1;
+			}
+		}
+
+		if (task1Date.after(task2Date)) {
+            return 1;
+        } else if (task1Date.before(task2Date)) {
+            return -1;
+        } else {
+            return 0;
+        }
+	}
+	//@@author
 
 }
 
