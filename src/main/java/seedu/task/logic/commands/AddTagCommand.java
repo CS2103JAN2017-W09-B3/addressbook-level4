@@ -4,7 +4,9 @@ package seedu.task.logic.commands;
 import java.util.List;
 import java.util.Set;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
@@ -63,7 +65,7 @@ public class AddTagCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(filteredTaskListIndex);
-
+        Task taskEdited = (Task)taskToEdit;
         Task editedTask = null;
 
         try {
@@ -80,6 +82,7 @@ public class AddTagCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(taskEdited)));
         return new CommandResult(String.format(ADD_TAG_SUCCESS, editedTask));
     }
 
@@ -127,6 +130,6 @@ public class AddTagCommand extends Command {
     public static boolean isCommandWord(String command) {
         assert CheckCommand.COMMAND_WORDS != null;
 
-        return isCommandWord(CheckCommand.COMMAND_WORDS, command);
+        return isCommandWord(AddTagCommand.COMMAND_WORDS, command);
     }
 }

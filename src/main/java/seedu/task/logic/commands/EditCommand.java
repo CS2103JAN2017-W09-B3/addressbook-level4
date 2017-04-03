@@ -83,6 +83,7 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(filteredTaskListIndex);
+        Task taskEdited = (Task)taskToEdit;
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
         try {
@@ -91,7 +92,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(editedTask)));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(taskEdited)));
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
     //@@author A0138664W
