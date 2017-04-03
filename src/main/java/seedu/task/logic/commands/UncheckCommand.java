@@ -78,6 +78,7 @@ public class UncheckCommand extends TaskCompleted {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(taskID));
         return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_UNCHECKED, previousTask));
     }
 

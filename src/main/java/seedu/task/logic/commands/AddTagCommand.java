@@ -87,13 +87,14 @@ public class AddTagCommand extends Command {
     }
 
     public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {
-        int taskId = model.getTaskID(editedTask);
+        int taskID = model.getTaskID(editedTask);
         try {
-            model.updateTaskUndo(taskId, previousTask);
+            model.updateTaskUndo(taskID, previousTask);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(taskID));
         return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
     }
 

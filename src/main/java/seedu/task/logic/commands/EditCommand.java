@@ -83,7 +83,7 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(filteredTaskListIndex);
-        Task taskEdited = (Task)taskToEdit;
+        int taskID = model.getTaskID((Task)taskToEdit);
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
         try {
@@ -92,8 +92,8 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(taskEdited)));
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(taskID));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
     //@@author A0138664W
     public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {
@@ -104,6 +104,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(taskID));
         return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
     }
 
