@@ -30,12 +30,15 @@ import seedu.task.model.UndoManager;
 public class AddCommandParser extends AbstractParser {
 
     private static final String PATTERN_MANDATORY_DESCRIPTION = "(?<description>.+?)";
-    private static final String PATTERN_OPTIONAL_STARTDATE = "(?:\\s+from\\s+(?<startdate>.+?))?";
+    private static final String PATTERN_OPTIONAL_STARTDATE = "(?:\\s+(?:from|after|on)\\s+(?<startdate>.+?))?";
     private static final String PATTERN_OPTIONAL_ENDDATE = "(?:\\s+(?:to|by)\\s+(?<enddate>.+?))?";
     private static final String PATTERN_OPTIONAL_TAGS = "(?<tags>(?:\\s+#\\w+)+)?";
     private static final String ARGUMENTS_PATTERN = "^" + PATTERN_MANDATORY_DESCRIPTION + PATTERN_OPTIONAL_STARTDATE
             + PATTERN_OPTIONAL_ENDDATE + PATTERN_OPTIONAL_TAGS + "$";
+    private static final String ARGUMENTS_PATTERN_QUOTED = "^" + PATTERN_MANDATORY_DESCRIPTION + PATTERN_OPTIONAL_STARTDATE
+            + PATTERN_OPTIONAL_ENDDATE + PATTERN_OPTIONAL_TAGS + "$";
     private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(ARGUMENTS_PATTERN, Pattern.CASE_INSENSITIVE);
+    private static final Pattern ARGUMENTS_FORMAT_QUOTED = Pattern.compile(ARGUMENTS_PATTERN_QUOTED, Pattern.CASE_INSENSITIVE);
 
     private static final Logger logger = LogsCenter.getLogger(AddCommandParser.class);
     private static final String logPrefix = "[AddCommandParser]";
@@ -49,7 +52,7 @@ public class AddCommandParser extends AbstractParser {
 
         assert args != null;
 
-        String taskName;
+        String taskName = null;
         String startDateString;
         String endDateString;
         String tagsString;
@@ -59,15 +62,36 @@ public class AddCommandParser extends AbstractParser {
         Set<String> tagSet = new HashSet<String>();
 
         try {
-            // Extract the tokens from the argument string.
-            final Matcher matcher = ARGUMENTS_FORMAT.matcher(args);
+            // Check for quoted task names
+            if (args.length() > 0 && args.charAt(0) == '\'') {
+                int nextIndex = args.indexOf('\'', 1);
+                if (nextIndex > 0) {
+                    taskName = args.substring(1, nextIndex);
+                    args = args.substring(nextIndex);
+                }
+            }
+
+            // Extract the tokens from the argument string using the appropriate pattern.
+            Matcher matcher;
+            if (taskName == null) {
+                matcher = ARGUMENTS_FORMAT.matcher(args);
+            }
+            else {
+                matcher = ARGUMENTS_FORMAT_QUOTED.matcher(args);
+            }
+
+            // Match on the processed arguments.
             if (!matcher.matches()) {
                 throw new NoSuchElementException();
             }
 
             assert !args.isEmpty();
 
-            taskName = matcher.group("description");
+            // Extract the matcher groups
+            if (taskName == null) {
+                taskName = matcher.group("description");
+            }
+
             startDateString = Optional.ofNullable(matcher.group("startdate")).orElse("");
             endDateString = Optional.ofNullable(matcher.group("enddate")).orElse("");
             tagsString = Optional.ofNullable(matcher.group("tags")).orElse("").trim();
@@ -79,6 +103,11 @@ public class AddCommandParser extends AbstractParser {
             // Convert the String to Date objects
             startDate = NattyDateUtil.parseSingleDate(startDateString);
             endDate = NattyDateUtil.parseSingleDate(endDateString);
+
+            // Remove the quotes if available
+            taskName = taskName.charAt(0) == '\'' ? taskName.substring(1) : taskName;
+            int lastIndex = taskName.length() - 1;
+            taskName = taskName.charAt(lastIndex) == '\'' ? taskName.substring(0, lastIndex) : taskName;
 
             // Log the dates for debugging.
             if (startDate != null) {

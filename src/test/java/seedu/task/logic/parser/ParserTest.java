@@ -70,8 +70,53 @@ public class ParserTest {
     }
 
     @Test
+    public void parser_add_floatingTaskWithQuotes() {
+        String commandString = "add 'Test Task'";
+        Command result = this.parser.parseCommand(commandString);
+
+        // Check that the AddCommand is parsed properly
+        assertTrue(result instanceof AddCommand);
+
+        AddCommand added = (AddCommand) result;
+        Task toAdd = added.getToAdd();
+
+        // Check the description
+        Name name = toAdd.getName();
+        assertTrue(name.fullName.equals("Test Task"));
+    }
+
+    @Test
     public void parser_add_basicTask() {
         String commandString = "add Test Task from 03/24/17 to 03/25/17";
+
+        Command result = this.parser.parseCommand(commandString);
+
+        // Check that the AddCommand is parsed properly
+        assertTrue(result instanceof AddCommand);
+
+        AddCommand added = (AddCommand) result;
+        Task toAdd = added.getToAdd();
+
+        // Check the description
+        Name name = toAdd.getName();
+        assertTrue(name.fullName.equals("Test Task"));
+
+        // Check the dates
+        StartTime compareStartTime = null;
+        EndTime compareEndTime = null;
+        try {
+            compareStartTime = new StartTime(NattyDateUtil.parseSingleDate("03/24/17"));
+            compareEndTime = new EndTime(NattyDateUtil.parseSingleDate("03/25/17"));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        assertTrue(toAdd.getStartTime().equals(compareStartTime));
+        assertTrue(toAdd.getEndTime().equals(compareEndTime));
+    }
+
+    @Test
+    public void parser_add_basicTaskWithQuotes() {
+        String commandString = "add 'Test Task' from 03/24/17 to 03/25/17";
 
         Command result = this.parser.parseCommand(commandString);
 
@@ -267,6 +312,32 @@ public class ParserTest {
         assertFalse(taskDescriptor.getTags().isPresent());
     }
 
+    @Test
+    public void parser_edit_descriptionDeadlineWithQuotes() {
+        String commandString = "edit 2 '' by 05/13/17";
+        EndTime compareEndTime = null;
+
+        try {
+            compareEndTime = new EndTime(NattyDateUtil.parseSingleDate("05/13/17"));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+
+        Command result = this.parser.parseCommand(commandString);
+
+        // Check that the EditCommand is parsed properly
+        assertTrue(result instanceof EditCommand);
+        EditCommand toEdit = (EditCommand) result;
+        EditTaskDescriptor taskDescriptor = toEdit.getEditTaskDescriptor();
+
+        // Check that the proper fields are set
+        assertFalse(taskDescriptor.getName().isPresent());
+        assertFalse(taskDescriptor.getStartTime().isPresent());
+        assertTrue(taskDescriptor.getEndTime().isPresent());
+        assertTrue(taskDescriptor.getEndTime().get().equals(compareEndTime));
+        assertFalse(taskDescriptor.getCompletionStatus().isPresent());
+        assertFalse(taskDescriptor.getTags().isPresent());
+    }
     @Test
     public void parser_edit_tags() {
         String commandString = "edit 2 #first #second";
