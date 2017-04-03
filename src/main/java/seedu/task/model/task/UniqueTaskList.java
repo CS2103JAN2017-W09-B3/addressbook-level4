@@ -97,9 +97,9 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     //@@author A0139938L
-    public Task[] asArray(){
+    public Task[] asArray() {
         Task[] tasks = new Task[internalList.size()];
-        for(int i=0;i<internalList.size(); i++){
+        for (int i = 0; i < internalList.size(); i++) {
             tasks[i] = internalList.get(i);
         }
         return tasks;

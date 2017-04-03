@@ -58,31 +58,31 @@ public class StatusBarFooter extends UiPart<Region> {
         this.progressStatus.setText(progress);
     }
 
-    public int getTotalTasks(ObservableList<ReadOnlyTask> observableList){
+    public int getTotalTasks(ObservableList<ReadOnlyTask> observableList) {
         return observableList.size();
     }
 
-    private void updateBackgroundColor(ObservableList<ReadOnlyTask> observableList){
+    private void updateBackgroundColor(ObservableList<ReadOnlyTask> observableList) {
         double totalTasks = getTotalTasks(observableList);
         double completedTasks = getTotalCompletedTasks(observableList);
         double progress = 0;
-        if(totalTasks > 0) {
-            progress = completedTasks/totalTasks;
+        if (totalTasks > 0) {
+            progress = completedTasks / totalTasks;
         }
-        if(progress > 0.5) {
+        if (progress > 0.5) {
             progressStatus.setStyle("-fx-background-color: #CFF48D;"); //green
             saveLocationStatus.setStyle("-fx-background-color: #CFF48D;");
-        }else{
+        } else {
             progressStatus.setStyle("-fx-background-color: #f4a68c;"); //pink
             saveLocationStatus.setStyle("-fx-background-color: #f4a68c;");
         }
     }
 
-    public int getTotalCompletedTasks(ObservableList<ReadOnlyTask> observableList){
+    public int getTotalCompletedTasks(ObservableList<ReadOnlyTask> observableList) {
         int result = 0;
         ObservableList<ReadOnlyTask> tasks = observableList;
-        for(ReadOnlyTask t : tasks){
-            if(t.getCompletionStatus().getCompletion()){
+        for (ReadOnlyTask t : tasks) {
+            if (t.getCompletionStatus().getCompletion()) {
                 result++;
             }
         }
@@ -96,7 +96,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     @Subscribe
-    public void handleSaveToRequestEvent(SaveToRequestEvent event){
+    public void handleSaveToRequestEvent(SaveToRequestEvent event) {
         setSaveLocation(event.filepath);
     }
 

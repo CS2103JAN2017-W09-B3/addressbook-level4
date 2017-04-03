@@ -66,6 +66,14 @@ public class UndoCommand extends Command {
             previousTask = model.getUndoManager().popUndoTask();
             editedTask = model.getUndoManager().popEditedTask();
             return new CheckCommand().executeUndo(previousTask, editedTask, model);
+        case AddTagCommand.COMMAND_WORD:
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new DeleteTagCommand().executeUndo(previousTask, editedTask, model);
+        case DeleteTagCommand.COMMAND_WORD:
+            previousTask = model.getUndoManager().popUndoTask();
+            editedTask = model.getUndoManager().popEditedTask();
+            return new AddTagCommand().executeUndo(previousTask, editedTask, model);
         default:
             return new CommandResult(NOTHING_TO_UNDO);
         }
