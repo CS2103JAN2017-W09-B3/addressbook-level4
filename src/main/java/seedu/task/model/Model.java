@@ -50,6 +50,21 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all checked tasks */
     void updateFilteredListToShowChecked();
 
+    /** Updates the filter of the filtered task list to show all floating tasks */
+    void updateFilteredListToShowFloating();
+
+    /** Updates the filter of the filtered task list to show all deadline tasks */
+    void updateFilteredListToShowDeadline();
+
+    /** Updates the filter of the filtered task list to show all event tasks */
+    void updateFilteredListToShowEvent();
+
+    /** Updates the filter of the filtered task list to show all upcoming tasks */
+    void updateFilteredListToShowUpcoming();
+
+    /** Updates the filter of the filtered task list to show all overdue tasks */
+    void updateFilteredListToShowOverdue();
+
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 

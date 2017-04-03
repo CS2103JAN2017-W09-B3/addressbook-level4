@@ -19,6 +19,13 @@ public class EndTime {
     public final Date value;
 
     /**
+     * @return the value
+     */
+    public Date getValue() {
+        return value;
+    }
+
+    /**
      * Validates given end time.
      *
      * @throws IllegalValueException if given end time is invalid.

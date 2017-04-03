@@ -1,6 +1,5 @@
+//@@author A0139410N
 package seedu.task.model.task;
-
-import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's completion status in the task manager.
@@ -8,7 +7,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class CompletionStatus {
 
     public static final String MESSAGE_COMPLETION_STATUS_CONSTRAINTS = "currentStatus should only be "
-            + "normal, upcoming or overdue";
+            + "NORMAL, UPCOMING or OVERDUE";
     /*
      * Tasks can be completed or not completed, represented by a boolean isComplete
      */
@@ -16,25 +15,34 @@ public class CompletionStatus {
     /*
      * If task is not completed, it can be further broken down to normal, upcoming and overdue
      */
-    private enum incompleteType {
+    public enum IncompleteType {
 
         NORMAL("normal"), UPCOMING("upcoming"), OVERDUE("overdue");
         private String type;
 
-        private incompleteType(String type) {
+        private IncompleteType(String type) {
             this.type = type;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+
+        @Override
+        public String toString() {
+            return this.getType();
         }
 
     }
 
-    private incompleteType currentStatus;
+    private IncompleteType currentStatus;
 
     /**
      * Sets isComplete of CompletionStatus to argument
      */
     public CompletionStatus(boolean completionStatus) {
         this.isComplete = completionStatus;
-        this.currentStatus = incompleteType.NORMAL;
+        this.currentStatus = IncompleteType.NORMAL;
     }
 
     public void swapCompletion() {
@@ -45,30 +53,38 @@ public class CompletionStatus {
         return isComplete;
     }
 
-    public void setIncompleteType(String type) throws IllegalValueException {
+    public void setCurrentStatus(IncompleteType type) {
         assert type != null;
         switch (type) {
-        case "normal":
-            this.currentStatus = incompleteType.NORMAL;
+        case NORMAL:
+            this.currentStatus = IncompleteType.NORMAL;
             break;
-        case "upcoming":
-            this.currentStatus = incompleteType.UPCOMING;
+        case UPCOMING:
+            this.currentStatus = IncompleteType.UPCOMING;
             break;
-        case "overdue":
-            this.currentStatus = incompleteType.OVERDUE;
+        case OVERDUE:
+            this.currentStatus = IncompleteType.OVERDUE;
             break;
+        //this switch case should never waterfall down to default
         default:
-            throw new IllegalValueException(MESSAGE_COMPLETION_STATUS_CONSTRAINTS);
+            ;
         }
     }
 
+
+    /**
+     * @return the currentStatus
+     */
+    public IncompleteType getCurrentStatus() {
+        return currentStatus;
+    }
 
     @Override
     public String toString() {
         if (this.isComplete) {
             return String.valueOf(isComplete);
         } else {
-            return this.currentStatus.type;
+            return this.currentStatus.toString();
         }
     }
 
