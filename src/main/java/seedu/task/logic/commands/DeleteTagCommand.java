@@ -137,6 +137,6 @@ public class DeleteTagCommand extends Command {
     public static boolean isCommandWord(String command) {
         assert CheckCommand.COMMAND_WORDS != null;
 
-        return isCommandWord(CheckCommand.COMMAND_WORDS, command);
+        return isCommandWord(DeleteTagCommand.COMMAND_WORDS, command);
     }
 }
