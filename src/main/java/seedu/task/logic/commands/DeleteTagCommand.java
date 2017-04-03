@@ -40,11 +40,12 @@ public class DeleteTagCommand extends Command {
     private int filteredTaskListIndex;
     private Set<String> tags;
 
-    //@@author 0146789H
+    //@@author A0146789H
     public DeleteTagCommand() {
         super(COMMAND_WORDS);
     }
 
+    //@@author A0138664W
     public DeleteTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
         this();
         assert tags != null;
