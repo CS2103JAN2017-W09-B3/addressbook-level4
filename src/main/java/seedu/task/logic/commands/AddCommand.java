@@ -39,7 +39,7 @@ public class AddCommand extends Command {
      * Creates an empty command with the relevant command words.
      *
      */
-    public AddCommand(){
+    public AddCommand() {
         super(COMMAND_WORDS);
     }
 

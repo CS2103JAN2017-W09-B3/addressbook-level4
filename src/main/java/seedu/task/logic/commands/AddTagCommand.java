@@ -35,7 +35,7 @@ public class AddTagCommand extends Command {
     private int filteredTaskListIndex;
     private Set<String> tags;
 
-    public AddTagCommand () {}
+    public AddTagCommand() {}
 
     public AddTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
         assert tags != null;
