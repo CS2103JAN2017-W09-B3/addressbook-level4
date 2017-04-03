@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
@@ -94,6 +96,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(toAdd)));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
@@ -104,6 +107,7 @@ public class AddCommand extends Command {
     public CommandResult executeUndo(Task previousTask, Model model) throws CommandException {
         try {
             model.addTaskUndo(previousTask);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(previousTask)));
             return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_ADD, previousTask));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
