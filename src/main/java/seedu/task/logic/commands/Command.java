@@ -4,11 +4,21 @@ import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
 
+//@@author A0146789H
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
+
+    /**
+     * Constructs the class with an array of valid command words.
+     *
+     * @param cOMMAND_WORDS
+     */
+    public Command(String[] commandWords) {
+        super();
+    }
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
@@ -35,6 +45,21 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
+    }
+
+    /**
+     * Checks if the provided command word belongs to this command.
+     *
+     * @param commmand
+     * @return true if it is a command word, false if not.
+     */
+    protected static boolean isCommandWord(String[] commandWords, String command) {
+        for (String i : commandWords) {
+            if (i.equals(command)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

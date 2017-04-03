@@ -7,23 +7,31 @@ import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.task.ReadOnlyTask;
 
+//@@author A0146789H
 /**
  * Selects a task identified using it's last displayed index from the task manager.
  */
 public class SelectCommand extends Command {
 
-    public final int targetIndex;
+    private int targetIndex;
 
-    public static final String COMMAND_WORD = "select";
+    public static final String[] COMMAND_WORDS = new String[] {"select"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND
             + ": Selects the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + DEFACTO_COMMAND + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
 
+    protected SelectCommand() {
+        super(COMMAND_WORDS);
+    }
+
+    //@@author
     public SelectCommand(int targetIndex) {
+        this();
         this.targetIndex = targetIndex;
     }
 
@@ -41,4 +49,18 @@ public class SelectCommand extends Command {
 
     }
 
+    //@@author A0146789H
+    /**
+     * @return the targetIndex
+     */
+    public int getTargetIndex() {
+        return targetIndex;
+    }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert SelectCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(SelectCommand.COMMAND_WORDS, command);
+    }
 }

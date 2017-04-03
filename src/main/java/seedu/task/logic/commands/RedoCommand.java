@@ -5,12 +5,15 @@ import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.task.Task;
 
 public class RedoCommand extends Command {
-    public static final String COMMAND_WORD = "redo";
+    //@@author A0146789H
+    public static final String[] COMMAND_WORDS = new String[] {"redo"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    //@@author A0138664W
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + DEFACTO_COMMAND + " 1";
 
     public static final String MESSAGE_REDO_SUCCESS_EDIT =
             "Redo Command Successful.\nRestored previously edited task: %1$s";
@@ -22,6 +25,12 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_REDO_SUCCESS = "Redo Command Successful.";
     public static final String NOTHING_TO_REDO = "Nothing To Redo";
 
+    //@@author A0146789H
+    public RedoCommand() {
+        super(COMMAND_WORDS);
+    }
+
+    //@@author A0138664W
     @Override
     public CommandResult execute() throws CommandException {
 
@@ -37,22 +46,23 @@ public class RedoCommand extends Command {
 
         System.out.println(previousCommand);
 
+        // TODO: EDIT THIS
         switch (previousCommand) {
-        case DeleteCommand.COMMAND_WORD:
+        case "delete":
             Task previousTask = model.getUndoManager().popRedoTask();
             return new DeleteCommand().executeRedo(previousTask, model);
-        case AddCommand.COMMAND_WORD:
+        case "add":
             previousTask = model.getUndoManager().popRedoTask();
             return new AddCommand().executeRedo(previousTask, model);
-        case EditCommand.COMMAND_WORD:
+        case "edit":
             previousTask = model.getUndoManager().popRedoEditedTask();
             Task editedTask = model.getUndoManager().popRedoTask();
             return new EditCommand().executeRedo(previousTask, editedTask, model);
-        case CheckCommand.COMMAND_WORD:
+        case "check":
             previousTask = model.getUndoManager().popRedoEditedTask();
             editedTask = model.getUndoManager().popRedoTask();
             return new CheckCommand().executeUndo(previousTask, editedTask, model);
-        case UncheckCommand.COMMAND_WORD:
+        case "uncheck":
             previousTask = model.getUndoManager().popRedoEditedTask();
             editedTask = model.getUndoManager().popRedoTask();
             return new UncheckCommand().executeUndo(previousTask, editedTask, model);
@@ -67,5 +77,12 @@ public class RedoCommand extends Command {
         default:
             return new CommandResult(NOTHING_TO_REDO);
         }
+    }
+
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert RedoCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(RedoCommand.COMMAND_WORDS, command);
     }
 }
