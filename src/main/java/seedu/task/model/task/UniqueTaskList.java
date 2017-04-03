@@ -45,6 +45,7 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
         }
         internalList.add(toAdd);
         FXCollections.sort(internalList, new UniqueTaskList());
+        FXCollections.sort(internalList, checkUncheckComparator);
     }
 
     /**
@@ -68,6 +69,7 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
         // Then, TaskCard should then bind its text labels to those observable properties.
         internalList.set(index, taskToUpdate);
         FXCollections.sort(internalList, new UniqueTaskList());
+        FXCollections.sort(internalList, checkUncheckComparator);
     }
 
     /**
@@ -82,6 +84,7 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
             throw new TaskNotFoundException();
         }
         FXCollections.sort(internalList, new UniqueTaskList());
+        FXCollections.sort(internalList, checkUncheckComparator);
         return taskFoundAndDeleted;
     }
 
@@ -154,7 +157,6 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
 		Date task1Date = task1.getEndTime().getValue();
 		Date task2Date = task2.getEndTime().getValue();
 
-
 		if (!task1.hasEndTime()) {
 			if (!task2.hasEndTime()){
 				return 0;
@@ -174,6 +176,19 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
             return 0;
         }
 	}
+
+	Comparator<Task> checkUncheckComparator = new Comparator<Task>() {
+
+		@Override
+		public int compare(Task task1, Task task2) {
+			if(task1.getCompletionStatus().getCompletion()){
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+
+	};
 	//@@author
 
 }
