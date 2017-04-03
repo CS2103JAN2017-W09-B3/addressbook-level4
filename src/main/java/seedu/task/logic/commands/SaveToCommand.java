@@ -26,7 +26,7 @@ public class SaveToCommand extends Command {
     }
 
     //@@author A0139938L
-    public SaveToCommand(String filepath){
+    public SaveToCommand(String filepath) {
         this();
         this.setFilepath(filepath);
     }

@@ -21,10 +21,14 @@ import seedu.task.model.task.UniqueTaskList;
 
 public class AddTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtag";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to existing task.\n"
+    //@@author A0146789H
+    public static final String[] COMMAND_WORDS = new String[] {"addtag"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
+
+    //@@author A0138664W
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Adds tags to existing task.\n"
             + "Parameters: INDEX [#tag]\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + DEFACTO_COMMAND
             + " 1 #CS2103 #uni";
     public static final String ADD_TAG_SUCCESS = "Added new tags into task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -35,9 +39,14 @@ public class AddTagCommand extends Command {
     private int filteredTaskListIndex;
     private Set<String> tags;
 
-    public AddTagCommand() {}
+    //@@author A0146789H
+    public AddTagCommand() {
+        super(COMMAND_WORDS);
+    }
 
+    //@@author A0138664W
     public AddTagCommand(int filteredTaskListIndex, Set<String> tags) throws IllegalValueException {
+        this();
         assert tags != null;
         assert filteredTaskListIndex > 0;
         // converts filteredTaskListIndex from one-based to zero-based.
@@ -114,4 +123,10 @@ public class AddTagCommand extends Command {
         return new Task(name, startTime, endTime, updatedCompletionStatus, tagList);
     }
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert CheckCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(CheckCommand.COMMAND_WORDS, command);
+    }
 }

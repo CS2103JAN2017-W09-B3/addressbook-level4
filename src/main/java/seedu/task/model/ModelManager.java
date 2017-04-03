@@ -62,6 +62,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    private void resetData(Optional<ReadOnlyTaskManager> taskManager) {
+        ReadOnlyTaskManager readOnly = taskManager.get();
+        this.resetData(readOnly);
+    }
+
     @Override
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
@@ -302,10 +307,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.resetData(event.getTaskManager());
     }
 
-    private void resetData(Optional<ReadOnlyTaskManager> taskManager) {
-        ReadOnlyTaskManager readOnly = taskManager.get();
-        this.resetData(readOnly);
-    }
 
     //@@author
 

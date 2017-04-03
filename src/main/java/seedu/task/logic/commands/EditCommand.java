@@ -22,7 +22,7 @@ import seedu.task.model.task.UniqueTaskList;
  */
 public class EditCommand extends Command {
 
-    public static final String[] COMMAND_WORDS = new String[] {"edit", "change"};
+    public static final String[] COMMAND_WORDS = new String[] {"edit", "change", "-e"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Edits the details of the task identified "
@@ -39,7 +39,7 @@ public class EditCommand extends Command {
     private int filteredTaskListIndex;
     private EditTaskDescriptor editTaskDescriptor;
 
-    public EditCommand(){
+    public EditCommand() {
         super(COMMAND_WORDS);
     }
 

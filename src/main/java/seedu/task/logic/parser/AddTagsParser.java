@@ -16,12 +16,13 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.model.UndoManager;
 
-public class AddTagsParser {
+public class AddTagsParser extends AbstractParser {
     private static final String PATTERN_MANDATORY_INDEX = "(?<index>[1-9]\\d*)";
     private static final String PATTERN_OPTIONAL_TAGS = "(?<tags>(?:\\s+#\\w+)+)?";
     private static final String ARGUMENTS_PATTERN = "^" + PATTERN_MANDATORY_INDEX + PATTERN_OPTIONAL_TAGS + "$";
     private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(ARGUMENTS_PATTERN, Pattern.CASE_INSENSITIVE);
 
+    @Override
     public Command parse(String args) {
 
         assert args != null;
@@ -54,7 +55,7 @@ public class AddTagsParser {
 //            logger.info(String.format("%s tagSet: %s", logPrefix, tagSet.toString()));
 
             // Add the undo entry after successfully parsing an AddCommand
-            UndoManager.pushUndoCommand(AddTagCommand.COMMAND_WORD);
+            UndoManager.pushUndoCommand(AddTagCommand.DEFACTO_COMMAND);
 
             return new AddTagCommand(index, tagSet);
         } catch (NoSuchElementException nsee) {
@@ -63,5 +64,11 @@ public class AddTagsParser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    //@@author A0146789H
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return AddTagCommand.isCommandWord(command);
     }
 }
