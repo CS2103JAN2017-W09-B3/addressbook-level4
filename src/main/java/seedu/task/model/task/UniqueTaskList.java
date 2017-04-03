@@ -153,13 +153,23 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
 	public int compare(Task task1, Task task2) {
 		Date task1Date = task1.getEndTime().getValue();
 		Date task2Date = task2.getEndTime().getValue();
-		if (task1Date==null || task2Date==null){
-			return -1;
+
+
+		if (!task1.hasEndTime()) {
+			if (!task2.hasEndTime()){
+				return 0;
+			}
+			return 1;
+		} else if (task1.hasEndTime()) {
+			if(!task2.hasEndTime()){
+				return -1;
+			}
 		}
-		if (task1Date.before(task2Date)) {
-            return -1;
-        } else if (task1Date.after(task2Date)) {
+
+		if (task1Date.after(task2Date)) {
             return 1;
+        } else if (task1Date.before(task2Date)) {
+            return -1;
         } else {
             return 0;
         }
