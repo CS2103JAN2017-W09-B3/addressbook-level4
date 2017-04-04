@@ -12,6 +12,7 @@ public class SaveToCommand extends Command {
 
     //@@author A0146789H
     public static final String[] COMMAND_WORDS = new String[] {"saveto", "save", "export"};
+
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     //@@author A0139938L
@@ -87,5 +88,4 @@ public class SaveToCommand extends Command {
 
         return isCommandWord(SaveToCommand.COMMAND_WORDS, command);
     }
-
 }

@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     StartTime getStartTime();
     EndTime getEndTime();
     CompletionStatus getCompletionStatus();
+    TaskType getTaskType();
 
     public static final String START_TIME_MESSAGE = "From: ";
     public static final String EVENT_END_MESSAGE = "To: ";
@@ -20,6 +21,7 @@ public interface ReadOnlyTask {
     public static final String TAG_PREFIX = "#";
 
     public static final String COMPLETION_STATUS_MESSAGE = "Completion Status: ";
+    public static final String TASK_TYPE_MESSAGE = "Task Type: ";
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -36,6 +38,7 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
+                && other.getTaskType().equals(this.getTaskType())
                 && other.getCompletionStatus().equals(this.getCompletionStatus()));
     }
 
@@ -48,6 +51,7 @@ public interface ReadOnlyTask {
         .append(writeStartTime())
         .append(writeEndTime())
         .append(writeCompletionStatus())
+        .append(writeTaskType())
         .append(writeTags());
         return builder.toString();
     }
@@ -67,6 +71,12 @@ public interface ReadOnlyTask {
         return completionStatus;
     }
 
+    public default String writeTaskType() {
+        String taskType = "";
+        taskType = TASK_TYPE_MESSAGE + getTaskType().getType() + "\n";
+        return taskType;
+    }
+
     public default String getEndTimeMessage() {
         String message = "";
         if (hasStartTime()) {
@@ -78,7 +88,7 @@ public interface ReadOnlyTask {
     }
 
     public default boolean hasStartTime() {
-        if (getStartTime().toString().equals("")) {
+        if (this.getStartTime().getValue() == null) {
             return false;
         } else {
             return true;
@@ -86,7 +96,7 @@ public interface ReadOnlyTask {
     }
 
     public default boolean hasEndTime() {
-        if (getEndTime().toString().equals("")) {
+        if (this.getEndTime().getValue() == null) {
             return false;
         } else {
             return true;

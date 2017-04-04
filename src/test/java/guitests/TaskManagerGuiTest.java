@@ -89,11 +89,11 @@ public abstract class TaskManagerGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = new TaskManager();
-        try{
+        try {
             TypicalTestTasks.loadTaskManagerWithSampleData(ab);
-        }catch(IOException ioe){
+        } catch (IOException ioe) {
 
-        }catch(DataConversionException dce){
+        } catch (DataConversionException dce) {
 
         }
         return ab;

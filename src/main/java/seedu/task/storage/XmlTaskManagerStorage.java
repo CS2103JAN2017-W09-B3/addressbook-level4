@@ -43,7 +43,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @throws IOException
      */
     @Override
-    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath) throws IOException{
+    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath) throws IOException {
         setFilePath(filepath);
         this.saveTaskManager(taskManager, filepath);
     }

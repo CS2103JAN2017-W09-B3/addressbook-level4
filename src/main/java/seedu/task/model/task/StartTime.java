@@ -18,6 +18,13 @@ public class StartTime {
     public final Date value;
 
     /**
+     * @return the value
+     */
+    public Date getValue() {
+        return value;
+    }
+
+    /**
      * Validates given start time.
      *
      * @throws IllegalValueException if given time string is invalid.

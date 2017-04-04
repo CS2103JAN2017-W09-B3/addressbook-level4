@@ -44,13 +44,9 @@ public class CommandBox extends UiPart<Region> {
             // process result of the command
             setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
-            //@@author A0139938L
-            if(commandResult != null){
-                //@@author
-                logger.info("Result: " + commandResult.feedbackToUser);
-                raise(new UpdateTasksEvent());
-                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-            }
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new UpdateTasksEvent());
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
         } catch (CommandException e) {
             // handle command failure

@@ -1,9 +1,12 @@
 package seedu.task.model.task;
 
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;
+import seedu.task.commons.util.NattyDateUtil;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.CompletionStatus.IncompleteType;
 
 /**
  * Represents a Task in the task manager.
@@ -15,8 +18,11 @@ public class Task implements ReadOnlyTask {
     private StartTime startTime;
     private EndTime endTime;
     private CompletionStatus completionStatus;
+    private TaskType taskType;
 
     private UniqueTagList tags;
+
+    private static final String UPCOMING_PERIOD = "3 days later";
 
     /**
      * Only Name must be present and not null.
@@ -29,6 +35,8 @@ public class Task implements ReadOnlyTask {
         this.endTime = endTime;
         this.completionStatus = completionStatus;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.updateTaskType();
+        this.updateIncompleteType(this.getTaskType());
     }
 
     /**
@@ -77,6 +85,69 @@ public class Task implements ReadOnlyTask {
     @Override
     public CompletionStatus getCompletionStatus() {
         return completionStatus;
+    }
+
+    /**
+     * @return the taskType
+     */
+    @Override
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    /**
+     * @param taskType the taskType to set
+     */
+    public void setTaskType(TaskType taskType) {
+        assert taskType != null;
+        this.taskType = taskType;
+    }
+
+    public void updateTaskType() {
+        //the task does not have end time, it is a SOMEDAY Task
+        if (!this.hasEndTime()) {
+            setTaskType(TaskType.SOMEDAY);
+        //the task only has endtime, it is a DEADLINE Task
+        } else if (!this.hasStartTime() && this.hasEndTime()) {
+            setTaskType(TaskType.DEADLINE);
+        //the task has start and end time, it is an EVENT Task
+        } else if (this.hasStartTime() && this.hasEndTime()) {
+            setTaskType(TaskType.EVENT);
+        }
+    }
+
+    public void updateIncompleteType(TaskType taskType) {
+
+        Date today = new Date();
+        Date upcoming = NattyDateUtil.parseSingleDate(UPCOMING_PERIOD);
+
+        switch(taskType) {
+        //if task is EVENT task
+        case EVENT:
+            if (today.after(this.getEndTime().getValue())) {
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.OVERDUE);
+            } else if (upcoming.after(this.getStartTime().getValue())) {
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.UPCOMING);
+            } else {
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.NORMAL);
+            }
+            break;
+        case DEADLINE:
+            if (today.after(this.getEndTime().getValue())) {
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.OVERDUE);
+            } else if (upcoming.after(this.getEndTime().getValue())) {
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.UPCOMING);
+            } else {
+                this.getCompletionStatus().setCurrentStatus(IncompleteType.NORMAL);
+            }
+            break;
+        case SOMEDAY:
+            this.getCompletionStatus().setCurrentStatus(IncompleteType.NORMAL);
+            break;
+        //should never waterfall down to default case
+        default:
+            ;
+        }
     }
 
     @Override

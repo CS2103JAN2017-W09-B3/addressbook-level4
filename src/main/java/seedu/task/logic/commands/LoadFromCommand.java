@@ -9,6 +9,7 @@ public class LoadFromCommand extends Command {
     //@@author A0146789H
 
     public static final String[] COMMAND_WORDS = new String[] {"loadfrom", "load", "import"};
+
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Defines a new load location for your tasks "

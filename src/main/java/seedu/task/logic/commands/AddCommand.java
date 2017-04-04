@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
@@ -22,11 +24,12 @@ import seedu.task.model.task.UniqueTaskList;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String[] COMMAND_WORDS = new String[] {"add", "-a"};
+    public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+    public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Adds a task to the task manager. "
             + "Parameters: DESCRIPTION from START_DATE to END_DATE #TAGS\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + DEFACTO_COMMAND
             + " Do CS2103 tutorial from 03/06/17 to 03/08/17 #CS2103 #uni";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
@@ -34,7 +37,30 @@ public class AddCommand extends Command {
 
     private Task toAdd;
 
-    public AddCommand(){
+    /**
+     * Creates an empty command with the relevant command words.
+     *
+     */
+    public AddCommand() {
+        super(COMMAND_WORDS);
+    }
+
+    /**
+     * Creates an AddCommand using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name)
+            throws IllegalValueException {
+        this();
+        final Set<Tag> tagSet = new HashSet<>();
+        this.toAdd = new Task(
+                new Name(name),
+                new StartTime(null),
+                new EndTime(null),
+                new CompletionStatus(false),
+                new UniqueTagList(tagSet)
+        );
     }
 
     /**
@@ -44,6 +70,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, Date startDate, Date endDate, boolean completionStatus, Set<String> tags)
             throws IllegalValueException {
+        this();
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -57,7 +84,6 @@ public class AddCommand extends Command {
                 );
     }
 
-    //@@author A0146789H
     /**
      * @return the task to be added
      */
@@ -65,29 +91,12 @@ public class AddCommand extends Command {
         return toAdd;
     }
 
-    //@@author
-    /**
-     * Creates an AddCommand using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        this.toAdd = new Task(
-                new Name(name),
-                new StartTime(null),
-                new EndTime(null),
-                new CompletionStatus(false),
-                new UniqueTagList(tagSet)
-        );
-    }
-
     @Override
     public CommandResult execute() throws CommandException {
         assert model != null;
         try {
             model.addTask(toAdd);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(toAdd)));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
@@ -98,6 +107,7 @@ public class AddCommand extends Command {
     public CommandResult executeUndo(Task previousTask, Model model) throws CommandException {
         try {
             model.addTaskUndo(previousTask);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(previousTask)));
             return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_ADD, previousTask));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
@@ -114,6 +124,11 @@ public class AddCommand extends Command {
         }
 
     }
-    //@@author
 
+    //@@author A0146789H
+    public static boolean isCommandWord(String command) {
+        assert AddCommand.COMMAND_WORDS != null;
+
+        return isCommandWord(AddCommand.COMMAND_WORDS, command);
+    }
 }

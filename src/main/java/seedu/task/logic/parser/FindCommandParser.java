@@ -12,15 +12,17 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 
+//@@author A0146789H
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser {
+public class FindCommandParser extends AbstractParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
      */
+    @Override
     public Command parse(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -38,4 +40,8 @@ public class FindCommandParser {
         return new FindCommand(keywordSet);
     }
 
+    @Override
+    public boolean isAcceptedCommand(String command) {
+        return FindCommand.isCommandWord(command);
+    }
 }

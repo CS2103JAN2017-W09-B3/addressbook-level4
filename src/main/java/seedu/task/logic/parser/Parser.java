@@ -3,36 +3,22 @@ package seedu.task.logic.parser;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.logic.commands.AddCommand;
-import seedu.task.logic.commands.CheckCommand;
-import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.DeleteCommand;
-import seedu.task.logic.commands.EditCommand;
-import seedu.task.logic.commands.ExitCommand;
-import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.commands.ListCommand;
-import seedu.task.logic.commands.LoadFromCommand;
-import seedu.task.logic.commands.RedoCommand;
-import seedu.task.logic.commands.SaveToCommand;
-import seedu.task.logic.commands.SelectCommand;
-import seedu.task.logic.commands.SortCommand;
-import seedu.task.logic.commands.UncheckCommand;
-import seedu.task.logic.commands.UndoCommand;
 
+//@@author A0146789H
 /**
  * Parses user input.
  */
 public class Parser {
 
-    //@@author A0146789H
     /**
      * Used for initial separation of command word and args.
      * Allows for case insensitive matching.
@@ -42,6 +28,37 @@ public class Parser {
 
     private static final Logger logger = LogsCenter.getLogger(Parser.class);
     private static final String logPrefix = "[PARSER]";
+
+    // Parsers are registered here as an AbstractParser ArrayList.
+    private static final ArrayList<AbstractParser> registeredParsers = new ArrayList<AbstractParser>();
+
+    public Parser() {
+        /*
+         *  Register the parsers individually on setup.
+         *  The order of the parsers registered is important.
+         */
+
+        registeredParsers.add(new AddCommandParser());
+        registeredParsers.add(new EditCommandParser());
+        registeredParsers.add(new SelectCommandParser());
+        registeredParsers.add(new DeleteCommandParser());
+        registeredParsers.add(new ClearCommandParser());
+        registeredParsers.add(new FindCommandParser());
+        registeredParsers.add(new ListCommandParser());
+        registeredParsers.add(new ExitCommandParser());
+        registeredParsers.add(new HelpCommandParser());
+        registeredParsers.add(new CheckCommandParser());
+        registeredParsers.add(new UncheckCommandParser());
+        registeredParsers.add(new UndoCommandParser());
+        registeredParsers.add(new RedoCommandParser());
+        registeredParsers.add(new SaveToCommandParser());
+        registeredParsers.add(new LoadFromCommandParser());
+        registeredParsers.add(new SortCommandParser());
+        registeredParsers.add(new AddTagsParser());
+        registeredParsers.add(new DeleteTagsParser());
+        registeredParsers.add(new ReminderCommandParser());
+        registeredParsers.add(new EmailCommandParser());
+    }
 
     /**
      * Parses user input into command for execution.
@@ -63,61 +80,14 @@ public class Parser {
         logger.info(logPrefix + " Command Word: '" + commandWord + "'");
         logger.info(logPrefix + " Arguments: '" + arguments + "'");
 
-        switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        //@@author A0139410N
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments);
-
-        //@@author
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case CheckCommand.COMMAND_WORD:
-            return new CheckedCommandParser().parse(arguments);
-
-        case UncheckCommand.COMMAND_WORD:
-            return new UncheckedCommandParser().parse(arguments);
-        //@@author A0138664W
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
-        //@@author
-        case SaveToCommand.COMMAND_WORD:
-            return new SaveToCommandParser().parse(arguments);
-
-        case LoadFromCommand.COMMAND_WORD:
-            return new LoadFromCommandParser().parse(arguments);
-
-        case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
-
-        default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        // Run through the registered parsers and return the command if valid
+        for (AbstractParser parser : registeredParsers) {
+            if (parser.isAcceptedCommand(commandWord)) {
+                return parser.parse(arguments);
+            }
         }
-    }
 
+        // Handle the default case.
+        return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+    }
 }

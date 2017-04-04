@@ -105,14 +105,14 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleSaveToRequestEvent(SaveToRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing save to location to "+event.filepath));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing save to location to " + event.filepath));
         changeSaveToLocation(event.taskManager, event.filepath);
     }
 
     @Override
     @Subscribe
     public void handleLoadFromRequestEvent(LoadFromRequestEvent event) throws IOException, DataConversionException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing load from location to "+event.filepath));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing load from location to " + event.filepath));
         event.taskManager = readTaskManager(event.filepath);
     }
 
