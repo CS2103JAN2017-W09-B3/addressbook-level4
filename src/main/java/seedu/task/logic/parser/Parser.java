@@ -56,6 +56,8 @@ public class Parser {
         registeredParsers.add(new SortCommandParser());
         registeredParsers.add(new AddTagsParser());
         registeredParsers.add(new DeleteTagsParser());
+        registeredParsers.add(new ReminderCommandParser());
+        registeredParsers.add(new EmailCommandParser());
     }
 
     /**

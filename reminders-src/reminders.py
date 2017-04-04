@@ -16,9 +16,9 @@ def index():
 def sendmail():
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     from_email = Email("no-reply@suru.com")
-    subject = "Testing Sending Using Sendgrid"
-    to_email = Email("redacted@redacted.com")
-    content = Content("text/plain", "Contents of this test email")
+    subject = "[Reminder]: Software Engineering Lecture"
+    to_email = Email("")
+    content = Content("text/plain", "Here's a friendly reminder to attend your 'Software Engineering Lecture'! It's happening in 15 minutes!")
     mail = Mail(from_email, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=mail.get())
     reply = str(response.status_code)
