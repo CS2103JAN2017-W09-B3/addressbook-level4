@@ -14,9 +14,9 @@ public class HelpWindowTest extends TaskManagerGuiTest {
         //use accelerator
         commandBox.clickOnTextField();
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
-
-        resultDisplay.clickOnTextArea();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+//
+//        resultDisplay.clickOnTextArea();
+//        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
         taskListPanel.clickOnListView();
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
