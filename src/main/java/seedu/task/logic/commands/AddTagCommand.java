@@ -65,7 +65,7 @@ public class AddTagCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(filteredTaskListIndex);
-        Task taskEdited = (Task)taskToEdit;
+        Task taskEdited = (Task) taskToEdit;
         Task editedTask = null;
 
         try {

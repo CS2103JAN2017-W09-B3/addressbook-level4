@@ -35,10 +35,11 @@ public class AddCommandParser extends AbstractParser {
     private static final String PATTERN_OPTIONAL_TAGS = "(?<tags>(?:\\s+#\\w+)+)?";
     private static final String ARGUMENTS_PATTERN = "^" + PATTERN_MANDATORY_DESCRIPTION + PATTERN_OPTIONAL_STARTDATE
             + PATTERN_OPTIONAL_ENDDATE + PATTERN_OPTIONAL_TAGS + "$";
-    private static final String ARGUMENTS_PATTERN_QUOTED = "^" + PATTERN_MANDATORY_DESCRIPTION + PATTERN_OPTIONAL_STARTDATE
-            + PATTERN_OPTIONAL_ENDDATE + PATTERN_OPTIONAL_TAGS + "$";
+    private static final String ARGUMENTS_PATTERN_QUOTED = "^" + PATTERN_MANDATORY_DESCRIPTION
+            + PATTERN_OPTIONAL_STARTDATE + PATTERN_OPTIONAL_ENDDATE + PATTERN_OPTIONAL_TAGS + "$";
     private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(ARGUMENTS_PATTERN, Pattern.CASE_INSENSITIVE);
-    private static final Pattern ARGUMENTS_FORMAT_QUOTED = Pattern.compile(ARGUMENTS_PATTERN_QUOTED, Pattern.CASE_INSENSITIVE);
+    private static final Pattern ARGUMENTS_FORMAT_QUOTED = Pattern.compile(
+            ARGUMENTS_PATTERN_QUOTED, Pattern.CASE_INSENSITIVE);
 
     private static final Logger logger = LogsCenter.getLogger(AddCommandParser.class);
     private static final String logPrefix = "[AddCommandParser]";
