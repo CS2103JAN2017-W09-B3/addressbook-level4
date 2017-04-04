@@ -22,11 +22,11 @@ public class FindCommandTest extends TaskManagerGuiTest {
             e.printStackTrace();
         }
         assertFindResult("find Mark"); // no results
-        assertFindResult("find Meier", currentList[0], currentList[1]); // multiple results
+        assertFindResult("find meeting", currentList[0], currentList[2]); // multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
-        assertFindResult("find Meier", currentList[0]);
+        commandBox.runCommand("delete 3");
+        assertFindResult("find meeting", currentList[0]);
     }
 
     @Test

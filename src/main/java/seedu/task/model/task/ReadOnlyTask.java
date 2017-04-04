@@ -73,7 +73,7 @@ public interface ReadOnlyTask {
 
     public default String writeTaskType() {
         String taskType = "";
-        taskType = TASK_TYPE_MESSAGE + getTaskType().getType() + "\n";
+        taskType = TASK_TYPE_MESSAGE + getTaskType().toString() + "\n";
         return taskType;
     }
 

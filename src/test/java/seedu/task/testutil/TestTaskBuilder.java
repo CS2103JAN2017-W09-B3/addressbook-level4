@@ -8,6 +8,7 @@ import seedu.task.model.task.CompletionStatus;
 import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.StartTime;
+import seedu.task.model.task.TaskType;
 
 //@@author A0146789H
 /**
@@ -38,6 +39,17 @@ public class TestTaskBuilder {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));
         }
+        return this;
+    }
+
+    public TestTaskBuilder withTaskType(String taskType) throws IllegalValueException {
+        TaskType myTaskType = null;
+        for(TaskType t: TaskType.values()) {
+            if (taskType.equals(t.toString())) {
+                myTaskType = t;
+            }
+        }
+        this.task.setTaskType(myTaskType);
         return this;
     }
 

@@ -63,7 +63,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 
         String detailsToEdit = "CS2103 Presentation Preparation";
         int filteredTaskListIndex = 1;
-        int taskManagerIndex = 8;
+        int taskManagerIndex = 1;
 
         TestTask taskToEdit = expectedTasksList[taskManagerIndex - 1];
         TestTask editedTask = new TestTaskBuilder(taskToEdit).withName("CS2103 Presentation Preparation").build();
@@ -79,7 +79,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void edit_invalidTaskIndex_failure() {
-        commandBox.runCommand("edit 8 Bobby");
+        commandBox.runCommand("edit 100 Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
@@ -121,6 +121,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * @param detailsToEdit details to edit the task with as input to the edit command
      * @param editedTask the expected task after editing the task's details
      */
+
     private void assertEditSuccess(int filteredTaskListIndex, int taskManagerIndex,
             String detailsToEdit, TestTask editedTask) {
         commandBox.runCommand("edit " + filteredTaskListIndex + " " + detailsToEdit);
