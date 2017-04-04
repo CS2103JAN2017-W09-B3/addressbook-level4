@@ -62,14 +62,7 @@ public class TypicalTestTasks {
         TestTask[] testTasks = new TestTask[tasks.length];
         for (int i = 0; i < tasks.length; i++) {
             Task task = tasks[i];
-            TestTask testTask = new TestTask();
-
-            testTask.setName(task.getName());
-            testTask.setStartTime(task.getStartTime());
-            testTask.setEndTime(task.getEndTime());
-            testTask.setCompletionStatus(task.getCompletionStatus());
-            testTask.setTags(task.getTags());
-
+            TestTask testTask = new TestTask(task);
             testTasks[i] = testTask;
         }
         return testTasks;

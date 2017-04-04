@@ -80,15 +80,15 @@ public class TestUtil {
             EndTime sampleEndTime = new EndTime(NattyDateUtil.parseSingleDate("06/13/13 0909"));
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                new Task(new Name("Ali Muster"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Boris Mueller"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Carl Kurz"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Daniel Meier"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Elle Meyer"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Fiona Kunz"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("George Best"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Hoon Meier"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
-                new Task(new Name("Ida Mueller"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList())
+                new Task(new Name("Task 1"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 2"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 3"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 4"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 5"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 6"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 7"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 8"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList()),
+                new Task(new Name("Task 9"), sampleStartTime, sampleEndTime, new CompletionStatus(false), new UniqueTagList())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {

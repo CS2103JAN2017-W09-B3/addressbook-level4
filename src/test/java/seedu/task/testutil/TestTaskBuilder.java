@@ -8,6 +8,7 @@ import seedu.task.model.task.CompletionStatus;
 import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.StartTime;
+import seedu.task.model.task.Task;
 import seedu.task.model.task.TaskType;
 
 //@@author A0146789H
@@ -28,6 +29,9 @@ public class TestTaskBuilder {
     public TestTaskBuilder(TestTask taskToCopy) {
         this.task = new TestTask(taskToCopy);
     }
+    public TestTaskBuilder(Task taskToCopy) {
+        this.task = new TestTask(taskToCopy);
+    }
 
     public TestTaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));
@@ -44,7 +48,7 @@ public class TestTaskBuilder {
 
     public TestTaskBuilder withTaskType(String taskType) throws IllegalValueException {
         TaskType myTaskType = null;
-        for(TaskType t: TaskType.values()) {
+        for (TaskType t : TaskType.values()) {
             if (taskType.equals(t.toString())) {
                 myTaskType = t;
             }
