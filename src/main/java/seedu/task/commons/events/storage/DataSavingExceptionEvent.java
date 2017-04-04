@@ -21,10 +21,10 @@ public class DataSavingExceptionEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        if(message != null){
+        if (message != null) {
             return message;
-        }else{
-        return exception.getMessage();
+        } else {
+            return exception.getMessage();
         }
     }
 

@@ -51,9 +51,9 @@ public class SaveToCommand extends Command {
      * */
     public void executeAsync() {
         ReadOnlyTaskManager taskManager = model.getTaskManager();
-        if(isFilePathValid(filepath)){
+        if (isFilePathValid(filepath)) {
             model.changeSaveToLocation(taskManager, filepath);
-        }else{
+        } else {
             writeToChat(MESSAGE_INVALID_FILE);
         }
     }
@@ -88,9 +88,9 @@ public class SaveToCommand extends Command {
      */
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent dsee) {
-        if(dsee.exception == null){
+        if (dsee.exception == null) {
             writeToChat(MESSAGE_SUCCESS);
-        }else{
+        } else {
             writeToChat(MESSAGE_FAILURE + ": " + dsee.toString());
         }
         unregisterAsAnEventHandler(this);

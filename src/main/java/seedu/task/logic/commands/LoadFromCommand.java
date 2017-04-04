@@ -4,7 +4,7 @@ package seedu.task.logic.commands;
 
 public class LoadFromCommand extends Command {
 
-   public static final String MESSAGE_SUCCESS = "Load location has been changed.";
+    public static final String MESSAGE_SUCCESS = "Load location has been changed.";
     private static final String MESSAGE_FAILURE = "There was a problem changing your load location";
     private static final String MESSAGE_ATTEMPT = "Attempting to load file...";
 

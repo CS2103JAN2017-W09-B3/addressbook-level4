@@ -87,7 +87,7 @@ public abstract class Command {
      * Writes message to chatbox as Suru
      * @param message
      */
-    public void writeToChat(String message){
+    public void writeToChat(String message) {
         raise(new NewResultAvailableEvent(message));
     }
     /**

@@ -73,11 +73,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void resetData(Optional<ReadOnlyTaskManager> taskManager) {
-        try{
+        try {
             ReadOnlyTaskManager readOnly = taskManager.get();
             this.resetData(readOnly);
             raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_SUCCESS));
-        }catch(NoSuchElementException nsee){
+        } catch (NoSuchElementException nsee) {
             raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_FAIL));
         }
     }
