@@ -86,7 +86,8 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             saveTaskManager(event.data);
         } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
+            // TODO Auto-generated catch block
+
         }
     }
 
@@ -95,8 +96,8 @@ public class StorageManager extends ComponentManager implements Storage {
     public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filePath) {
         try {
             taskManagerStorage.changeSaveToLocation(taskManager, filePath);
+            raise(new DataSavingExceptionEvent(""));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             raise(new DataSavingExceptionEvent(e));
         }
     }

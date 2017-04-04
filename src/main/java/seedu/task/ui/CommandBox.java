@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.events.model.UpdateTasksEvent;
 import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.task.logic.Logic;
@@ -43,12 +44,18 @@ public class CommandBox extends UiPart<Region> {
             // process result of the command
             setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
-            logger.info("Result: " + commandResult.feedbackToUser);
-            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            //@@author A0139938L
+            if(commandResult != null){
+                //@@author
+                logger.info("Result: " + commandResult.feedbackToUser);
+                raise(new UpdateTasksEvent());
+                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            }
 
         } catch (CommandException e) {
             // handle command failure
             setStyleToIndicateCommandFailure();
+            commandTextField.setText("");
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
