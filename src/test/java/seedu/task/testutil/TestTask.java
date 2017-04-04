@@ -6,6 +6,7 @@ import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartTime;
+import seedu.task.model.task.Task;
 import seedu.task.model.task.TaskType;
 
 //@@author A0146789H
@@ -29,6 +30,15 @@ public class TestTask implements ReadOnlyTask {
      * Creates a copy of {@code personToCopy}.
      */
     public TestTask(TestTask taskToCopy) {
+        this.name = taskToCopy.getName();
+        this.startTime = taskToCopy.getStartTime();
+        this.endTime = taskToCopy.getEndTime();
+        this.completionStatus = taskToCopy.getCompletionStatus();
+        this.tags = taskToCopy.getTags();
+        this.taskType = taskToCopy.getTaskType();
+    }
+
+    public TestTask(Task taskToCopy) {
         this.name = taskToCopy.getName();
         this.startTime = taskToCopy.getStartTime();
         this.endTime = taskToCopy.getEndTime();

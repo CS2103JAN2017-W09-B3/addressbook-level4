@@ -29,6 +29,8 @@ public class XmlAdaptedTask {
     private Date endDate;
     @XmlElement(required = true)
     private String completionStatus;
+    @XmlElement(required = true)
+    private String taskType;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -50,6 +52,7 @@ public class XmlAdaptedTask {
         startDate = source.getStartTime().value;
         endDate = source.getEndTime().value;
         completionStatus = source.getCompletionStatus().toString();
+        taskType = source.getTaskType().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));

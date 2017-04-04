@@ -173,6 +173,7 @@ public class Task implements ReadOnlyTask {
         this.setEndTime(replacement.getEndTime());
         this.setCompletionStatus(replacement.getCompletionStatus());
         this.setTags(replacement.getTags());
+        this.setTaskType(replacement.getTaskType());
     }
 
     @Override
