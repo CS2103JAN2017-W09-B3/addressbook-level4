@@ -33,7 +33,8 @@ public class EditCommandParser extends AbstractParser {
             + PATTERN_OPTIONAL_STARTDATE + PATTERN_OPTIONAL_ENDDATE + PATTERN_OPTIONAL_TAGS + "$";
 
     private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(ARGUMENTS_PATTERN, Pattern.CASE_INSENSITIVE);
-    private static final Pattern ARGUMENTS_FORMAT_QUOTED = Pattern.compile(ARGUMENTS_PATTERN_QUOTED, Pattern.CASE_INSENSITIVE);
+    private static final Pattern ARGUMENTS_FORMAT_QUOTED = Pattern.compile(
+            ARGUMENTS_PATTERN_QUOTED, Pattern.CASE_INSENSITIVE);
 
     private static final Logger logger = LogsCenter.getLogger(AddCommandParser.class);
     private static final String logPrefix = "[EditCommandParser]";

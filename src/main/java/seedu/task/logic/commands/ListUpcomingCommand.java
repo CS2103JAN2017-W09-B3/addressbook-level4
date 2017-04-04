@@ -8,7 +8,8 @@ import seedu.task.model.task.CompletionStatus;
  */
 public class ListUpcomingCommand extends Command {
 
-    public static final String[] LIST_COMMAND_WORDS = new String[] {CompletionStatus.IncompleteType.UPCOMING.toString()};
+    public static final String[] LIST_COMMAND_WORDS = new String[] {
+          CompletionStatus.IncompleteType.UPCOMING.toString()};
     public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
     public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
