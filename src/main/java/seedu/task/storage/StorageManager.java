@@ -1,6 +1,7 @@
 package seedu.task.storage;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.LoadFromRequestEvent;
 import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.events.storage.DataLoadingExceptionEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.ReadOnlyTaskManager;
@@ -113,7 +115,16 @@ public class StorageManager extends ComponentManager implements Storage {
     @Subscribe
     public void handleLoadFromRequestEvent(LoadFromRequestEvent event) throws IOException, DataConversionException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing load from location to " + event.filepath));
-        event.taskManager = readTaskManager(event.filepath);
+        changeLoadFromLocation(event);
+    }
+
+    private void changeLoadFromLocation(LoadFromRequestEvent event) {
+        try {
+            event.taskManager = readTaskManager(event.filepath);
+            raise(new DataLoadingExceptionEvent(""));
+        } catch (DataConversionException | IOException | NoSuchElementException e) {
+            raise(new DataLoadingExceptionEvent(e));
+        }
     }
 
     //@@author

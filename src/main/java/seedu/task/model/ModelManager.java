@@ -1,5 +1,6 @@
 package seedu.task.model;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -15,6 +16,7 @@ import seedu.task.commons.events.model.LoadFromRequestEvent;
 import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.model.UpdateTasksEvent;
+import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.chat.ChatList;
@@ -38,6 +40,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<ReadOnlyTask> filteredTasks;
     //@@author A0139938L
     private final ChatList chatList;
+    private final String MESSAGE_RESET_DATA_SUCCESS = "Data has been successfully loaded!";
+    private final String MESSAGE_RESET_DATA_FAIL = "No such file exists!";
+
     //@@author
     private final UndoManager undoManager = new UndoManager();
 
@@ -68,8 +73,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void resetData(Optional<ReadOnlyTaskManager> taskManager) {
-        ReadOnlyTaskManager readOnly = taskManager.get();
-        this.resetData(readOnly);
+        try{
+            ReadOnlyTaskManager readOnly = taskManager.get();
+            this.resetData(readOnly);
+            raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_SUCCESS));
+        }catch(NoSuchElementException nsee){
+            raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_FAIL));
+        }
     }
 
     @Override
@@ -81,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     protected void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
     }
-//@@author A0138664W
+    //@@author A0138664W
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
@@ -331,7 +341,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ChatList getChatList() {
         return chatList;
     }
-//@@author A0138664W
+    //@@author A0138664W
     @Override
     public synchronized void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
@@ -363,7 +373,7 @@ public class ModelManager extends ComponentManager implements Model {
     public int getTaskID(Task task) {
         return taskManager.getTaskID(task);
     }
-//@@author
+    //@@author
 
     //@@author A0139938L
     @Override

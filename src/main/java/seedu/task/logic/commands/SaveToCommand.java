@@ -1,5 +1,8 @@
 package seedu.task.logic.commands;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
@@ -23,14 +26,17 @@ public class SaveToCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Save location has been changed.";
     private static final String MESSAGE_FAILURE = "There was a problem changing your save location";
+    private static final String MESSAGE_INVALID_FILE = "Please specify a file name ending in .xml";
     private static final String MESSAGE_ATTEMPT = "Attempting to save file...";
+    private static final String VALID_FILE_REGEX = ".+[\\w,\\s,\\d]+\\.xml$";
+    private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(VALID_FILE_REGEX);
+
 
     private String filepath = "";
 
     //@@author A0146789H
     protected SaveToCommand() {
         super(COMMAND_WORDS);
-        registerAsAnEventHandler(this);
     }
 
     //@@author A0139938L
@@ -45,14 +51,34 @@ public class SaveToCommand extends Command {
      * */
     public void executeAsync() {
         ReadOnlyTaskManager taskManager = model.getTaskManager();
-        model.changeSaveToLocation(taskManager, filepath);
-        writeToChat(MESSAGE_ATTEMPT);
+        if(isFilePathValid(filepath)){
+            model.changeSaveToLocation(taskManager, filepath);
+        }else{
+            writeToChat(MESSAGE_INVALID_FILE);
+        }
+    }
+
+    /**
+     * Checks if file path is a valid xml file.
+     * @param filepath
+     * @return
+     */
+    private boolean isFilePathValid(String filepath) {
+//        try{
+//            Matcher matcher = ARGUMENTS_FORMAT.matcher(filepath);
+//            String matched = matcher.matc;
+//            return true;
+//        }catch(IllegalStateException ise){
+//            return false;
+//        }
+        Matcher matcher = ARGUMENTS_FORMAT.matcher(filepath);
+        return matcher.matches();
     }
 
     @Override
     public CommandResult execute() throws CommandException {
         executeAsync();
-        return new CommandResult("Hi");
+        return null;
     }
 
     /**
@@ -62,11 +88,12 @@ public class SaveToCommand extends Command {
      */
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent dsee) {
-        if(dsee.exception==null){
+        if(dsee.exception == null){
             writeToChat(MESSAGE_SUCCESS);
         }else{
             writeToChat(MESSAGE_FAILURE + ": " + dsee.toString());
         }
+        unregisterAsAnEventHandler(this);
     }
 
     /**
@@ -75,6 +102,7 @@ public class SaveToCommand extends Command {
     public String getFilepath() {
         return filepath;
     }
+
     /**
      * @param filepath the filepath to set
      */

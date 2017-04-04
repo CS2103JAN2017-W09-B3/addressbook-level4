@@ -34,6 +34,12 @@ public class EventsCenter {
         return this;
     }
 
+    //@@author A0139938L
+    public EventsCenter unregisterHandler(Object handler) {
+        eventBus.unregister(handler);
+        return this;
+    }
+    //@@author
     /**
      * Posts an event to the event bus.
      */

@@ -17,7 +17,7 @@ public abstract class Command {
     /**
      * Constructs the class with an array of valid command words.
      *
-     * @param cOMMAND_WORDS
+     * @param COMMAND_WORDS
      */
     public Command(String[] commandWords) {
         super();
@@ -73,6 +73,14 @@ public abstract class Command {
      */
     protected void registerAsAnEventHandler(Object handler) {
         EventsCenter.getInstance().registerHandler(handler);
+    }
+
+    /**
+     * Unregisters the object as an event handler at the {@link EventsCenter}
+     * @param handler usually {@code this}
+     */
+    protected void unregisterAsAnEventHandler(Object handler) {
+        EventsCenter.getInstance().unregisterHandler(handler);
     }
 
     /**

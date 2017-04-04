@@ -4,7 +4,10 @@ package seedu.task.logic.commands;
 
 public class LoadFromCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Load location has been changed.";
+   public static final String MESSAGE_SUCCESS = "Load location has been changed.";
+    private static final String MESSAGE_FAILURE = "There was a problem changing your load location";
+    private static final String MESSAGE_ATTEMPT = "Attempting to load file...";
+
     private String filepath = "";
     //@@author A0146789H
 
@@ -25,16 +28,16 @@ public class LoadFromCommand extends Command {
     public LoadFromCommand(String filepath) {
         this();
         this.setFilepath(filepath);
+        registerAsAnEventHandler(this);
     }
 
     //@@author A0139938L
     @Override
     public CommandResult execute() {
         model.changeLoadFromLocation(filepath);
-        //TODO: Check if save worked before returning the message.
-
-        return new CommandResult(MESSAGE_SUCCESS);
+        return null;
     }
+
     /**
      * @return the filepath
      */
