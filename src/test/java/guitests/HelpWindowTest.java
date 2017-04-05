@@ -33,6 +33,7 @@ public class HelpWindowTest extends TaskManagerGuiTest {
         helpWindowHandle.closeWindow();
     }
 
+    @SuppressWarnings("unused")
     private void assertHelpWindowNotOpen(HelpWindowHandle helpWindowHandle) {
         assertFalse(helpWindowHandle.isWindowOpen());
     }

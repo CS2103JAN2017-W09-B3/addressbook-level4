@@ -124,7 +124,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      *  Updates all the completionStatus of all the tasks when called
      */
-    public void UpdateTasksStatus() {
+    public void updateTasksStatus() {
         tasks.forEach(updateIncompleteType);
     }
     //@@author

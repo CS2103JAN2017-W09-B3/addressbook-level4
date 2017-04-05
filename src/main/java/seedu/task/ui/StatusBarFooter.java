@@ -1,7 +1,5 @@
 package seedu.task.ui;
 
-import java.util.logging.Logger;
-
 import org.controlsfx.control.StatusBar;
 
 import com.google.common.eventbus.Subscribe;
@@ -10,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.FxViewUtil;
@@ -22,7 +19,7 @@ import seedu.task.model.task.ReadOnlyTask;
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart<Region> {
-    private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
+    //private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
 
     @FXML
     private StatusBar progressStatus;
@@ -30,7 +27,7 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
     private static final String FXML = "StatusBarFooter.fxml";
-    private final String SAVING_MESSAGE = "Saving to: ./";
+    private static final String SAVING_MESSAGE = "Saving to: ./";
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation, ObservableList<ReadOnlyTask> observableList) {
         super(FXML);

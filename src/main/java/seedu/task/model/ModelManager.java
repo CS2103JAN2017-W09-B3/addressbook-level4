@@ -40,8 +40,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<ReadOnlyTask> filteredTasks;
     //@@author A0139938L
     private final ChatList chatList;
-    private final String MESSAGE_RESET_DATA_SUCCESS = "Data has been successfully loaded!";
-    private final String MESSAGE_RESET_DATA_FAIL = "No such file exists!";
+    private static final String MESSAGE_RESET_DATA_SUCCESS = "Data has been successfully loaded!";
+    private static final String MESSAGE_RESET_DATA_FAIL = "No such file exists!";
 
     //@@author
     private final UndoManager undoManager = new UndoManager();
@@ -124,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
     //updates the incompleteType for all events every time there is new result update
     @Subscribe
     private void handleUpdateTasksEvent(UpdateTasksEvent event) {
-        taskManager.UpdateTasksStatus();
+        taskManager.updateTasksStatus();
     }
     //@@author
 

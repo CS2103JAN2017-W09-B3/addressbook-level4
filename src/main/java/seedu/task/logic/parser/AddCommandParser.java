@@ -76,8 +76,7 @@ public class AddCommandParser extends AbstractParser {
             Matcher matcher;
             if (taskName == null) {
                 matcher = ARGUMENTS_FORMAT.matcher(args);
-            }
-            else {
+            } else {
                 matcher = ARGUMENTS_FORMAT_QUOTED.matcher(args);
             }
 
