@@ -24,7 +24,7 @@ import seedu.task.model.task.UniqueTaskList;
 public class DeleteTagCommand extends Command {
 
     //@@author A0146789H
-    public static final String[] COMMAND_WORDS = new String[] {"deltag"};
+    public static final String[] COMMAND_WORDS = new String[] {"deltag", "deltags"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     //@@author A0138664W

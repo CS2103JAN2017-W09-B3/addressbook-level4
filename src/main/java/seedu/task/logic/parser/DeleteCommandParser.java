@@ -23,7 +23,7 @@ public class DeleteCommandParser extends AbstractParser {
     public Command parse(String args) {
 
         Optional<Integer> index = ParserUtil.parseIndex(args);
-        if (!index.isPresent()) {
+        if (!index.isPresent() || index.get() <= 0) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
