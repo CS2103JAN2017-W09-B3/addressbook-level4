@@ -29,18 +29,18 @@ public class AddCommandTest extends TaskManagerGuiTest {
         }
         TestTask taskToAdd = currentList[0];
         taskToAdd.setName(new Name("Another Task Name"));
-//        assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
         taskToAdd = currentList[1];
-//        assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
         commandBox.runCommand(currentList[2].getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");

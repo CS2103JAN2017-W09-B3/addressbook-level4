@@ -34,6 +34,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         }
     }
 
+    //@@author A0139410N
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
         commandBox.runCommand("unchecked 1");
@@ -41,9 +42,10 @@ public class EditCommandTest extends TaskManagerGuiTest {
         int taskManagerIndex = 1;
 
         TestTask editedTask = new TestTaskBuilder().withName("Bobby").withStartDate("11/12/12 00:00")
-                .withEndDate("11/13/12 00:00").withCompletion(false).withTags("husband").build();
+                .withEndDate("11/13/12 00:00").withCompletion(false, "overdue").withTags("husband")
+                .withTaskType("event").build();
 
-//        assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
+        assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
     }
 
     @Test
@@ -54,7 +56,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTask taskToEdit = expectedTasksList[taskManagerIndex - 1];
         TestTask editedTask = new TestTaskBuilder(taskToEdit).withTags("bestie").build();
 
-//        assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
+        assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
     }
 
     @Test
@@ -68,9 +70,10 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTask taskToEdit = expectedTasksList[taskManagerIndex - 1];
         TestTask editedTask = new TestTaskBuilder(taskToEdit).withName("CS2103 Presentation Preparation").build();
 
-//        assertEditSuccess(filteredTaskListIndex, taskManagerIndex, detailsToEdit, editedTask);
+        assertEditSuccess(filteredTaskListIndex, taskManagerIndex, detailsToEdit, editedTask);
     }
 
+    //@@author A0139938L
     @Test
     public void edit_missingTaskIndex_failure() {
         commandBox.runCommand("edit Bobby");
