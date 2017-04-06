@@ -6,8 +6,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart<Region> {
@@ -31,7 +29,12 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private ImageView imgUnchecked;
     @FXML
-    private Text taskTypeText;
+    private Label taskTypeLabel;
+
+
+    private final String BACKGROUND_COLOR_STYLE = "-fx-background-color: ";
+    private final String TEXT_FILL_STYLE = "-fx-text-fill: ";
+    private final String FONT_SIZE_STYLE = "-fx-font-size: ";
 
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
@@ -40,7 +43,7 @@ public class TaskCard extends UiPart<Region> {
         startTime.setText(task.writeStartTime());
         endTime.setText(task.writeEndTime());
         String completionStatus = task.getCompletionStatus().toString().toUpperCase();
-        taskTypeText.setText(completionStatus);
+        taskTypeLabel.setText(completionStatus);
         setTaskTypeTextColor(completionStatus);
         setCheckboxStatus(task.getCompletionStatus().getCompletion());
         initTags(task);
@@ -75,15 +78,33 @@ public class TaskCard extends UiPart<Region> {
     private void setTaskTypeTextColor(String type) {
         switch(type) {
         case "OVERDUE":
-            taskTypeText.setFill(Color.DARKRED);
+            setLabelStyle("#d55454");
             break;
         case "UPCOMING":
-            taskTypeText.setFill(Color.ORANGE);
+            setLabelStyle("orange");
             break;
         default:
-            taskTypeText.setFill(Color.TRANSPARENT);
+            taskTypeLabel.setStyle("-fx-text-fill: none;");
             break;
         }
+    }
+
+    /**
+     * Sets the background color of the label
+     * Sets the text color to white
+     * Sets the font size to 8pt
+     * @param backgroundColor
+     */
+    private void setLabelStyle(String backgroundColor) {
+        String textFill = "white";
+        String fontSize = "8pt";
+
+        String style =
+                BACKGROUND_COLOR_STYLE + backgroundColor + ";" +
+                TEXT_FILL_STYLE + textFill + ";" +
+                FONT_SIZE_STYLE + fontSize + ";";
+
+        taskTypeLabel.setStyle(style);
     }
 
 }

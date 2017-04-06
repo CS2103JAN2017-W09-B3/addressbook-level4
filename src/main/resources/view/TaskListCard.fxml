@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <!-- @@author -->
 
@@ -67,10 +66,13 @@
             <RowConstraints />
          </rowConstraints>
         </GridPane>
-      <Text fx:id="taskTypeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <Label fx:id="taskTypeLabel" text="Label" textFill="WHITE">
+         <padding>
+            <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+         </padding>
          <HBox.margin>
-            <Insets right="16.0" top="8.0" />
+            <Insets right="16.0" />
          </HBox.margin>
-      </Text>
+      </Label>
     </children>
 </HBox>
