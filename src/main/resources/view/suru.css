@@ -159,7 +159,7 @@
 }
 
 #task-list-view{
-	-fx-background-image: url("../images/mountain.jpg");
+	-fx-background-image: url("../images/work.jpg");
 	-fx-background-position: top center;
 	-fx-background-size:cover;
 }
