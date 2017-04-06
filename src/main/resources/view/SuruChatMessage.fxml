@@ -10,7 +10,7 @@
    <children>
       <VBox layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" prefWidth="350.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label fx:id="message" style="-fx-background-color: #56adff;" text="\$messageLabel" textFill="WHITE" wrapText="true">
+            <Label fx:id="message" style="-fx-background-color: white;" text="\$messageLabel" wrapText="true">
                <padding>
                   <Insets bottom="16.0" left="8.0" right="8.0" top="16.0" />
                </padding>

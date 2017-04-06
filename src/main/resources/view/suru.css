@@ -76,13 +76,12 @@
 }
 
 .chat-display {
-    -fx-background-color: #ffffff;
     -fx-height: 100%;
     -fx-width: 100%;
 }
 
 .chat-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: #1d1d1d;
 }
 
 .menu .left-container {
@@ -134,4 +133,15 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#chat-list-view .list-cell:even {
+	-fx-background-color: transparent;
+}
+#chat-list-view .list-cell:odd {
+	-fx-background-color: transparent;
+}
+#chat-list-view{
+	-fx-background-image: url("../images/chat-background.jpg");
+	-fx-background-position: top center;
 }
