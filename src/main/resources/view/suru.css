@@ -2,7 +2,8 @@
 .title-text{
     -fx-font-size: 12pt;
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Tahoma, Geneva, sans-serif";
+    -fx-font-weight: bold;    
 }
 
 .title-container{
@@ -15,27 +16,27 @@
 
 #taskTypeText{
     -fx-font-size: 8pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Tahoma, Geneva, sans-serif";
     -fx-opacity: 0.5;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Tahoma, Geneva, sans-serif";
     -fx-text-fill: #1d1d1d;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Tahoma, Geneva, sans-serif";
     -fx-text-fill: #1d1d1d;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Tahoma, Geneva, sans-serif";
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -54,16 +55,23 @@
 }
 
 .cell_big_label {
+	-fx-font-family: "Tahoma, Geneva, sans-serif";
     -fx-font-size: 14px;
     -fx-text-fill: #010504;
+    -fx-font-weight: bold;
+}
+
+.cell_index_label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #969696;
 }
 
 .cell_small_label_start_date {
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-text-fill: #56adff;
 }
 .cell_small_label_end_date {
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-text-fill: #d55454;
 }
 
@@ -115,7 +123,7 @@
 
 #tags {
     -fx-hgap: 7;
-    -fx-vgap: 3;
+    -fx-vgap: 5;
 }
 
 #tags .label {

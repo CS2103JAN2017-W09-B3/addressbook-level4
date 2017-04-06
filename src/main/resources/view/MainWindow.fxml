@@ -18,9 +18,9 @@
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
-      <SplitPane fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+      <SplitPane fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="taskList" minWidth="340" prefWidth="340">
+            <VBox fx:id="taskList">
                <children>
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                   <AnchorPane fx:id="statusbarPlaceholder" />

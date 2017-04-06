@@ -40,7 +40,7 @@ public class TaskCard extends UiPart<Region> {
 
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
-        name.setText(task.getName().fullName);
+        name.setText(task.getName().fullName + " ");
         id.setText(displayedIndex + ". ");
         startTime.setText(task.writeStartTime());
         endTime.setText(task.writeEndTime());
