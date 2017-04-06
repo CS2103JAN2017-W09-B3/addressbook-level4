@@ -164,6 +164,16 @@
 	-fx-background-size:cover;
 }
 
+#task-list-view .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #cae3f8;
+    -fx-text-fill: white;
+}
+
+#chat-list-view .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #cae3f8;
+    -fx-text-fill: white;
+}
+
 .message{
 	  -fx-border-radius: 10 10 10 10;
   -fx-background-radius: 10 10 10 10;
