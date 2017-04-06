@@ -20,13 +20,13 @@
    <children>
       <SplitPane fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="taskList">
+            <VBox fx:id="taskList" minWidth="700.0">
                <children>
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                   <AnchorPane fx:id="statusbarPlaceholder" />
                </children>
             </VBox>
-            <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="450.0" SplitPane.resizableWithParent="false">
+            <VBox maxWidth="-Infinity" minWidth="500.0" SplitPane.resizableWithParent="false">
                <children>
                   <StackPane styleClass="title-container">
                      <children>

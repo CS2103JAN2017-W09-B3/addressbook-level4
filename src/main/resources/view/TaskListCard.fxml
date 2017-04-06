@@ -59,7 +59,7 @@
                           </padding>
       
                                                         <children>
-                        <FlowPane prefWrapLength="300.0">
+                        <FlowPane maxWidth="1.7976931348623157E308" minWidth="700.0" prefWrapLength="300.0">
                            <children>
                                        <Label fx:id="name" maxWidth="400.0" styleClass="cell_big_label" text="\$first" wrapText="true" />
                                     <Label fx:id="startTime" styleClass="cell_small_label_start_date" text="\$startTime" />

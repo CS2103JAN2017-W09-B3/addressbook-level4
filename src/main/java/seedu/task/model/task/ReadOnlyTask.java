@@ -71,9 +71,21 @@ public interface ReadOnlyTask {
         return completionStatus;
     }
 
+    public default String writeCompletionStatusToUpper() {
+        String completionStatus = "";
+        completionStatus = COMPLETION_STATUS_MESSAGE + getCompletionStatus().toString().toUpperCase();
+        return completionStatus;
+    }
+
     public default String writeTaskType() {
         String taskType = "";
         taskType = TASK_TYPE_MESSAGE + getTaskType().toString() + "\n";
+        return taskType;
+    }
+
+    public default String writeTaskTypeWithoutNewLine() {
+        String taskType = "";
+        taskType = TASK_TYPE_MESSAGE + getTaskType().toString() + " ";
         return taskType;
     }
 
@@ -111,10 +123,26 @@ public interface ReadOnlyTask {
         return result;
     }
 
+     public default String writeEndTimeWithoutNewLine() {
+        String result = "";
+        if (hasEndTime()) {
+            result = getEndTimeMessage() + getEndTime().toString() + " ";
+        }
+        return result;
+    }
+
     public default String writeStartTime() {
         String result = "";
         if (hasStartTime()) {
             result = START_TIME_MESSAGE + getStartTime().toString()  + "\n";
+        }
+        return result;
+    }
+
+    public default String writeStartTimeWithoutNewLine() {
+        String result = "";
+        if (hasStartTime()) {
+            result = START_TIME_MESSAGE + getStartTime().toString() + " ";
         }
         return result;
     }

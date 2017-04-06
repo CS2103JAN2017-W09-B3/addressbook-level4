@@ -46,8 +46,8 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         name.setText(task.getName().fullName + " ");
         id.setText(displayedIndex + ". ");
-        startTime.setText(task.writeStartTime());
-        endTime.setText(task.writeEndTime());
+        startTime.setText(task.writeStartTimeWithoutNewLine());
+        endTime.setText(task.writeEndTimeWithoutNewLine());
         String completionStatus = task.getCompletionStatus().toString().toUpperCase();
         taskTypeLabel.setText(completionStatus);
         setTaskTypeTextColor(completionStatus);
