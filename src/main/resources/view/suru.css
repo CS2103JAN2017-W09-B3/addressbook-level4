@@ -10,10 +10,6 @@
 	-fx-background-color: #37474fff;
 }
 
-.background{
-	-fx-background-color: white;	
-}
-
 #taskTypeText{
     -fx-font-size: 8pt;
     -fx-font-family: "Tahoma, Geneva, sans-serif";
@@ -144,4 +140,31 @@
 #chat-list-view{
 	-fx-background-image: url("../images/chat-background.jpg");
 	-fx-background-position: top center;
+}
+
+#cardPane{
+	-fx-background-color: white;
+	-fx-background-radius: 10 10 10 10;
+	-fx-border-radius: 10 10 10 10;
+	
+	
+}
+
+#task-list-view .list-cell:even {
+	-fx-background-color: transparent;
+}
+
+#task-list-view .list-cell:odd {
+	-fx-background-color: transparent;
+}
+
+#task-list-view{
+	-fx-background-image: url("../images/mountain.jpg");
+	-fx-background-position: top center;
+	-fx-background-size:cover;
+}
+
+.message{
+	  -fx-border-radius: 10 10 10 10;
+  -fx-background-radius: 10 10 10 10;
 }
