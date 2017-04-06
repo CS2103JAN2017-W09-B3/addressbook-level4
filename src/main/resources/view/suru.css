@@ -103,18 +103,18 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell .label {
-    -fx-text-fill: #010504;
-}
-
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
-.cell_small_label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+.cell_small_label_start_date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #56adff;
+}
+.cell_small_label_end_date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #d55454;
 }
 
 .anchor-pane {

@@ -35,6 +35,8 @@ public class TaskCard extends UiPart<Region> {
     private final String BACKGROUND_COLOR_STYLE = "-fx-background-color: ";
     private final String TEXT_FILL_STYLE = "-fx-text-fill: ";
     private final String FONT_SIZE_STYLE = "-fx-font-size: ";
+    private final String OVERDUE_COLOR = "#d55454";
+    private final String UPCOMING_COLOR = "orange";
 
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
@@ -78,10 +80,10 @@ public class TaskCard extends UiPart<Region> {
     private void setTaskTypeTextColor(String type) {
         switch(type) {
         case "OVERDUE":
-            setLabelStyle("#d55454");
+            setLabelStyle(OVERDUE_COLOR);
             break;
         case "UPCOMING":
-            setLabelStyle("orange");
+            setLabelStyle(UPCOMING_COLOR);
             break;
         default:
             taskTypeLabel.setStyle("-fx-text-fill: none;");
