@@ -2,18 +2,16 @@
 
 <!-- @@author A0139938L -->
 
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <!-- @@author -->
 
-<AnchorPane styleClass="anchor-pane" stylesheets="@suru.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@suru.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..." />
-         <TextArea fx:id="resultDisplay" prefHeight="50.0" visible="false" />
       </children>
    </VBox>
 </AnchorPane>
