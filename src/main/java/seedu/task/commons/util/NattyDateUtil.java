@@ -17,6 +17,18 @@ import seedu.task.logic.parser.AddCommandParser;
  *
  * This class provides utility functions to flexibly parse Dates from a string.
  */
+/**
+ * @author amon
+ *
+ */
+/**
+ * @author amon
+ *
+ */
+/**
+ * @author amon
+ *
+ */
 public class NattyDateUtil {
 
     private static final Logger logger = LogsCenter.getLogger(AddCommandParser.class);
@@ -48,16 +60,31 @@ public class NattyDateUtil {
                     logPrefix, result.toString(), dg.isDateInferred(), dg.isTimeInferred()));
 
         // If the time was inferred, set the time explicitly to (high) noon.
+        Date finalDate = setExplicitTime(result, 12, 0, 0, 0);
+        logger.info(String.format("%s newResult: %s", logPrefix, finalDate.toString()));
+
+        return finalDate;
+    }
+
+    /**
+     * Set the time fields explicitly for a Date object
+     *
+     * @param original date to modify
+     * @param hour to set
+     * @param minute to set
+     * @param second to set
+     * @param millisecond to set
+     * @return a new Date object with the supplied values
+     */
+    public static Date setExplicitTime(Date original, int hour, int minute, int second, int millisecond) {
+        // We have to use the Calendar object as a wrapper to avoid deprecated methods
         Calendar modified = Calendar.getInstance();
-        modified.setTime(result);
-        modified.set(Calendar.HOUR, 12);
-        modified.set(Calendar.MINUTE, 0);
-        modified.set(Calendar.SECOND, 0);
-        modified.set(Calendar.MILLISECOND, 0);
+        modified.setTime(original);
+        modified.set(Calendar.HOUR, hour);
+        modified.set(Calendar.MINUTE, minute);
+        modified.set(Calendar.SECOND, second);
+        modified.set(Calendar.MILLISECOND, millisecond);
         Date newResult = modified.getTime();
-
-        logger.info(String.format("%s newResult: %s", logPrefix, newResult.toString()));
-
         return newResult;
     }
 
