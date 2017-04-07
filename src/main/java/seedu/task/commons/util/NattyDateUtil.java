@@ -1,3 +1,4 @@
+//@@author A0146789H
 package seedu.task.commons.util;
 
 import java.util.Calendar;
@@ -11,28 +12,25 @@ import com.joestelmach.natty.Parser;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.logic.parser.AddCommandParser;
 
-//@@author A0146789H
 /**
  * @author amon
  *
  * This class provides utility functions to flexibly parse Dates from a string.
  */
-/**
- * @author amon
- *
- */
-/**
- * @author amon
- *
- */
-/**
- * @author amon
- *
- */
 public class NattyDateUtil {
 
     private static final Logger logger = LogsCenter.getLogger(AddCommandParser.class);
     private static final String logPrefix = "[AddCommandParser]";
+
+    /**
+     * Preprocesses a string before it gets passed to the natty parser
+     *
+     * @param original string to process
+     * @return the processed string
+     */
+    private static String preprocess(String original) {
+        return original;
+    }
 
     /**
      * Parse a string into a single date object using Natty.
@@ -43,6 +41,9 @@ public class NattyDateUtil {
     public static Date parseSingleDate(String dataString) {
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(dataString);
+
+        // Pre-process data string to provide quality of life localisations
+        dataString = preprocess(dataString);
 
         logger.info(String.format("%s parsing date string '%s'", logPrefix, dataString));
 
