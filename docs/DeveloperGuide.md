@@ -8,18 +8,24 @@ By : `Team W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbs
 
 ---
 
-1. [Introduction](1-introduction)
-2. [Setting Up](2-setting-up)
-3. [Design](3-design)
-4. [Configuration](4-configuration)
-5. [Testing](5-testing)
-6. [Dev Ops](6-dev-ops)
+1. [Introduction](#1-introduction)
+2. [Setting Up](#2-setting-up)
+3. [Design](#3-design)
+	1. [Architecture](#31-architecture)
+	2. [UI component](#32-ui-component)
+	3. [Logic component](#33-logic-component)
+	4. [Model component](#34-model-component)
+	5. [Storage component](#35-storage-component)
+	6. [Common classes](#36-common-classes)
+4. [Configuration](#4-configuration)
+5. [Testing](#5-testing)
+6. [Dev Ops](#6-dev-ops)
 
-* [Appendix A: User Stories](appendix-a--user-stories)
-* [Appendix B: Use Cases](appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](appendix-d--glossary)
-* [Appendix E : Product Survey](appendix-e--product-survey)
+* [Appendix A: User Stories](#appendix-a--user-stories)
+* [Appendix B: Use Cases](#appendix-b--use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 ## 1. Introduction
 Welcome to Suru, the innovative personal assistant designed to help you manage your tasks like a boss. This developer guide aims to document every feature of Suru so you can get started contributing to this project. The guide teaches you all you need to know from setting up your development environment to deploying Suru for production.
@@ -85,7 +91,6 @@ Welcome to Suru, the innovative personal assistant designed to help you manage y
 ### 3.1. Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-_Figure 2.1.1 : Architecture Diagram_
 
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
@@ -93,19 +98,19 @@ Given below is a quick overview of each component.
 > Tip: The `.pptx` files used to create diagrams in this document can be found in the [diagrams](diagrams/) folder.
 > To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/task/MainApp.java). It is responsible for,
+`Main` has a single class called [`MainApp`](../src/main/java/seedu/task/MainApp.java).
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch it initializes the components in the correct sequence, and their constructors, passing necessary information to the relevant components.
+* At shut down it shuts down the components and invokes cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design). e.g. use events when communicating between `Model` and `UI`.
 * `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The architecture consists of four other major components.
 
 * [**`UI`**](32-ui-component) : Initializes the UI for the app.
 * [**`Logic`**](33-logic-component) : Executes the commands.
@@ -114,14 +119,10 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Outlines all important methods in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.<br>
-
-<img src="images/LogicClassDiagram.png" width="800"><br>
-
-_Figure 2.1.2 : Class Diagram of the Logic Component_
+For example, the `Logic` component defines its APIs in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 #### Events-Driven nature of the design
 
@@ -129,15 +130,12 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 
 <img src="images\SDforDeleteTask.png" width="800"><br>
 
-_Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 
->Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Suru data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+> Note how the `Model` simply raises a `TaskManagerChangedEvent` when the data is changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
-
-_Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
@@ -149,8 +147,6 @@ Author: Shawn
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-_Figure 2.2.1 : Structure of the UI Component_
-
 **API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
@@ -158,7 +154,7 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -171,9 +167,9 @@ Author: Jeremy
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-_Figure 2.3.1 : Structure of the Logic Component_
-
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
+
+The `Logic` component consists of the `Logic Manager`, `Command Result`, `Parser`, `Command Parser` and `Command` classes. The logic component is responsible for parsing the input from the `UI` and affecting the corresponding `Model` objects.
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -184,7 +180,10 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
-_Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
+#### 3.3.1 Natty Date Parser
+Suru uses Natty for parsing natural language DateTime input. For instructions on how to set up Natty, follow the instructions [here](http://natty.joestelmach.com/)
+
+Suru has implemented customizations that wrap around Natty. These methods can be found in `NattyDateUtil`.
 
 <!-- @@author A0139410N -->
 ### 3.4. Model component
@@ -193,11 +192,9 @@ Author: Tian Song
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-_Figure 2.4.1 : Structure of the Model Component_
-
 **API** : [`Model.java`](../src/main/java/seedu/task/model/Model.java)
 
-The `Model`
+The `Model` consists of several classes that contain information relevant to the data and data structures each object contains. The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Suru Task Manager data.
@@ -207,17 +204,15 @@ The `Model`
 
 <!-- @@author A0138664W -->
 
-### 3.5. Storage Component
+### 3.5. Storage component
 
 Author: Mustaqiim
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-_Figure 2.5.1 : Structure of the Storage Component_
-
 **API** : [`Storage.java`](../src/main/java/seedu/task/storage/Storage.java)
 
-The `Storage` component
+The `Storage` component contain classes that save and load data in json and xml formats. The `Storage` should not directly communicate with the `Model` or `UI`. Interactions between these components should interact using `Events`. `Storage`
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Suru Task Manager data in xml format and read it back.
@@ -230,7 +225,7 @@ Classes used by multiple components are in the `seedu.task.commons` package.
 
 ### 4.1. Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+The `java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](42-configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -241,7 +236,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### 4.2. Configuration file
@@ -332,7 +327,6 @@ Here are the steps to convert the project documentation files to PDF format.
  4. Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. <br>
     For best results, use the settings indicated in the screenshot below. <br>
     <img src="images/chrome_save_as_pdf.png" width="300"><br>
-    _Figure 5.4.1 : Saving documentation as PDF files in Chrome_
 
 ### 6.6. Managing Dependencies
 
@@ -366,23 +360,12 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | search incomplete tasks by date or date range | check tasks due on a certain day or within a time frame
 `* * *` | user | search for tasks | find a specific task
 `* * *` | user | check off task | track what tasks are done
-`* * *` | user | uncheck a task | correct accidental check off of a task
+`* * *` | user | uncheck a task | correct accidental check off of a task|
 `* * *` | advanced user | Define save and load directory | specify which directory the program read and write from
-`* *` | user | add reminders to task | be reminded before task is going to be due
-`* *` | user | edit reminders of task |
-`* *` | user | delete reminders of task |
-`* *` | user | add a recurring task | add multiple entries of repetitive tasks
 `* *` | user | add tags to task | categorize tasks by tags
-`* *` | user | edit tags under a task |
 `* *` | user | remove tags from task |
-`* *` | user | sort tasks by tags | search for tasks with common category
-`* *` | advanced user | hotkey shortcut | auto open the application without mouse interaction
-`*` | new user | step-by-step tutorial for common features | get familiar with the program
-`*` | user | add a task with checklist | find out about the different things to be done for the task
-`*` | user | edit a checklist |
-`*` | user | remove a checklist |
+`* *`| user| receive email reminders| |
 `*` | advanced user | use shorter versions of a command | type command faster
-`*` | advanced user | add task reminder to Google Cal | due task shown as full day event in calendar
 
 ## Appendix B : Use Cases (UC)
 
@@ -610,151 +593,7 @@ Use case ends.
 
 > Use case ends.
 
-### `UC11 - Add a reminder to a task`
-
-**MSS**
-
-1. User **view all tasks (_UC02_).**
-2. User requests to add a reminder to a task by index and reminder date/time.
-3. Suru requests user for confirmation.
-4. User confirms changes.
-5. Suru GUI is refreshed to show updated list of tasks.
-6. Suru shows user a notification when reminder date/time is hit.
-Use case ends.
-
-**Extensions**
-
-2a. The given index is invalid.
-
-> 2a1. Suru displays error message.
-> Use case ends.
-
-2b. The requested task to add reminder is already completed.
-
-> 2b1. Suru displays error message.
-> Use case ends.
-
-2c. The date for reminder is after due date of task.
-
-> 2c1. Suru displays error message.
-> Use case ends.
-
-2d. The date is in invalid format.
-
-> 2d1. Suru displays error message.
-> Use case ends.
-
-4a. User rejects changes.
-
-> Use case ends.
-
-### `UC12 - Edit a reminder for a task`
-
-**MSS**
-
-1. User **view all tasks (_UC02_).**
-2. User requests to edit a reminder for a task by index and reminder date/time.
-3. Suru requests user for confirmation.
-4. User confirms changes.
-5. Suru GUI is refreshed to show updated list of tasks.
-6. Suru shows user a notification when new reminder date/time is hit.
-Use case ends.
-
-**Extensions**
-
-2a. The given index is invalid.
-
-> 2a1. Suru displays error message.
-> Use case ends.
-
-2b. The requested task to edit reminder is already completed.
-
-> 2b1. Suru displays error message.
-> Use case ends.
-
-2c. The requested task to edit reminder has no existing reminder.
-
-> 2c1. Suru displays error message.
-> Use case ends.
->
-2d. The date for reminder is after due date of task.
-
-> 2d1. Suru displays error message.
-> Use case ends.
-
-2e. The date is in invalid format.
-
-> 2e1. Suru displays error message.
-> Use case ends.
-
-4a. User rejects changes.
-
-> Use case ends.
-
-<!-- @@author A0138664W -->
-
-### `UC13 - Delete a reminder for a task`
-
-**MSS**
-
-1. User **view all tasks (_UC02_).**
-2. User requests to delete a reminder for a task by index and reminder date/time.
-3. Suru requests user for confirmation.
-4. User confirms changes.
-5. Suru GUI is refreshed to show updated list of tasks.
-6. Suru does not show user notification when deleted reminder date/time is hit.
-Use case ends.
-
-**Extensions**
-
-2a. The given index is invalid.
-
-> 2a1. Suru displays error message.
-> Use case ends.
-
-2b. The requested task to delete reminder has no existing reminder.
-
-> 2b1. Suru displays error message.
-> Use case ends.
-
-2c. The date is in invalid format.
-
-> 2c1. Suru displays error message.
-> Use case ends.
-
-4a. User rejects changes.
-
-> Use case ends.
-
-### `UC14 - Add recurring task`
-
-**MSS**
-
-1. User **view all tasks (_UC02_).**
-2. User requests to repeat a task by index.
-3. Suru requests user for confirmation together with number of times to be repeated.
-4. User confirms changes.
-5. Suru GUI is refreshed to show updated list of tasks.
-
-Use case ends.
-
-**Extensions**
-
-2a. The given index is invalid.
-
-> 2a1. Suru displays error message.
-> Use case ends.
-
-2b. Task selected is repeated already.
-
-> 2b1. Suru notify user about repeated task and new value will overwrite old value.
-> Use case resumes at 3.
-
-4a. User rejects changes.
-
-> Use case ends.
-
-### `UC15 - Add tags to a task`
+### `UC11 - Add tags to a task`
 
 **MSS**
 
@@ -781,34 +620,8 @@ Use case ends.
 
 > Use case ends.
 
-### `UC16 - Edit tags in a task`
 
-**MSS**
-
-1. User **view all tasks (_UC02_).**
-2. User requests to update tag of a task by index with an updated tag.
-3. Suru requests user for confirmation and existings tags will be overwritten by the new tags.
-4. User confirms changes.
-5. Suru GUI is refreshed to show updated tags tied to the task.
-Use case ends.
-
-**Extensions**
-
-2a. The given index is invalid.
-
-> 2a1. Suru displays error message.
-> Use case ends.
-
-2b. The given index has no active tags.
-
-> 2b1. Suru displays error message.
-> Use case ends.
-
-4a. User rejects changes.
-
-> Use case ends.
-
-### `UC17 - Delete tags in a task`
+### `UC12 - Delete tags in a task`
 
 **MSS**
 
@@ -835,7 +648,7 @@ Use case ends.
 
 > Use case ends.
 
-### `UC18 - Filter tasks by tags`
+### `UC13 - Filter tasks by tags`
 
 **MSS**
 
@@ -853,7 +666,7 @@ Use case ends.
 > 2a1. Suru displays error message.
 > Use case ends.
 
-### `UC19 - Define save and load database`
+### `UC14 - Define save and load database`
 
 **MSS**
 
@@ -869,8 +682,17 @@ Use case ends.
 
 >2a1. Suru request user to locate database file or create new database file.<br>
  Use case resumes at step 2.
+ 
+### `UC15 - Email Reminders`
+**MSS**
 
-### `UC20 - Command shortcut`
+1. Suru sends list of tasks to server
+2. Server sends email to user 1 hour before task is due.
+
+
+Use case ends.
+
+### `UC16 - Command shortcut`
 
 **MSS**
 
@@ -886,69 +708,21 @@ Use case ends.
 > 1a1. Suru displays error message.
 > Use case ends.
 
-### `UC21 - Add task reminder and due date to Google Calendar`
-
-**MSS**
-
-1. User **view all tasks (_UC02_).**
-2. User requests to add reminder and due date of the task to Google Calendar as an all day event.
-3. Suru requests user for confirmation.
-4. User confirms changes.
-5. Added event will be reflected on user Google Calendar
-
-Use case ends.
-
-**Extensions**
-
-2a. No Gmail account associated with the current session.
-
-> 2a1. Suru displays error message.
-> 2a2. Suru prompts user to enter Google login details.
-> Use case resumes at 3.
-
-2b. The selected task has no due date or reminder associated with it.
-
-> 2b1. Suru displays error message.
-> Use case ends.
-
-4a. User rejects changes.
-
-> Use case ends.
-
-### `UC22 - Hotkey shortcut`
-
-**MSS**
-
-1. Suru waits for user hotkey combination in background
-2. User press selected keyboard combination to perform certain task in Suru
-3. Suru GUI refreshed based on user input.
-
-Use case ends.
-
-**Extensions**
-
-2a. User input wrong hotkey shortcut.
-
-> 2a1. No action from Suru.
-
-{More to be added}
-
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
    should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. Should be able to work without any internet connection.
-5. Should be able to have data file synced using cloud syncing services (e.g dropbox) if save/load directory is in the appropriate location.
-
-{More to be added}
+4. Should be able to have data file synced using cloud syncing services (e.g dropbox) if save/load directory is in the appropriate location.
 
 ## Appendix D : Glossary
 
 #### Mainstream OS
 
-> Windows 7 and above
+> * Windows 7 and above
+> * Mac OSX 
+> * Ubuntu
 
 <!-- @@author A0139938L -->
 ## Appendix E : Product Survey
@@ -1010,14 +784,3 @@ Pros:
 Cons:
 * Requires internet connection to utilize
 * Requires consistent usage of mouse to perform commands
-
-
-
-
-
-
-
-
-
-
-
