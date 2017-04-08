@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -325,10 +327,50 @@ public class TestUtil {
      * @return The modified array of tasks.
      */
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
-        List<TestTask> listOfTasks = asList(tasks);
+        List <TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
+        listOfTasks.sort(c);
+        listOfTasks.sort(c1);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+
+    static Comparator<TestTask> c = new Comparator<TestTask>() {
+        @Override
+        public int compare(TestTask task1, TestTask task2) {
+        	Date task1Date = task1.getEndTime().getValue();
+            Date task2Date = task2.getEndTime().getValue();
+
+            if (!task1.hasEndTime()) {
+                if (!task2.hasEndTime()) {
+                    return 0;
+                }
+                return 1;
+            } else if (task1.hasEndTime()) {
+                if (!task2.hasEndTime()) {
+                    return -1;
+                }
+            }
+
+            if (task1Date.after(task2Date)) {
+                return 1;
+            } else if (task1Date.before(task2Date)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    static Comparator<TestTask> c1 = new Comparator<TestTask>() {
+        @Override
+		public int compare(TestTask task1, TestTask task2) {
+            if (task1.getCompletionStatus().getCompletion()) {
+                    return 1;
+            } else {
+                    return 0;
+            }
+        }
+    };
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -361,5 +403,4 @@ public class TestUtil {
 
         return collect.toArray(new Tag[split.length]);
     }
-
 }
