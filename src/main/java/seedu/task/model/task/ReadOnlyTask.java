@@ -123,7 +123,7 @@ public interface ReadOnlyTask {
         return result;
     }
 
-     public default String writeEndTimeWithoutNewLine() {
+    public default String writeEndTimeWithoutNewLine() {
         String result = "";
         if (hasEndTime()) {
             result = getEndTimeMessage() + getEndTime().toString() + " ";
