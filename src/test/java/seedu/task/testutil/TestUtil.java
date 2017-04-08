@@ -330,7 +330,7 @@ public class TestUtil {
         List <TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
         listOfTasks.sort(c);
-        listOfTasks.sort(c1);
+        listOfTasks.sort(checkUncheck);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -361,15 +361,23 @@ public class TestUtil {
         }
     };
 
-    static Comparator<TestTask> c1 = new Comparator<TestTask>() {
-        @Override
-		public int compare(TestTask task1, TestTask task2) {
-            if (task1.getCompletionStatus().getCompletion()) {
-                    return 1;
-            } else {
-                    return 0;
-            }
-        }
+    static Comparator<TestTask> checkUncheck = new Comparator<TestTask>() {
+
+		@Override
+		public int compare(TestTask o1, TestTask o2) {
+			if(o1.getCompletionStatus().getCompletion()) {
+				if(o2.getCompletionStatus().getCompletion()){
+					return 0;
+				}
+				return 1;
+			} else if(!o1.getCompletionStatus().getCompletion()){
+				if(o2.getCompletionStatus().getCompletion()) {
+					return -1;
+				}
+			}
+			return 0;
+		}
+
     };
 
     private static <T> List<T> asList(T[] objs) {
