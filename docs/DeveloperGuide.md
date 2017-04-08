@@ -28,49 +28,48 @@ By : `Team W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbs
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
 ## 1. Introduction
-Welcome to Suru, the innovative personal assistant designed to help you manage your tasks like a boss. This developer guide aims to document every feature of Suru so you can get started contributing to this project. The guide teaches you all you need to know from setting up your development environment to deploying Suru for production.
+Welcome to Suru, the innovative taskal assistant designed to help you manage your tasks like a boss. This developer guide aims to document every feature of Suru so you can get started contributing to this project. The guide teaches you all you need to know from setting up your development environment to deploying Suru for production.
 
 ## 2. Setting up
 
 ### 2.1. Prerequisites
 
-1. **[JDK version `1.8.0_60`](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)**  or later<br>
+1. Download and install **[JDK version `1.8.0_60`](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)**  or later. <br>
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
 
-2. [**Eclipse** IDE](https://www.eclipse.org/downloads/)
-3. **e(fx)clipse** plugin for Eclipse (Follow from step 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
-5. **Checkstyle Plug-in** plugin from the Eclipse Marketplace
+2. Download and install [**Eclipse** IDE](https://www.eclipse.org/downloads/).
+3. Download and install **e(fx)clipse** plugin for Eclipse (Follow from step 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)).
+4. Download and install **Buildship Gradle Integration** plugin from the Eclipse Marketplace.
+5. Download and install **Checkstyle Plug-in** plugin from the Eclipse Marketplace.
 
 
 ### 2.2. Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
+0. Fork this repo, and clone the fork to your computer.
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above).
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
+4. Click `Browse`, then locate the project's directory.
 5. Click `Finish`
-
+	
+	Note:
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > * Depending on the speed of your connection and server load, it can take up to 30 minutes for the set up to complete (this is because Gradle downloads library files from servers during the project set-up process).
+  > * If Eclipse automatically changed any settings during the import process, you can discard those changes.
 
 ### 2.3. Configuring Checkstyle
 1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
-2. Choose `External Configuration File` under `Type`
-3. Enter an arbitrary configuration name e.g. taskmanager
-4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
-5. Click OK once, go to the `Main` tab, use the newly imported check configuration.
-6. Tick and select `files from packages`, click `Change...`, and select the `resources` package
-7. Click OK twice. Rebuild project if prompted
+2. Choose `External Configuration File` under `Type`.
+3. Enter an arbitrary configuration name e.g. taskmanager.
+4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`.
+5. Click `OK` once, go to the `Main` tab, use the newly imported checkstyle configuration.
+6. Tick and select `files from packages`, click `Change...`, and select the `resources` package.
+7. Click OK twice. Rebuild project if prompted.
 
-> Note to click on the `files from packages` text after ticking in order to enable the `Change...` button
+Note:
+> Click on the `files from packages` text after ticking in order to enable the `Change...` button.
 
 ### 2.4. Troubleshooting project setup
 
@@ -78,9 +77,9 @@ Welcome to Suru, the innovative personal assistant designed to help you manage y
 
 * Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
 * Solution: Refresh the project in Eclipse:<br>
-  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
+  Right-click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
 
-**Problem: Eclipse reports some required libraries missing**
+**Problem: Eclipse reports some required libraries as missing**
 
 * Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
@@ -95,15 +94,16 @@ Welcome to Suru, the innovative personal assistant designed to help you manage y
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-> Tip: The `.pptx` files used to create diagrams in this document can be found in the [diagrams](diagrams/) folder.
-> To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+Note: 
+> * The `.pptx` files used to create diagrams in this document can be found in the [diagrams](diagrams/) folder.
+> * To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has a single class called [`MainApp`](../src/main/java/seedu/task/MainApp.java).
 
 * At app launch it initializes the components in the correct sequence, and their constructors, passing necessary information to the relevant components.
 * At shut down it shuts down the components and invokes cleanup methods where necessary.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#common-classes) represents a collection of classes shared by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
@@ -114,13 +114,13 @@ The architecture consists of four other major components.
 
 * [**`UI`**](32-ui-component) : Initializes the UI for the app.
 * [**`Logic`**](33-logic-component) : Executes the commands.
-* [**`Model`**](34-model-component) : Holds the data of the App in-memory.
+* [**`Model`**](34-model-component) : Holds the data of the app in-memory.
 * [**`Storage`**](35-storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Outlines all important methods in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* outlines all important methods in an `interface` with the same name as the Component.
+* exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component defines its APIs in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.<br>
 
@@ -149,16 +149,16 @@ Author: Shawn
 
 **API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `taskListPanel`,`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* executes user commands using the `Logic` component.
+* binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* responds to events raised from various parts of the App and updates the UI accordingly.
 
 <!-- @@author A0146789H -->
 ### 3.3. Logic component
@@ -173,15 +173,15 @@ The `Logic` component consists of the `Logic Manager`, `Command Result`, `Parser
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
 
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 #### 3.3.1 Natty Date Parser
-Suru uses Natty for parsing natural language DateTime input. For instructions on how to set up Natty, follow the instructions [here](http://natty.joestelmach.com/)
+Suru uses Natty for parsing natural language DateTime input. For instructions on how to set up Natty, follow the instructions [here](http://natty.joestelmach.com/).
 
 Suru has implemented customizations that wrap around Natty. These methods can be found in `NattyDateUtil`.
 
@@ -198,7 +198,7 @@ The `Model` consists of several classes that contain information relevant to the
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Suru Task Manager data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -227,21 +227,20 @@ Classes used by multiple components are in the `seedu.task.commons` package.
 
 The `java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](42-configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](42-configuration)).
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that are not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but with caution.
+* `INFO` : Information showing the noteworthy actions by the App.
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.
 
 ### 4.2. Configuration file
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`):
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 <!-- @@author A0146789H -->
 ## 5. Testing
@@ -250,7 +249,7 @@ Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run as` > `JUnit Test`
+* To run all tests, right-click on the `src/test/java` folder and choose `Run as` > `JUnit Test`.
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
@@ -281,7 +280,7 @@ See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in 
  **Problem: Tests fail because of NullPointerException when AssertionError is expected**
 
  * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later).
  * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created from earlier tests.
@@ -307,8 +306,7 @@ Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
-    and upload the JAR file you created.
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file you created.
 
 ### 6.5. Converting Documentation to PDF format
 
@@ -333,8 +331,8 @@ Here are the steps to convert the project documentation files to PDF format.
 A project often depends on third-party libraries. For example, Suru depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+a. Include those libraries in the repo (this bloats the repo size).<br>
+b. Require developers to download those libraries manually (this creates extra work for developers).<br>
 
 <!-- @@author A0139410N -->
 ## Appendix A : User Stories
@@ -670,15 +668,15 @@ Use case ends.
 
 **MSS**
 
-1. Suru scans default directory for previous save database during start-up
-2. Save database is loaded into memory from default file location
-3. Suru runs as per normal
+1. Suru scans default directory for previous save database during start-up.
+2. Save database is loaded into memory from default file location.
+3. Suru runs as per normal.
 
 Use case ends.
 
 **Extensions**
 
-2a. File not found in default directory
+2a. File not found in default directory.
 
 >2a1. Suru request user to locate database file or create new database file.<br>
  Use case resumes at step 2.
@@ -696,8 +694,8 @@ Use case ends.
 
 **MSS**
 
-1. Suru detects specific command shortcut during runtime
-2. Suru maps to main command
+1. Suru detects specific command shortcut during runtime.
+2. Suru maps to main command.
 
 Use case ends.
 
@@ -747,14 +745,14 @@ Author: Muhammad Mustaqiim Bin Muhar
 
 Pros:
 
-* Able to share group tasks easily with teammates
+* Able to share group tasks easily with teammates.
 * Cross platform support on most devices and Operating Systems.
-* Able to auto add reminders and due dates using rss link to a calendar of your choice
+* Able to auto add reminders and due dates using rss link to a calendar of your choice.
 
 Cons:
 
-* No import function of existing task from other apps to Wunderlist
-* Assigning of to-dos to your team members is a paid feature (Organisation Features)
+* No import function of existing task from other apps to Wunderlist.
+* Assigning of to-dos to your team members is a paid feature (Organisation Features).
 
 <!-- @@author A0146789H -->
 **Habitica**
@@ -762,14 +760,14 @@ Cons:
 Author: Jeremy Heng Wen Ming
 
 Pros:
-* Gamification paradigm extends to the social features of the application in the form of team quests. This is essentially a mechanism to share group tasks and to mantain accountability
-* A loot and shop system allows users to obtain and purchase cosmetic items to signify character progress
-* Splits tasks into dailies, habits and to-dos
-* Tasks can be split into subtasks which can be assigned individual reward values
+* Gamification paradigm extends to the social features of the application in the form of team quests. This is essentially a mechanism to share group tasks and to mantain accountability.
+* A loot and shop system allows users to obtain and purchase cosmetic items to signify character progress.
+* Splits tasks into dailies, habits and to-dos.
+* Tasks can be split into subtasks which can be assigned individual reward values.
 
 Cons:
-* The interface is not efficient to use when adding many tasks
-* There is no integration with any calendar applications
+* The interface is not efficient to use when adding many tasks.
+* There is no integration with any calendar applications.
 
 <!-- @@author A0139410N -->
 **Trello**
@@ -777,10 +775,11 @@ Cons:
 Author: Teo Tian Song
 
 Pros:
-* Has due date capability
-* Keeps track of completed task
-* Has checklist to break down tasks into components
+* Has due date capability.
+* Keeps track of completed task.
+* Has checklist to break down tasks into components.
 
 Cons:
-* Requires internet connection to utilize
-* Requires consistent usage of mouse to perform commands
+* Requires internet connection to utilize.
+* Requires consistent usage of mouse to perform commands.
+
