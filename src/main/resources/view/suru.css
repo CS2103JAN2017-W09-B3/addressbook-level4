@@ -3,7 +3,7 @@
     -fx-font-size: 12pt;
     -fx-text-fill: white;
     -fx-font-family: "Tahoma, Geneva, sans-serif";
-    -fx-font-weight: bold;    
+    -fx-font-weight: bold;
 }
 
 .title-container{
@@ -146,8 +146,6 @@
 	-fx-background-color: white;
 	-fx-background-radius: 10 10 10 10;
 	-fx-border-radius: 10 10 10 10;
-	
-	
 }
 
 #task-list-view .list-cell:even {
