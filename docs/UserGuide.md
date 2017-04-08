@@ -315,6 +315,7 @@ Suru accepts a wide range of natural date and time inputs to make it as comforta
 | | |Last/next year|
 
 #### 3.12.2 Accepted time inputs:
+
 |24-hr notation|AM/PM|Presets|
 |---|---|---|
 |08:00|8am|Morning(8am)|
