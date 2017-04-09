@@ -1,7 +1,7 @@
 package seedu.task.model.chat;
 
 import seedu.task.model.Sender;
-
+//@@author A0139938L
 public class Chat {
     private String message;
     private Sender sender;
@@ -38,3 +38,5 @@ public class Chat {
         this.sender = sender;
     }
 }
+//@@author
+

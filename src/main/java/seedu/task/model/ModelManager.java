@@ -39,9 +39,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<ReadOnlyTask> filteredTasks;
     //@@author A0139938L
     private final ChatList chatList;
-    private static final String MESSAGE_RESET_DATA_SUCCESS = "Data has been successfully loaded!";
-    private static final String MESSAGE_RESET_DATA_FAIL = "No such file exists!";
-
     //@@author
     private final UndoManager undoManager = new UndoManager();
 
