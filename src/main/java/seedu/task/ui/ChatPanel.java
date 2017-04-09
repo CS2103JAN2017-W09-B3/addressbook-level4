@@ -11,7 +11,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.commons.util.FxViewUtil;
@@ -41,16 +40,11 @@ public class ChatPanel extends UiPart<Region> {
     @FXML
     private ListView<Chat> chatListView;
 
-    @FXML
-    private Text resultDisplay;
-
     public ChatPanel(AnchorPane anchorPane, ChatList chatList) {
         super(FXML);
         this.chatList = chatList;
-        resultDisplay.textProperty().bind(displayed);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(placeHolder, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(resultDisplay, 0.0, 0.0, 0.0, 0.0);
         setConnections(chatList);
         anchorPane.getChildren().add(mainPane);
         registerAsAnEventHandler(this);
