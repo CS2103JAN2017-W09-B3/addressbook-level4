@@ -29,9 +29,13 @@ def sendmail(email, event, time_delta):
     content = Content("text/plain", words)
     mail= Mail(FROM_EMAIL, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=mail.get())
+    print response
     return response
 
 def process(file_data, email, time):
+    print file_data
+    print email
+    print time
     if email in email_jobs:
         for i in email_jobs[email]:
             i.remove()
@@ -56,6 +60,7 @@ def process(file_data, email, time):
             job = scheduler.add_job(sendmail, "date",
                                     [email, name.text, time],
                                     next_run_time=actual)
+            print job
             jobs.append(job)
 
     email_jobs[email] = jobs
