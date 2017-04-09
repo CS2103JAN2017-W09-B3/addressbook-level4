@@ -39,7 +39,12 @@ import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.ListCheckedCommand;
 import seedu.task.logic.commands.ListCommand;
+import seedu.task.logic.commands.ListDeadlineCommand;
+import seedu.task.logic.commands.ListEventCommand;
+import seedu.task.logic.commands.ListFloatingCommand;
+import seedu.task.logic.commands.ListOverdueCommand;
 import seedu.task.logic.commands.ListUncheckedCommand;
+import seedu.task.logic.commands.ListUpcomingCommand;
 import seedu.task.logic.commands.RedoCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
@@ -197,7 +202,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.overdue();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -213,7 +218,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.overdue();
 
         // setup starting state
         model.addTask(toBeAdded); // Task already in internal address book
@@ -243,18 +248,21 @@ public class LogicManagerTest {
     //@@author A0139410N
     @Test
     public void execute_listUnchecked_showsUnchecked() throws Exception {
-        // prepare expectations, only supposed to show 2 unchecked task with 3 task in total
+        // prepare expectations, only supposed to show 5 unchecked tasks with 6 tasks in total
         TestDataHelper helper = new TestDataHelper();
         Task unchecked1 = helper.generateTaskWithName("not done");
         Task unchecked2 = helper.generateTaskWithName("Also not done");
-        Task checked = helper.completedTask();
+        Task deadline = helper.deadlineTask();
+        Task upcoming = helper.upcomingTask();
+        Task floating = helper.floatingTask();
 
-        List<Task> threeTasks = helper.generateTaskList(unchecked1, unchecked2, checked);
-        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
-        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2);
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2, deadline,
+                upcoming, floating);
 
-        // prepare address book state comprising of 2 unchecked task and 1 checked
-        helper.addToModel(model, threeTasks);
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
 
         assertCommandSuccess("list unchecked",
                 ListUncheckedCommand.MESSAGE_SUCCESS,
@@ -262,24 +270,120 @@ public class LogicManagerTest {
                 expectedList);
     }
 
-    //@@ author A0139410N
     @Test
     public void execute_listChecked_showsChecked() throws Exception {
-     // prepare expectations, only supposed to show 1 checked task with 3 task in total
+     // prepare expectations, only supposed to show 1 checked tasks with 6 tasks in total
+        TestDataHelper helper = new TestDataHelper();
+        Task checked = helper.completedTask();
+
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(checked);
+
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
+
+        assertCommandSuccess("list checked",
+                ListCheckedCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_listDeadline_showsDeadline() throws Exception {
+     // prepare expectations, only supposed to show 1 deadline tasks with 6 tasks in total
+        TestDataHelper helper = new TestDataHelper();
+        Task deadline = helper.deadlineTask();
+
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(deadline);
+
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
+
+        assertCommandSuccess("list deadline",
+                ListDeadlineCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_listEvent_showsEvent() throws Exception {
+     // prepare expectations, only supposed to show 3 event tasks with 6 tasks in total
         TestDataHelper helper = new TestDataHelper();
         Task unchecked1 = helper.generateTaskWithName("not done");
         Task unchecked2 = helper.generateTaskWithName("Also not done");
         Task checked = helper.completedTask();
 
-        List<Task> threeTasks = helper.generateTaskList(unchecked1, unchecked2, checked);
-        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
-        List<Task> expectedList = helper.generateTaskList(checked);
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2, checked);
 
-        // prepare address book state comprising of 2 unchecked task and 1 checked
-        helper.addToModel(model, threeTasks);
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
 
-        assertCommandSuccess("list checked",
-                ListCheckedCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess("list event",
+                ListEventCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_listFloating_showsFloating() throws Exception {
+     // prepare expectations, only supposed to show 1 floating tasks with 6 tasks in total
+        TestDataHelper helper = new TestDataHelper();
+        Task floating = helper.floatingTask();
+
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(floating);
+
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
+
+        assertCommandSuccess("list someday",
+                ListFloatingCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_listOverdue_showsOverdue() throws Exception {
+     // prepare expectations, only supposed to show 2 overdue tasks with 6 tasks in total
+        TestDataHelper helper = new TestDataHelper();
+        Task unchecked1 = helper.generateTaskWithName("not done");
+        Task unchecked2 = helper.generateTaskWithName("Also not done");
+
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2);
+
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
+
+        assertCommandSuccess("list overdue",
+                ListOverdueCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_listUpcoming_showsUpcoming() throws Exception {
+     // prepare expectations, only supposed to show 2 upcoming tasks with 6 tasks in total
+        TestDataHelper helper = new TestDataHelper();
+        Task deadline = helper.deadlineTask();
+        Task upcoming = helper.upcomingTask();
+
+        List<Task> sample = helper.generateSampleTaskList();
+        TaskManager expectedAB = helper.generateTaskManager(sample);
+        List<Task> expectedList = helper.generateTaskList(deadline, upcoming);
+
+        // prepare address book state comprising of sample Tasks for List commands
+        helper.addToModel(model, sample);
+
+        assertCommandSuccess("list upcoming",
+                ListUpcomingCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
@@ -300,7 +404,7 @@ public class LogicManagerTest {
     public void execcute_undoredo_add_delete() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.overdue();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -446,7 +550,7 @@ public class LogicManagerTest {
     public void execcute_undoredo_checkUncheck() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeChecked = helper.adam();
+        Task toBeChecked = helper.overdue();
         Task completed = helper.adamCompleted();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeChecked);
@@ -625,8 +729,8 @@ public class LogicManagerTest {
      */
     class TestDataHelper {
 
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
+        Task overdue() throws Exception {
+            Name name = new Name("I am overdue");
             StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             CompletionStatus completion = new CompletionStatus(false);
@@ -641,6 +745,39 @@ public class LogicManagerTest {
             StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
             CompletionStatus completion = new CompletionStatus(true);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        Task upcomingTask() throws Exception {
+            Name name = new Name("I am upcoming");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("tomorrow"));
+            CompletionStatus completion = new CompletionStatus(false);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        Task deadlineTask() throws Exception {
+            Name name = new Name("I am Deadline");
+            StartTime startDate = new StartTime(null);
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("tomorrow"));
+            CompletionStatus completion = new CompletionStatus(false);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        Task floatingTask() throws Exception {
+            Name name = new Name("I am Floating");
+            StartTime startDate = new StartTime(null);
+            EndTime endDate = new EndTime(null);
+            CompletionStatus completion = new CompletionStatus(false);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("longertag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -793,6 +930,26 @@ public class LogicManagerTest {
 
         List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
+        }
+
+        //@@author A0139410N
+        /**
+         *
+         * @return
+         * @throws Exception
+         */
+        List<Task> generateSampleTaskList() throws Exception {
+            TestDataHelper helper = new TestDataHelper();
+            Task uncheckedOverdueEvent1 = helper.generateTaskWithName("not done");
+            Task uncheckedOverdueEvent2 = helper.generateTaskWithName("Also not done");
+            Task checked = helper.completedTask();
+            Task deadline = helper.deadlineTask();
+            Task upcoming = helper.upcomingTask();
+            Task floating = helper.floatingTask();
+            Task[] sampleTask = {uncheckedOverdueEvent1, uncheckedOverdueEvent2,
+                checked, deadline, upcoming, floating};
+            return generateTaskList(sampleTask);
+
         }
 
         /**

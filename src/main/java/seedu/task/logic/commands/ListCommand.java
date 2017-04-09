@@ -14,8 +14,12 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Lists all tasks with index numbers, "
-            + "use checked or unchecked as keyword to only show checked or unchecked tasks\n"
-            + "Parameters: [" + ListUncheckedCommand.DEFACTO_COMMAND + "][unchecked] \n"
+            + "use checked/unchecked/deadline/event/someday/upcoming/overdue as a keyword to only "
+            + "show tasks of that type. Only one keyword is allowed. \n"
+            + "Parameters: [" + ListUncheckedCommand.DEFACTO_COMMAND + "]["
+            + ListCheckedCommand.DEFACTO_COMMAND + "][" + ListDeadlineCommand.DEFACTO_COMMAND
+            + "][" + ListEventCommand.DEFACTO_COMMAND + "][" + ListFloatingCommand.DEFACTO_COMMAND
+            + "][" + ListUpcomingCommand.DEFACTO_COMMAND + "][" + ListOverdueCommand.DEFACTO_COMMAND + "]\n"
             + "Example: " + DEFACTO_COMMAND + " " + ListUncheckedCommand.DEFACTO_COMMAND;
 
     public ListCommand() {
