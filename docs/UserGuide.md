@@ -66,6 +66,8 @@ There is no need to save manually.
 ### 3.1. Viewing user guide: `help`
 A help window containing the user guide is opened.
 
+<img src="images/help.png" width="800" />
+
 ### 3.2. Adding tasks
 
 #### 3.2.1. Adding a simple task with no specified dates: `add DESCRIPTION` 
@@ -73,25 +75,33 @@ To add a simple, non-urgent task, use the `add` command followed by the `DESCRIP
 
 Example:
 
-* add `write essay`
+* add `Write essay`
 
-> A simple task with the description `write essay` is added to your task list.
+> A simple task with the description `Write essay` is added to your task list.
+
+<img src="images/addSimple.png" width="800" />
 
 #### 3.2.2. Adding a task with a deadline: `add DESCRIPTION by|on DUE_DATE`
 This command applies to tasks with a deadline, such as assignment submissions. To specify a deadline for a task, use the keywords `by` or `on` followed by your desired `DUE_DATE`.
 
 Example:
-* add `write essay` by `7/13/17`
 
-> Adds a new task `write essay` that is due on `13th July 2017`.
+* add `Complete history assignment` by `7/13/17`
+
+> Adds a new task `Complete history assignment` that is due on `13th July 2017`.
+
+<img src="images/addDeadline.png" width="800" />
 
 #### 3.2.3. Adding an event: `add DESCRIPTION from START_TIME to END_TIME`
 Events such as birthday parties and movies have both a start and end time. Suru helps you to keep track of these events with this command.
 
 Example:
-* add `attend birthday party` from `8pm` to `10pm`
 
-> Adds a new event `attend birthday party` that is happening from `8pm` to `10pm` on the same day.
+* add `Attend birthday party` from `8pm` to `10pm`
+
+> Adds a new event `Attend birthday party` that is happening from `8pm` to `10pm` on the same day.
+
+<img src="images/addEvent.png" width="800" />
 
 #### 3.2.4. Adding a task with tags: `add... #TAGNAME`
 
@@ -99,19 +109,30 @@ Tagging your tasks can be a great way to get organized.
 
 Examples:
 
-* add `write essay` from `7/13/17` to `7/15/17` `#school` `#homework`
-> Adds a new task `write essay` that lasts from `13th July 2017` to `15th July 2017` with the tags `#school` and `#homework`.
+* add `Write security article` `#blogging`
 
-* add `write essay` `#blogging`
-> Adds a new task `write essay` with a tag `#blogging`.
+> Adds a new task `Write security article` with a tag `#blogging`.
+
+<img src="images/addTags2.png" width="800" />
+
+* add `Prepare software demo` from `7/13/17` to `7/15/17` `#school` `#homework`
+
+> Adds a new task `Prepare software demo` that lasts from `13th July 2017` to `15th July 2017` with the tags `#school` and `#homework`.
+
+<img src="images/addTags1.png" width="800" />
+
 
 #### 3.2.5. Adding tags to an existing task: `addtag INDEX #TAGNAME`
 
 You can also add tags to tasks that already exist in your task list.
 
 Example:
+
 * addtag `1` `#history`
+
 > Adds a tag `#history` to the first task in the list.
+
+<img src="images/addTag.png" width="800" />
 
 <!--@@author A0146789H-->
 
@@ -124,11 +145,17 @@ Examples:
 
 * list <br>
 edit `1` `write essay` by `5/13/17`<br>
-> Edits the description of the selected task to `write essay` and deadline to `5/13/17`.
+
+> Edits the description of the selected task to `write essay` and deadline to `5/13/17`. Suru also automatically slots it in the correct position on the list, sorted by due date.
+
+<img src="images/edit1.png" width="800" />
 
 * list <br>
 edit `2` `watch a movie` from `next tuesday 6pm` to `next tuesday 8pm`<br>
+
 > Edits the description of the 2nd task in the list to be `watch a movie` with a start time of `6pm` and an end time of `8pm` on next Tuesday's date.
+
+<img src="images/edit2.png" width="800" />
 
 ### 3.4. Deleting tasks: `delete INDEX`
 Tasks that have been completed long ago or cancelled altogether should be removed from your task list. Suru allows you to delete tasks from your task list with the `delete` command.
@@ -137,19 +164,35 @@ Example:
 
 * list <br>
   delete `2` <br>
+
 > Deletes the 2nd task in the list.
 
-#### 3.4.1 Deleting tags in a task: `deltag INDEX #TAGNAME`
+<img src="images/delete-p1.png" width="800" />
+
+<img src="images/delete-p2.png" width="800" />
+
+#### 3.4.1. Deleting tags in a task: `deltag INDEX #TAGNAME`
 
 You can also remove tags from an existing task by using the `deltag` command.
 
 Example:
 
-* deltag `2` `#homework`<br>
-> Deletes the tag `#homework` from the 2nd task in the list.
+* deltag `2` `#hobby`<br>
 
-#### 3.4.2 Clearing all tasks: `clear`
+> Deletes the tag `#hobby` from the 2nd task in the list.
+
+<img src="images/deltag-p1.png" width="800" />
+
+<img src="images/deltag-p2.png" width="400" />
+
+<img src="images/deltag-p3.png" width="800" />
+
+#### 3.4.2. Clearing all tasks: `clear`
 This command deletes all the tasks from your task list.
+
+<img src="images/clear-p1.png" width="800" />
+
+<img src="images/clear-p2.png" width="800" />
 
 ### 3.5. Listing
 Suru automatically sorts your tasks according to their due date so that your most urgent tasks are always at the top!
@@ -160,25 +203,27 @@ Suru displays a list of all your tasks.
 #### 3.5.2. Listing unchecked tasks: `list unchecked`
 Unchecked tasks are tasks that are still pending and not completed yet. With this command, Suru displays a list of all unchecked tasks.
 
+<img src="images/list-unchecked.png" width="800" />
+
 #### 3.5.3. Listing checked tasks: `list checked`
 Checked tasks are tasks that are already marked as completed. This command shows you a list of all checked tasks.
 
-#### 3.5.4. Listing tagged tasks: `list #TAGNAME`
+<img src="images/list-checked.png" width="800" />
 
-Shows a list of all tasks that match the specified `#TAGNAME`.
-
-Example:
-* list `#school`
-> This command shows you all your tasks that are tagged with `#school`.
-
-#### 3.5.5 Listing overdue tasks: `list overdue`
+#### 3.5.4. Listing overdue tasks: `list overdue`
 Shows a list of all overdue tasks. Overdue tasks are tasks whose deadlines have passed but are not yet completed.
 
-#### 3.5.6 Listing upcoming tasks: `list upcoming`
+<img src="images/list-overdue.png" width="800" />
+
+#### 3.5.5. Listing upcoming tasks: `list upcoming`
 Shows a list of all upcoming tasks. Upcoming tasks are tasks that are due in the next 3 days.
 
-#### 3.5.7 Listing simple tasks: `list someday`
+<img src="images/list-upcoming.png" width="800" />
+
+#### 3.5.6. Listing simple tasks: `list someday`
 Shows a list of tasks with no start or end dates. Since you can do them anytime you want, we call them "someday" tasks.
+
+<img src="images/list-someday.png" width="800" />
 
 ### 3.6. Search for tasks: `find|search KEYWORDS...`
 Over time, you may start having a large number of tasks stored in Suru. Fortunately, Suru allows you to easily find tasks by searching for them.
@@ -193,17 +238,27 @@ Over time, you may start having a large number of tasks stored in Suru. Fortunat
 Examples:
 
 * find `Essay`<br>
+
 > Returns `Write Essay` and `essay writing`.
+
+<img src="images/find-1.png" width="800" />
+
 * search `Essay Writing Competition`<br>
+
 > Returns all tasks having keywords `Essay`, `Writing`, or `Competition`.
+
+<img src="images/search-2.png" width="800" />
+
 
 ### 3.7. Select tasks: `select INDEX`
 View more information regarding a task by using the `select` command.
 
+<img src="images/select.png" width="800" />
+
 ### 3.8. Marking tasks as completed or incomplete
 Suru allows you to check off your tasks as you complete them. When a task is completed, it moves to the bottom of the list so that you can focus on your most important tasks at the top.
 
-#### 3.8.1 Checking off a task: `check INDEX`
+#### 3.8.1. Checking off a task: `check INDEX`
 
 Checks off a task to indicate that it has been completed.
 
@@ -211,44 +266,65 @@ Examples:
 
 * list <br>
   check `2` <br>
+
 > Checks off the 2nd task in the listing.
-  
+
+<img src="images/check-1.png" width="800" />
+
 * find `Essay` <br>
   check `1` <br>
+
 > Checks off the 1st task in the results of the `find` command.
 
-#### 3.8.2 Unchecking a task: `uncheck INDEX`
+<img src="images/check-2.png" width="800" />
+
+#### 3.8.2. Unchecking a task: `uncheck INDEX`
 
 Unchecks a task to indicate that it is incomplete.
 
 Examples:
 
 * list<br>
-  uncheck `2`<br>
-> Unchecks the 2nd task in the listing.
+  uncheck `30`<br>
+  
+> Unchecks the 30th task in the listing.
+
+<img src="images/uncheck-0.png" width="800" />
+<img src="images/uncheck-1.png" width="800" />
+
 * find `Essay`<br>
   uncheck `1`<br>
+
 > Unchecks the 1st task in the results of the `find` command.
 
-### 3.9 Undo and redo
+<img src="images/uncheck-2.png" width="800" />
+<img src="images/uncheck-3.png" width="800" />
+
+### 3.9. Undo and redo
 People can make mistakes. Thankfully, Suru makes it easy to undo any accidents.
 
-#### 3.9.1 Undoing a command: `undo`
+#### 3.9.1. Undoing a command: `undo`
 
 Reverses your previous command.
 
 > Only reverses operations that alter data, i.e. `add`, `edit` and `delete`.
 
-#### 3.9.2 Redoing an undone command: `redo`
+<img src="images/undo-1.png" width="800" />
+<img src="images/undo-2.png" width="800" />
+<img src="images/undo-3.png" width="800" />
+
+#### 3.9.2. Redoing an undone command: `redo`
 
 Reverses your previous undo operation.
+
+<img src="images/redo.png" width="800" />
 
 <!--@@author A0138664W-->
 
 
-### 3.10 Saving and loading
+### 3.10. Saving and loading
 
-#### 3.10.1 Setting save destination: `saveto|save|export FILE_PATH`
+#### 3.10.1. Setting save destination: `saveto|save|export FILE_PATH`
 Allows you to save to another file.
 
 Note:
@@ -257,10 +333,13 @@ Note:
 
 Example:
 
-* saveto `C:/Suru/suru-data.xml`
-> Changes the save location to the specified file path and writes to that file.
+* saveto `myData.xml`
 
-#### 3.10.2 Setting target to load from: `loadfrom|load|import FILE_PATH`
+> Changes the save location to the specified file path and writes to that file. This file also becomes your working copy i.e. any commands executed after this are saved into this file.
+
+<img src="images/save-1.png" width="800" />
+
+#### 3.10.2. Setting target to load from: `loadfrom|load|import FILE_PATH`
 Allows you to load data from another file.
 
 > * The `FILE_PATH` should be the address of the file you wish to load your tasks from.
@@ -268,20 +347,26 @@ Allows you to load data from another file.
 
 Example:
 
-* loadfrom `C:/Suru/suru-data.xml`
+* loadfrom `yourData.xml`
+
 > Loads data from an external file at the specified file path and updates Suru's task list.
+
+<img src="images/load-1.png" width="800" />
+<img src="images/load-2.png" width="800" />
 
 ### 3.11. Email Reminders
 Suru sends reminders via email for all your tasks. This means that as long as you have your email set up, you can get reminders on any device!
 
-#### 3.11.1 Setting preferred email: `email EMAIL_ADDRESS`
+#### 3.11.1. Setting preferred email: `email EMAIL_ADDRESS`
 First, set up your email with this command.
 
 Example:
-* email `shawn@suru.com`
-Suru will now send email reminders to this `shawn@suru.com`
 
-#### 3.11.2 Enabling reminders: `reminders enable`
+* email `shawn@suru.com`
+
+> Suru will now send email reminders to this `shawn@suru.com`
+
+#### 3.11.2. Enabling reminders: `reminders enable`
 This command enables reminders for Suru. 
 
 Note:
@@ -291,11 +376,13 @@ Note:
 
 After executing this command, Suru will send email reminders to the specified email.
 
-#### 3.11.3 Disabling reminders: `reminders disable`
+#### 3.11.3. Disabling reminders: `reminders disable`
 
 This command disables reminders for Suru. 
 
 After executing this command, Suru will stop sending email reminders.
+
+<img src="images/email.png" width="400" />
 
 <!-- @@author A0139410N -->
 
