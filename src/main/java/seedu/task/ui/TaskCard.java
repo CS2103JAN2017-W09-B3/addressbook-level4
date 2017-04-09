@@ -36,11 +36,11 @@ public class TaskCard extends UiPart<Region> {
     private Label taskTypeLabel;
 
 
-    private final String BACKGROUND_COLOR_STYLE = "-fx-background-color: ";
-    private final String TEXT_FILL_STYLE = "-fx-text-fill: ";
-    private final String FONT_SIZE_STYLE = "-fx-font-size: ";
-    private final String OVERDUE_COLOR = "#d55454";
-    private final String UPCOMING_COLOR = "orange";
+    private static final String BACKGROUND_COLOR_STYLE = "-fx-background-color: ";
+    private static final String TEXT_FILL_STYLE = "-fx-text-fill: ";
+    private static final String FONT_SIZE_STYLE = "-fx-font-size: ";
+    private static final String OVERDUE_COLOR = "#d55454";
+    private static final String UPCOMING_COLOR = "orange";
 
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
