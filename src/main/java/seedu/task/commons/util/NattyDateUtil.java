@@ -86,7 +86,7 @@ public class NattyDateUtil {
         // If the time was inferred, set the time explicitly to (high) noon.
         if (dg.isTimeInferred()) {
             finalDate = setExplicitTime(result, 12, 0, 0, 0);
-	    logger.info(String.format("%s newResult: %s", logPrefix, finalDate.toString()));
+            logger.info(String.format("%s newResult: %s", logPrefix, finalDate.toString()));
         }
 
         return finalDate;
