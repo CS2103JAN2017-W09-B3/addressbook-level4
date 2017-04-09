@@ -3,7 +3,9 @@ package seedu.task.logic.commands;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
@@ -88,7 +90,9 @@ public class EditCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
+        int taskID = model.getTaskID(editedTask);
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(taskID));
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
     //@@author A0138664W
@@ -99,7 +103,9 @@ public class EditCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
+        int newTaskID = model.getTaskID(previousTask);
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(newTaskID));
         return new CommandResult(String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, previousTask));
     }
 
@@ -110,7 +116,9 @@ public class EditCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
+        int newTaskID = model.getTaskID(previousTask);
         model.updateFilteredListToShowAll();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(newTaskID));
         return new CommandResult(String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, previousTask));
     }
     //@@author
