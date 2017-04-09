@@ -13,7 +13,7 @@ Responsibilities: Code Quality + Eclipse expert + Model
 -----
 <!-- @@author A0138664W -->
 #### [Mustaqiim Muhar](http://github.com/mustaqiimuhar)
-<img src="images/mustaqiimuhar.png" width="150"><br>
+<img src="images/musphoto.jpg" width="150"><br>
 Role: Developer <br>
 Responsibilities: Testing + Storage + Documentation
 
