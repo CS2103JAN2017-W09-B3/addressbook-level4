@@ -29,10 +29,10 @@ public class UiManager extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/suru_32.png";
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
     private final String WELCOME_MESSAGE =
-            "Hi there! I'm Suru, your chat-based personal assistant. " + "\n"
+            "Hi there! I'm Suru, your chat-based personal assistant. " + "\n \n"
             + "To learn how you can use me to the fullest, type 'help' in the box below!" + "\n \n"
             + "If you would like to see some sample data, simply use the command "
-            + "'load sample/sampledata.xml";
+            + "'load sampledata.xml'";
 
     private Logic logic;
     private Config config;

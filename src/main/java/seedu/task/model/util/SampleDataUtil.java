@@ -14,7 +14,7 @@ import seedu.task.storage.XmlTaskManagerStorage;
 //@@author A0139938L
 public class SampleDataUtil {
 
-    private static final String SAMPLE_DATA_FILE_PATH = "./sample/sampledata.xml";
+    private static final String SAMPLE_DATA_FILE_PATH = "./sampledata.xml";
 
     public static Task[] getSampleTasks() throws DataConversionException, IOException {
         ReadOnlyTaskManager sampleTaskManager = getSampleTaskManager();
