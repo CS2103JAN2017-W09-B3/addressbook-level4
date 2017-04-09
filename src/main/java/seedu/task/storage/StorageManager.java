@@ -28,9 +28,9 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private TaskManagerStorage taskManagerStorage;
     private UserPrefsStorage userPrefsStorage;
-    private final String VALID_FILE_REGEX = "(.+)?[\\w,\\s,\\d]+\\.xml$";
-    private final Pattern ARGUMENTS_FORMAT = Pattern.compile(VALID_FILE_REGEX);
-    private final String MESSAGE_INVALID_FILE = "Please specify a file name ending in .xml";
+    private static final String VALID_FILE_REGEX = "(.+)?[\\w,\\s,\\d]+\\.xml$";
+    private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(VALID_FILE_REGEX);
+    private static final String MESSAGE_INVALID_FILE = "Please specify a file name ending in .xml";
 
 
     public StorageManager(TaskManagerStorage taskManagerStorage, UserPrefsStorage userPrefsStorage) {
