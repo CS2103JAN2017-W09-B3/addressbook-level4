@@ -14,10 +14,10 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.ChatPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainGuiHandle;
 import guitests.guihandles.MainMenuHandle;
-import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
 import javafx.application.Platform;
@@ -27,6 +27,7 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.BaseEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.TaskManager;
+import seedu.task.model.chat.Chat;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
@@ -51,9 +52,9 @@ public abstract class TaskManagerGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
-    protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
+    protected ChatPanelHandle chatPanel;
     private Stage stage;
 
     @BeforeClass
@@ -72,8 +73,8 @@ public abstract class TaskManagerGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
-            resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
+            chatPanel = mainGui.getChatPanel();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
@@ -127,10 +128,11 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Asserts the message shown in the Result Display area is same as the given string.
+     * Asserts the message shown in the last chat message is same as the given string.
      */
     protected void assertResultMessage(String expected) {
-        assertEquals(expected, resultDisplay.getText());
+        Chat lastMessage = chatPanel.getLastChat();
+        assertEquals(expected, lastMessage.getMessage());
     }
 
     public void raise(BaseEvent e) {

@@ -17,9 +17,10 @@ public class MainGuiHandle extends GuiHandle {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
 
-    public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle(guiRobot, primaryStage);
+    public ChatPanelHandle getChatPanel() {
+        return new ChatPanelHandle(guiRobot, primaryStage);
     }
+
 
     public CommandBoxHandle getCommandBox() {
         return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
