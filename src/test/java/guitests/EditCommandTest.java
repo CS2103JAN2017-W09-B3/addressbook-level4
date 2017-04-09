@@ -37,11 +37,11 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
         commandBox.runCommand("unchecked 1");
-        String detailsToEdit = "Bobby from 11/12/12 00:00 to 11/13/12 00:00 #husband";
+        String detailsToEdit = "Bobby from 12/11/12 00:00 to 13/11/12 00:00 #husband";
         int taskManagerIndex = 1;
 
-        TestTask editedTask = new TestTaskBuilder().withName("Bobby").withStartDate("11/12/12 00:00")
-                .withEndDate("11/13/12 00:00").withCompletion(false, "overdue").withTags("husband")
+        TestTask editedTask = new TestTaskBuilder().withName("Bobby").withStartDate("12/11/12 00:00")
+                .withEndDate("13/11/12 00:00").withCompletion(false, "overdue").withTags("husband")
                 .withTaskType("event").build();
 
         assertEditSuccess(taskManagerIndex, taskManagerIndex, detailsToEdit, editedTask);
