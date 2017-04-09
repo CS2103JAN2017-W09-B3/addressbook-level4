@@ -14,7 +14,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    public static final String[] COMMAND_WORDS = new String[] {"delete", "del", "remove", "-d"};
+    public static final String[] COMMAND_WORDS = new String[] {"delete", "del", "remove", "-d", "rm"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND
