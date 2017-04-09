@@ -8,7 +8,7 @@ package seedu.task.logic.commands;
 public class ListCommand extends Command {
 
     //@@author A0146789H
-    public static final String[] COMMAND_WORDS = new String[] {"list"};
+    public static final String[] COMMAND_WORDS = new String[] {"list", "ls"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
