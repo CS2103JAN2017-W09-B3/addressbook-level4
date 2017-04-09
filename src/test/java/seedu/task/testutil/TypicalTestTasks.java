@@ -1,6 +1,8 @@
 package seedu.task.testutil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.TaskManager;
@@ -59,13 +61,16 @@ public class TypicalTestTasks {
 
     public TestTask[] getTypicalTasks() throws DataConversionException, IOException {
         Task[] tasks = SampleDataUtil.getSampleTasks();
-        TestTask[] testTasks = new TestTask[tasks.length];
+        List <TestTask> listOfTasks = new ArrayList <TestTask> ();
         for (int i = 0; i < tasks.length; i++) {
             Task task = tasks[i];
             TestTask testTask = new TestTask(task);
-            testTasks[i] = testTask;
+            listOfTasks.add(testTask);
         }
-        return testTasks;
+
+        listOfTasks.sort(TestUtil.c);
+        listOfTasks.sort(TestUtil.checkUncheck);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     public TaskManager getTypicalTaskManager() throws DataConversionException, IOException {

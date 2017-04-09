@@ -11,15 +11,16 @@ import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.AddCommand;
-import seedu.task.model.task.Name;
 import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TestTaskBuilder;
 import seedu.task.testutil.TestUtil;
 
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void add() throws IllegalValueException {
-        //add one task
+        //@@author A0139410N
+       //add one task
         TestTask[] currentList = null;
         try {
             currentList = td.getTypicalTasks();
@@ -27,20 +28,22 @@ public class AddCommandTest extends TaskManagerGuiTest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        TestTask taskToAdd = currentList[0];
-        taskToAdd.setName(new Name("Another Task Name"));
-//        assertAddSuccess(taskToAdd, currentList);
+        TestTask taskToAdd = new TestTaskBuilder(currentList[0])
+                .withName("Another Task Name").withEndDate("today").build();
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = currentList[1];
-//        assertAddSuccess(taskToAdd, currentList);
+        taskToAdd = new TestTaskBuilder(currentList[1])
+                .withName("Second Task").withEndDate("tomorrow").build();;
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
+        //@@author
         //add duplicate task
         commandBox.runCommand(currentList[2].getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");

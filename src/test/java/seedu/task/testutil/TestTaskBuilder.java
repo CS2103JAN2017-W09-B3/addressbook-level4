@@ -5,6 +5,7 @@ import seedu.task.commons.util.NattyDateUtil;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.CompletionStatus;
+import seedu.task.model.task.CompletionStatus.IncompleteType;
 import seedu.task.model.task.EndTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.StartTime;
@@ -46,6 +47,7 @@ public class TestTaskBuilder {
         return this;
     }
 
+    //@@author A0139410N
     public TestTaskBuilder withTaskType(String taskType) throws IllegalValueException {
         TaskType myTaskType = null;
         for (TaskType t : TaskType.values()) {
@@ -57,11 +59,20 @@ public class TestTaskBuilder {
         return this;
     }
 
-    public TestTaskBuilder withCompletion(boolean completion) throws IllegalValueException {
+    public TestTaskBuilder withCompletion(boolean completion, String incompleteType)
+            throws IllegalValueException {
         this.task.setCompletionStatus(new CompletionStatus(completion));
+        IncompleteType myIncompleteType = null;
+        for (IncompleteType i : IncompleteType.values()) {
+            if (incompleteType.equals(i.toString())) {
+                myIncompleteType = i;
+            }
+        }
+        this.task.getCompletionStatus().setCurrentStatus(myIncompleteType);
         return this;
     }
 
+    //@@author A0146789H
     public TestTaskBuilder withStartDate(String dateString) throws IllegalValueException {
         this.task.setStartTime(new StartTime(NattyDateUtil.parseSingleDate(dateString)));
         return this;

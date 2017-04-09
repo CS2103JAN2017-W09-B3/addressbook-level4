@@ -12,6 +12,7 @@ import seedu.task.testutil.TestTask;
 
 public class FindCommandTest extends TaskManagerGuiTest {
 
+    //@@author A0139410N
     @Test
     public void find_nonEmptyList() {
         TestTask[] currentList = null;
@@ -22,12 +23,13 @@ public class FindCommandTest extends TaskManagerGuiTest {
             e.printStackTrace();
         }
         assertFindResult("find Mark"); // no results
-//        assertFindResult("find meeting", currentList[0], currentList[2]); // multiple results
+        assertFindResult("find meeting", currentList[1], currentList[3]); // multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 3");
-//        assertFindResult("find meeting", currentList[0]);
+        commandBox.runCommand("delete 2");
+        assertFindResult("find meeting", currentList[1]);
     }
+    //@@author
 
     @Test
     public void find_emptyList() {
