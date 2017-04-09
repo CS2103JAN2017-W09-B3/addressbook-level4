@@ -40,17 +40,19 @@ def register(email, time, action):
         abort(404)
 
     if action == 'disable':
-        pass
+        return "disable " + email
 
+    if action == 'enable':
+        # Check if the storage parameter is available
+        if 'storage' not in request.files:
+            abort(404)
 
-    # Check if the storage parameter is available
-    if 'storage' not in request.files:
-        abort(404)
+        # Read the data from the file object
+        file_data = request.files['storage'].read()
 
-    # Read the data from the file object
-    file_data = request.files['storage'].read()
+        return file_data
 
-    return file_data
+    abort(404)
 
 if __name__ == "__main__":
     app.run()
