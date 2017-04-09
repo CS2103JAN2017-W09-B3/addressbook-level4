@@ -20,7 +20,7 @@
       <children>
          <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-               <ListView fx:id="chatListView" maxHeight="1.7976931348623157E308" prefHeight="2000.0" styleClass="chat-display" />
+               <ListView id="chat-list-view" fx:id="chatListView" maxHeight="1.7976931348623157E308" prefHeight="2000.0" styleClass="chat-display" />
                <Text fx:id="resultDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" wrappingWidth="280.0">
                   <VBox.margin>
                      <Insets left="10.0" top="20.0" />

@@ -69,6 +69,14 @@ public abstract class UiPart<T> {
     }
 
     /**
+     * Unregisters the object as an event handler at the {@link EventsCenter}
+     * @param handler usually {@code this}
+     */
+    protected void unregisterAsAnEventHandler(Object handler) {
+        EventsCenter.getInstance().unregisterHandler(handler);
+    }
+
+    /**
      * Creates a modal dialog.
      * @param title Title of the dialog.
      * @param parentStage The owner stage of the dialog.

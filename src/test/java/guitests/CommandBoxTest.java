@@ -13,6 +13,7 @@ import seedu.task.ui.CommandBox;
 public class CommandBoxTest extends TaskManagerGuiTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = "select 3";
+    @SuppressWarnings("unused")
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -35,14 +36,6 @@ public class CommandBoxTest extends TaskManagerGuiTest {
 
         assertEquals("", commandBox.getCommandInput());
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
-    }
-
-    @Test
-    public void commandBox_commandFails_textStaysAndErrorStyleClassAdded() {
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-
-        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
     @Test

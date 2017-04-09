@@ -24,7 +24,7 @@ import seedu.task.model.task.UniqueTaskList;
 public class AddTagCommand extends Command {
 
     //@@author A0146789H
-    public static final String[] COMMAND_WORDS = new String[] {"addtag"};
+    public static final String[] COMMAND_WORDS = new String[] {"addtag", "addtags"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     //@@author A0138664W

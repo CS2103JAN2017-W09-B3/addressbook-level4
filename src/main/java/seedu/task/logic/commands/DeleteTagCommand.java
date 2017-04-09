@@ -24,7 +24,7 @@ import seedu.task.model.task.UniqueTaskList;
 public class DeleteTagCommand extends Command {
 
     //@@author A0146789H
-    public static final String[] COMMAND_WORDS = new String[] {"deltag"};
+    public static final String[] COMMAND_WORDS = new String[] {"deltag", "deltags"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     //@@author A0138664W
@@ -32,7 +32,7 @@ public class DeleteTagCommand extends Command {
             + "Parameters: INDEX [#tag]\n"
             + "Example: " + DEFACTO_COMMAND
             + " 1 #CS2103 #uni";
-    public static final String ADD_TAG_SUCCESS = "Deleted tags from task: %1$s";
+    public static final String DEL_TAG_SUCCESS = "Deleted tags from task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
     public static final String MESSAGE_DUPLICATE_TAGS = "This tag already exists in the task.";
@@ -76,7 +76,7 @@ public class DeleteTagCommand extends Command {
         }
         model.updateFilteredListToShowAll();
         EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getTaskID(taskEdited)));
-        return new CommandResult(String.format(ADD_TAG_SUCCESS, editedTask));
+        return new CommandResult(String.format(DEL_TAG_SUCCESS, editedTask));
     }
 
     public CommandResult executeUndo(Task previousTask, Task editedTask, Model model) throws CommandException {

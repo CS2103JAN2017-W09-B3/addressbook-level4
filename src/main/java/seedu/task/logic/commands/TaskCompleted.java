@@ -19,8 +19,8 @@ public abstract class TaskCompleted extends Command {
      * Protected access modifier is used to restrict access to the subclass.
      * @param COMMAND_WORDS
      */
-    protected TaskCompleted(String[] COMMAND_WORDS) {
-        super(COMMAND_WORDS);
+    protected TaskCompleted(String[] commandWords) {
+        super(commandWords);
     }
 
     //@@author A0138664W

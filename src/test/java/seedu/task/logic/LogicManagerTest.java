@@ -26,11 +26,13 @@ import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
 import seedu.task.commons.util.NattyDateUtil;
 import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.AddTagCommand;
 import seedu.task.logic.commands.CheckCommand;
 import seedu.task.logic.commands.ClearCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.DeleteTagCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
@@ -375,6 +377,71 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
+    @Test
+    public void execute_undoredo_addtag() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.editedTask();
+        Task addedTag = helper.editedTagTask();
+        Task undoTag = helper.editedTask();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, addedTag);
+        assertCommandSuccess("addtag 1 #tagtest #tagtagtest",
+                String.format(AddTagCommand.ADD_TAG_SUCCESS, addedTag), expectedAB, expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, undoTag);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, undoTag),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, addedTag);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, addedTag),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+
+    @Test
+    public void execute_undoredo_deltag() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.editedTagTask();
+        Task deletedTag = helper.editedTask();
+        Task undoTag = helper.editedTagTask();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, deletedTag);
+        assertCommandSuccess("deltag 1 #tagtest #tagtagtest",
+                String.format(DeleteTagCommand.DEL_TAG_SUCCESS, deletedTag), expectedAB, expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, undoTag);
+        assertCommandSuccess("undo",
+                String.format(UndoCommand.MESSAGE_UNDO_SUCCESS_EDIT, undoTag),
+                expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.updateTask(0, deletedTag);
+        assertCommandSuccess("redo",
+                String.format(RedoCommand.MESSAGE_REDO_SUCCESS_EDIT, deletedTag),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
     //still buggy not used yet
     public void execcute_undoredo_checkUncheck() throws Exception {
         // setup expectations
@@ -597,6 +664,18 @@ public class LogicManagerTest {
             CompletionStatus completion = new CompletionStatus(false);
             Tag tag1 = new Tag("edit");
             UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, startDate, endDate, completion, tags);
+        }
+
+        Task editedTagTask() throws Exception {
+            Name name = new Name("This is edited Task");
+            StartTime startDate = new StartTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            EndTime endDate = new EndTime(NattyDateUtil.parseSingleDate("12/11/11 0909"));
+            CompletionStatus completion = new CompletionStatus(false);
+            Tag tag1 = new Tag("edit");
+            Tag tag2 = new Tag("tagtest");
+            Tag tag3 = new Tag("tagtagtest");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2, tag3);
             return new Task(name, startDate, endDate, completion, tags);
         }
 

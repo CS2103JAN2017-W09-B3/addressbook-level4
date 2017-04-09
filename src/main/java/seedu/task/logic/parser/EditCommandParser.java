@@ -74,8 +74,7 @@ public class EditCommandParser extends AbstractParser {
             Matcher matcher;
             if (taskName == null) {
                 matcher = ARGUMENTS_FORMAT.matcher(argsToCheck);
-            }
-            else {
+            } else {
                 matcher = ARGUMENTS_FORMAT_QUOTED.matcher(argsToCheck);
             }
             if (!matcher.matches()) {

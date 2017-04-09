@@ -24,6 +24,7 @@ public class SelectCommand extends Command {
             + "Example: " + DEFACTO_COMMAND + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
+    public static final String MESSAGE_SELECTED_TASK = "\nTask Name: %1$s";
 
     protected SelectCommand() {
         super(COMMAND_WORDS);
@@ -45,8 +46,9 @@ public class SelectCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-
+        ReadOnlyTask selectedTaskDetails = lastShownList.get(targetIndex - 1);
+        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex)
+                + String.format(MESSAGE_SELECTED_TASK, selectedTaskDetails));
     }
 
     //@@author A0146789H
