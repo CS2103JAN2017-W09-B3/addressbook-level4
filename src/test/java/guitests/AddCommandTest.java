@@ -7,8 +7,10 @@ import java.io.IOException;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
+import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.logic.commands.AddCommand;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskBuilder;
 import seedu.task.testutil.TestUtil;
@@ -26,30 +28,30 @@ public class AddCommandTest extends TaskManagerGuiTest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       TestTask taskToAdd = new TestTaskBuilder(currentList[0])
-                .withName("Another Task Name").build();
+        TestTask taskToAdd = new TestTaskBuilder(currentList[0])
+                .withName("Another Task Name").withEndDate("today").build();
         assertAddSuccess(taskToAdd, currentList);
-//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-//        //add another task
-//        taskToAdd = new TestTaskBuilder(currentList[1])
-//                .withName("Second Task").build();;
-//        assertAddSuccess(taskToAdd, currentList);
-//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-//
-//        //@@author
-//        //add duplicate task
-//        commandBox.runCommand(currentList[2].getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
-//
-//        //add to empty list
-//        commandBox.runCommand("clear");
-//        assertAddSuccess(currentList[3]);
-//
-//        //invalid command
-//        commandBox.runCommand("adds task99");
-//        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        //add another task
+        taskToAdd = new TestTaskBuilder(currentList[1])
+                .withName("Second Task").withEndDate("tomorrow").build();;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+        //@@author
+        //add duplicate task
+        commandBox.runCommand(currentList[2].getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));
+
+        //add to empty list
+        commandBox.runCommand("clear");
+        assertAddSuccess(currentList[3]);
+
+        //invalid command
+        commandBox.runCommand("adds task99");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

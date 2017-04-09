@@ -337,7 +337,7 @@ public class TestUtil {
     static Comparator<TestTask> c = new Comparator<TestTask>() {
         @Override
         public int compare(TestTask task1, TestTask task2) {
-        	Date task1Date = task1.getEndTime().getValue();
+            Date task1Date = task1.getEndTime().getValue();
             Date task2Date = task2.getEndTime().getValue();
 
             if (!task1.hasEndTime()) {
