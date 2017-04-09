@@ -24,7 +24,7 @@ import seedu.task.testutil.TestUtil;
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
+    public static final String CARD_PANE_ID = "#cardAnchorPane";
 
     private static final String TASK_LIST_VIEW_ID = "#task-list-view";
 
@@ -62,9 +62,12 @@ public class TaskListPanelHandle extends GuiHandle {
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            ListView<ReadOnlyTask> listview = getListView();
+            guiRobot.interact(() -> listview.scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+            String result = getTask(startPosition + i).getName().fullName;
+            String expected = tasks[i].getName().fullName;
+            if (!TestUtil.compareCardAndTask(result,expected)) {
                 return false;
             }
         }
