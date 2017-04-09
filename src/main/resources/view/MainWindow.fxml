@@ -12,13 +12,13 @@
 
 <!-- @@author -->
 
-<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minWidth="1112.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@suru.css" />
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
-      <SplitPane fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+      <SplitPane fx:id="splitPane" dividerPositions="0.5" minWidth="1112.0" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" minWidth="700.0">
                <children>
@@ -26,7 +26,7 @@
                   <AnchorPane fx:id="statusbarPlaceholder" />
                </children>
             </VBox>
-            <VBox maxWidth="-Infinity" minWidth="500.0" SplitPane.resizableWithParent="false">
+            <VBox maxWidth="-Infinity" minWidth="400.0" SplitPane.resizableWithParent="false">
                <children>
                   <StackPane styleClass="title-container">
                      <children>
