@@ -203,7 +203,7 @@ public class MainApp extends Application {
             UserPrefs prefs = optPrefs.get();
             Config config = optConfig.get();
             if (!prefs.reminderEmail.equals("")) {
-                HttpUtil.pushSaveFile(prefs.reminderEmail, prefs.reminderTime, config.getUserPrefsFilePath());
+                HttpUtil.pushSaveFile(prefs.reminderEmail, prefs.reminderTime, config.getTaskManagerFilePath());
             }
         }
 

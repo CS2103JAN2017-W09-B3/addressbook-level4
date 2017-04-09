@@ -61,7 +61,8 @@ public class ReminderCommand extends Command {
         }
 
         // Try to push the file to the server. If it works, then return an affirmative result
-        if (enabled && HttpUtil.pushSaveFile(prefs.reminderEmail, prefs.reminderTime, config.getUserPrefsFilePath())) {
+        if (enabled && HttpUtil.pushSaveFile(prefs.reminderEmail, prefs.reminderTime,
+                config.getTaskManagerFilePath())) {
             return new CommandResult(MESSAGE_ENABLED);
         } else if (!enabled && HttpUtil.pushDisable(prefs.reminderEmail)) {
             return new CommandResult(MESSAGE_DISABLED);
