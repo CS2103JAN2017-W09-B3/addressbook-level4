@@ -8,12 +8,16 @@ import sendgrid
 from sendgrid.helpers.mail import *
 from flask import Flask, abort, request
 from apscheduler.schedulers.background import BackgroundScheduler
+import xml.etree.ElementTree
+import dateutil.parser
+import datetime
 import os
 import re
 
 app = Flask(__name__)
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 scheduler = BackgroundScheduler()
+email_jobs = {}
 
 FROM_EMAIL = Email("no-reply@suru.com")
 
@@ -26,6 +30,35 @@ def sendmail(email, event, time_delta):
     mail= Mail(FROM_EMAIL, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=mail.get())
     return response
+
+def process(file_data, email, time):
+    if email in email_jobs:
+        for i in email_jobs[email]:
+            i.remove()
+        del email_jobs[email]
+
+    jobs = []
+
+    try:
+        root = xml.etree.ElementTree.fromstring(file_data)
+    except:
+        return False
+
+    for task in root.findall("task"):
+        name = task.find("name")
+        start_date = task.find("startDate")
+        completion_status = task.find("completionStatus")
+        if completion_status is not None and completion_status.text == "true":
+            continue
+        if start_date is not None:
+            scheduled = dateutil.parser.parse(start_date.text)
+            actual = scheduled - datetime.timedelta(minutes=time)
+            job = scheduler.add_job(sendmail, "date",
+                                    [email, name.text, time],
+                                    next_run_time=actual)
+            jobs.append(job)
+
+    email_jobs[email] = jobs
 
 @app.route('/')
 def index():
@@ -49,9 +82,11 @@ def register(email, time, action):
 
         # Read the data from the file object
         file_data = request.files['storage'].read()
-        print file_data
 
-        return file_data
+        if (process(file_data, email, time)):
+            return "success"
+        else:
+            abort(404)
 
     abort(404)
 
