@@ -24,10 +24,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
+    //@@author A0146789H
+    private final Storage storage;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
+        this.storage = storage;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class LogicManager extends ComponentManager implements Logic {
         ChatList chatList = getChatList();
         chatList.add(new Chat(commandText, Sender.USER));
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
+        command.setData(model, storage);
         return command.execute();
     }
 
