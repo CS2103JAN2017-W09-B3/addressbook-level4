@@ -28,7 +28,6 @@ public class SelectCommandTest extends TaskManagerGuiTest {
         assertSelectionSuccess(taskCount); // last Task in the list
         int middleIndex = taskCount / 2;
         assertSelectionSuccess(middleIndex); // a Task in the middle of the list
-
         assertSelectionInvalid(taskCount + 1); // invalid index
         assertTaskSelected(middleIndex); // assert previous selection remains
     }
@@ -47,7 +46,8 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Task: " + index);
+        ReadOnlyTask selectedTask = taskListPanel.getTask(index - 1);
+        assertResultMessage("Selected Task: " + index + "\nTask Name: "+ selectedTask.getAsText());
         assertTaskSelected(index);
     }
 
