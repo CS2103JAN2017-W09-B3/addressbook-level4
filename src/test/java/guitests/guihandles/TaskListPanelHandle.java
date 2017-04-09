@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import guitests.GuiRobot;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -25,7 +26,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String TASK_LIST_VIEW_ID = "#task-list-view";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -170,6 +171,9 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public int getNumberOfTasks() {
-        return getListView().getItems().size();
+        ListView<ReadOnlyTask> listview = getListView();
+        ObservableList<ReadOnlyTask> oList = listview.getItems();
+        int size = oList.size();
+        return size;
     }
 }
