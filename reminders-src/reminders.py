@@ -7,29 +7,29 @@
 import sendgrid
 from sendgrid.helpers.mail import *
 from flask import Flask, abort, request
+from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import re
 
 app = Flask(__name__)
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+scheduler = BackgroundScheduler()
+
+FROM_EMAIL = Email("no-reply@suru.com")
+
+def sendmail(email, event, time_delta):
+    subject = "[Reminder]: %s" % event
+    to_email = Email(email)
+    words = "Here's a friendly reminder to attend your '%s'! It's happening in %d minutes!"
+    words = words % (event, time_delta)
+    content = Content("text/plain", words)
+    mail= Mail(FROM_EMAIL, subject, to_email, content)
+    response = sg.client.mail.send.post(request_body=mail.get())
+    return response
 
 @app.route('/')
 def index():
     return 'Suru Reminders API'
-
-# For reference.
-# @app.route('/sendmail')
-# def sendmail():
-    # from_email = Email("no-reply@suru.com")
-    # subject = "[Reminder]: Software Engineering Lecture"
-    # to_email = Email("")
-    # content = Content("text/plain", "Here's a friendly reminder to attend your 'Software Engineering Lecture'! It's happening in 15 minutes!")
-    # mail = Mail(from_email, subject, to_email, content)
-    # response = sg.client.mail.send.post(request_body=mail.get())
-    # reply = str(response.status_code)
-    # reply += str(response.body)
-    # reply += str(response.headers)
-    # return reply
 
 @app.route('/register/<email>/<int:time>/<action>', methods=["POST"])
 def register(email, time, action):
@@ -49,6 +49,7 @@ def register(email, time, action):
 
         # Read the data from the file object
         file_data = request.files['storage'].read()
+        print file_data
 
         return file_data
 
