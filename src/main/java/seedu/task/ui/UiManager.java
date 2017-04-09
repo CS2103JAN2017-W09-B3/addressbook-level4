@@ -14,6 +14,7 @@ import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
+import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
 import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.commons.util.StringUtil;
@@ -27,6 +28,11 @@ public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/suru_32.png";
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
+    public static final String WELCOME_MESSAGE =
+            "Hi there! I'm Suru, your chat-based personal assistant. " + "\n \n"
+            + "To learn how you can use me to the fullest, type 'help' in the box below!" + "\n \n"
+            + "If you would like to see some sample data, simply use the command: \n"
+            + "'load sampledata.xml'";
 
     private Logic logic;
     private Config config;
@@ -38,6 +44,10 @@ public class UiManager extends ComponentManager implements Ui {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+    }
+
+    private void writeToChat(String msg) {
+        raise(new NewResultAvailableEvent(msg));
     }
 
     @Override
@@ -52,7 +62,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-
+            writeToChat(WELCOME_MESSAGE);
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
