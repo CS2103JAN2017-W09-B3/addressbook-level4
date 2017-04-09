@@ -1,3 +1,4 @@
+//@@author A0146789H
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.EventsCenter;
@@ -8,7 +9,6 @@ import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
 import seedu.task.storage.Storage;
 
-//@@author A0146789H
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */

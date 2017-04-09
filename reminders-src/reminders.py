@@ -31,13 +31,17 @@ def index():
     # reply += str(response.headers)
     # return reply
 
-@app.route('/register/<email>', methods=["POST"])
-def register(email):
+@app.route('/register/<email>/<int:time>/<action>', methods=["POST"])
+def register(email, time, action):
     # Check if the email matches the right format
     email_regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
     if (not email_regex.match(email)):
         # Abort with a 404 if the regex fails
         abort(404)
+
+    if action == 'disable':
+        pass
+
 
     # Check if the storage parameter is available
     if 'storage' not in request.files:

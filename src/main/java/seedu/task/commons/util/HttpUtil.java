@@ -50,9 +50,24 @@ public class HttpUtil {
      * @param filePath
      * @return
      */
-    public static boolean pushSaveFile(String email, String filePath) {
-        String url = String.format("http://%s:%d%s%s", API_HOSTNAME, API_PORT, API_ENDPOINT, email);
+    public static boolean pushSaveFile(String email, int time, String filePath) {
+        String url = String.format("http://%s:%d%s%s/%d/enable", API_HOSTNAME, API_PORT, API_ENDPOINT, email, time);
         return uploadFile(url, "storage", filePath);
+    }
+
+    public static boolean pushDisable(String email) {
+        String url = String.format("http://%s:%d%s%s/0/disable", API_HOSTNAME, API_PORT, API_ENDPOINT, email);
+        try {
+            HttpResponse<String> request = Unirest.post(url).asString();
+            int status = request.getStatus();
+            if (status != 200) {
+                return false;
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }
