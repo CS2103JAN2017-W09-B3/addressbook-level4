@@ -366,7 +366,16 @@ Example:
 
 > Suru will now send email reminders to this `shawn@suru.com`
 
-#### 3.11.2. Enabling reminders: `reminders enable`
+#### 3.11.2. Set time before event to remind: `remindme MINUTES`
+Suru changes the number of minutes before an event before sending out a reminder for the user.
+
+Example:
+
+* remindme `5`
+
+> Suru will send reminders 5 minutes before the deadline of the task.
+
+#### 3.11.3. Enabling reminders: `reminders enable`
 This command enables reminders for Suru. 
 
 Note:
@@ -376,7 +385,7 @@ Note:
 
 After executing this command, Suru will send email reminders to the specified email.
 
-#### 3.11.3. Disabling reminders: `reminders disable`
+#### 3.11.4. Disabling reminders: `reminders disable`
 
 This command disables reminders for Suru. 
 
