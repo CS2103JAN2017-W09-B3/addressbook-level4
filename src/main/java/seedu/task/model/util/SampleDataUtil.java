@@ -21,7 +21,7 @@ public class SampleDataUtil {
         Task[] tasks = sampleTaskManager.getTaskArray();
         List<Task> taskList = new ArrayList <Task> ();
         for (Task t : tasks) {
-        	taskList.add(t);
+            taskList.add(t);
         }
         taskList.sort(c);
         taskList.sort(checkUncheck);
@@ -57,20 +57,20 @@ public class SampleDataUtil {
 
     static Comparator<Task> checkUncheck = new Comparator<Task>() {
 
-		@Override
-		public int compare(Task o1, Task o2) {
-			if(o1.getCompletionStatus().getCompletion()) {
-				if(o2.getCompletionStatus().getCompletion()){
-					return 0;
-				}
-				return 1;
-			} else if(!o1.getCompletionStatus().getCompletion()){
-				if(o2.getCompletionStatus().getCompletion()) {
-					return -1;
-				}
-			}
-			return 0;
-		}
+        @Override
+        public int compare(Task o1, Task o2) {
+            if (o1.getCompletionStatus().getCompletion()) {
+                if (o2.getCompletionStatus().getCompletion()) {
+                    return 0;
+                }
+                return 1;
+            } else if (!o1.getCompletionStatus().getCompletion()) {
+                if (o2.getCompletionStatus().getCompletion()) {
+                    return -1;
+                }
+            }
+            return 0;
+        }
 
     };
 

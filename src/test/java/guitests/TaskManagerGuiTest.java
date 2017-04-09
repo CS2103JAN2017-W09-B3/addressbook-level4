@@ -120,6 +120,13 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
+     * Asserts the strings are equal
+     */
+    public void assertStringEquals(String expected, String actual) {
+        assertTrue(expected.equals(actual));
+    }
+
+    /**
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {

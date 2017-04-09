@@ -361,20 +361,20 @@ public class TestUtil {
 
     static Comparator<TestTask> checkUncheck = new Comparator<TestTask>() {
 
-		@Override
-		public int compare(TestTask o1, TestTask o2) {
-			if(o1.getCompletionStatus().getCompletion()) {
-				if(o2.getCompletionStatus().getCompletion()){
-					return 0;
-				}
-				return 1;
-			} else if(!o1.getCompletionStatus().getCompletion()){
-				if(o2.getCompletionStatus().getCompletion()) {
-					return -1;
-				}
-			}
-			return 0;
-		}
+        @Override
+        public int compare(TestTask o1, TestTask o2) {
+            if (o1.getCompletionStatus().getCompletion()) {
+                if (o2.getCompletionStatus().getCompletion()) {
+                    return 0;
+                }
+                return 1;
+            } else if (!o1.getCompletionStatus().getCompletion()) {
+                if (o2.getCompletionStatus().getCompletion()) {
+                    return -1;
+                }
+            }
+            return 0;
+        }
 
     };
 
