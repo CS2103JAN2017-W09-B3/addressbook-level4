@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -58,8 +57,8 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        assertMatching(taskToAdd, addedCard);
+        String addedCardName = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertStringEquals(taskToAdd.getName().fullName, addedCardName);
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);

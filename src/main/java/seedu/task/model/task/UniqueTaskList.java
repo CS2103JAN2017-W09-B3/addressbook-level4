@@ -123,8 +123,8 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                        && this.internalList.equals(
+                                ((UniqueTaskList) other).internalList));
     }
 
     @Override
@@ -180,17 +180,17 @@ public class UniqueTaskList implements Iterable<Task>, Comparator<Task> {
     Comparator<Task> checkUncheckComparator = new Comparator<Task>() {
         @Override
         public int compare(Task o1, Task o2) {
-        	if(o1.getCompletionStatus().getCompletion()) {
-				if(o2.getCompletionStatus().getCompletion()){
-					return 0;
-				}
-				return 1;
-			} else if(!o1.getCompletionStatus().getCompletion()){
-				if(o2.getCompletionStatus().getCompletion()) {
-					return -1;
-				}
-			}
-			return 0;
+            if (o1.getCompletionStatus().getCompletion()) {
+                if (o2.getCompletionStatus().getCompletion()) {
+                    return 0;
+                }
+                return 1;
+            } else if (!o1.getCompletionStatus().getCompletion()) {
+                if (o2.getCompletionStatus().getCompletion()) {
+                    return -1;
+                }
+            }
+            return 0;
         }
     };
     //@@author

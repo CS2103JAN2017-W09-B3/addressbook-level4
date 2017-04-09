@@ -13,7 +13,7 @@ import seedu.task.model.task.UniqueTaskList;
 
 //@@author A0146789H
 public class UncheckCommand extends TaskCompleted {
-    public static final String[] COMMAND_WORDS = new String[] {"uncheck", "incomplete"};
+    public static final String[] COMMAND_WORDS = new String[] {"uncheck", "unchecked", "incomplete"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Mark task completion status "
