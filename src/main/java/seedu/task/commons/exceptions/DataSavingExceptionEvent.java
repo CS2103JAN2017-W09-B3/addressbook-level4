@@ -1,4 +1,4 @@
-package seedu.task.commons.events.storage;
+package seedu.task.commons.exceptions;
 
 import seedu.task.commons.events.BaseEvent;
 
@@ -27,5 +27,13 @@ public class DataSavingExceptionEvent extends BaseEvent {
             return exception.getMessage();
         }
     }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
 
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -12,9 +14,9 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.LoadFromRequestEvent;
 import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
-import seedu.task.commons.events.storage.DataLoadingExceptionEvent;
-import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.exceptions.DataLoadingExceptionEvent;
+import seedu.task.commons.exceptions.DataSavingExceptionEvent;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
 
@@ -26,6 +28,9 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private TaskManagerStorage taskManagerStorage;
     private UserPrefsStorage userPrefsStorage;
+    private final String VALID_FILE_REGEX = "(.+)?[\\w,\\s,\\d]+\\.xml$";
+    private final Pattern ARGUMENTS_FORMAT = Pattern.compile(VALID_FILE_REGEX);
+    private final String MESSAGE_INVALID_FILE = "Please specify a file name ending in .xml";
 
 
     public StorageManager(TaskManagerStorage taskManagerStorage, UserPrefsStorage userPrefsStorage) {
@@ -94,21 +99,26 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     //@@author A0139938L
-    @Override
-    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filePath) {
-        try {
-            taskManagerStorage.changeSaveToLocation(taskManager, filePath);
-            raise(new DataSavingExceptionEvent(""));
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
 
     @Override
     @Subscribe
     public void handleSaveToRequestEvent(SaveToRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Changing save to location to " + event.filepath));
         changeSaveToLocation(event.taskManager, event.filepath);
+    }
+
+    @Override
+    public void changeSaveToLocation(ReadOnlyTaskManager taskManager, String filepath) {
+        try {
+            if (this.isFileValidXmlFile(filepath)) {
+                taskManagerStorage.changeSaveToLocation(taskManager, filepath);
+                raise(new DataSavingExceptionEvent(""));
+            } else {
+                raise(new DataSavingExceptionEvent(this.MESSAGE_INVALID_FILE));
+            }
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
     @Override
@@ -120,13 +130,30 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private void changeLoadFromLocation(LoadFromRequestEvent event) {
         try {
-            event.taskManager = readTaskManager(event.filepath);
-            raise(new DataLoadingExceptionEvent(""));
+            if (this.isFileValidXmlFile(event.filepath)) {
+                event.taskManager = readTaskManager(event.filepath);
+                if (!event.taskManager.isPresent()) {
+                    raise(new DataLoadingExceptionEvent("No such file exists."));
+                } else {
+                    raise(new DataLoadingExceptionEvent(""));
+                }
+            } else {
+                raise(new DataLoadingExceptionEvent(this.MESSAGE_INVALID_FILE));
+            }
         } catch (DataConversionException | IOException | NoSuchElementException e) {
             raise(new DataLoadingExceptionEvent(e));
         }
     }
 
+    /**
+     * Checks if file path is a valid xml file.
+     * @param filepath
+     * @return
+     */
+    private boolean isFileValidXmlFile(String filepath) {
+        Matcher matcher = ARGUMENTS_FORMAT.matcher(filepath);
+        return matcher.matches();
+    }
     //@@author
 
 }

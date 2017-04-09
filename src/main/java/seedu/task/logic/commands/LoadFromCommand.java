@@ -1,12 +1,15 @@
 package seedu.task.logic.commands;
 
+import com.google.common.eventbus.Subscribe;
+
+import seedu.task.commons.exceptions.DataLoadingExceptionEvent;
+
 //@@author A0139938L
 
 public class LoadFromCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Load location has been changed.";
     private static final String MESSAGE_FAILURE = "There was a problem changing your load location";
-    private static final String MESSAGE_ATTEMPT = "Attempting to load file...";
 
     private String filepath = "";
     //@@author A0146789H
@@ -34,8 +37,12 @@ public class LoadFromCommand extends Command {
     //@@author A0139938L
     @Override
     public CommandResult execute() {
-        model.changeLoadFromLocation(filepath);
+        executeAsync();
         return null;
+    }
+
+    private void executeAsync() {
+        model.changeLoadFromLocation(filepath);
     }
 
     /**
@@ -49,6 +56,20 @@ public class LoadFromCommand extends Command {
      */
     public void setFilepath(String filepath) {
         this.filepath = filepath;
+    }
+    /**
+     *
+     * @param dlee
+     * @return Command result indicating success or failure of data loading command
+     */
+    @Subscribe
+    private void handleDataLoadingExceptionEvent(DataLoadingExceptionEvent dlee) {
+        unregisterAsAnEventHandler(this);
+        if (dlee.getMessage() == null || dlee.getMessage() == "") {
+            writeToChat(MESSAGE_SUCCESS);
+        } else {
+            writeToChat(MESSAGE_FAILURE + ": " + dlee.toString());
+        }
     }
 
     //@@author A0146789H

@@ -1,11 +1,10 @@
 package seedu.task.logic.commands;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.task.commons.events.storage.DataSavingExceptionEvent;
+import seedu.task.commons.exceptions.DataSavingExceptionEvent;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.ReadOnlyTaskManager;
 
@@ -26,9 +25,7 @@ public class SaveToCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Save location has been changed.";
     private static final String MESSAGE_FAILURE = "There was a problem changing your save location";
-    private static final String MESSAGE_INVALID_FILE = "Please specify a file name ending in .xml";
-    private static final String MESSAGE_ATTEMPT = "Attempting to save file...";
-    private static final String VALID_FILE_REGEX = ".+[\\w,\\s,\\d]+\\.xml$";
+    private static final String VALID_FILE_REGEX = "(.+)?[\\w,\\s,\\d]+\\.xml$";
     private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(VALID_FILE_REGEX);
 
 
@@ -51,28 +48,7 @@ public class SaveToCommand extends Command {
      * */
     public void executeAsync() {
         ReadOnlyTaskManager taskManager = model.getTaskManager();
-        if (isFilePathValid(filepath)) {
-            model.changeSaveToLocation(taskManager, filepath);
-        } else {
-            writeToChat(MESSAGE_INVALID_FILE);
-        }
-    }
-
-    /**
-     * Checks if file path is a valid xml file.
-     * @param filepath
-     * @return
-     */
-    private boolean isFilePathValid(String filepath) {
-//        try{
-//            Matcher matcher = ARGUMENTS_FORMAT.matcher(filepath);
-//            String matched = matcher.matc;
-//            return true;
-//        }catch(IllegalStateException ise){
-//            return false;
-//        }
-        Matcher matcher = ARGUMENTS_FORMAT.matcher(filepath);
-        return matcher.matches();
+        model.changeSaveToLocation(taskManager, filepath);
     }
 
     @Override
@@ -88,12 +64,12 @@ public class SaveToCommand extends Command {
      */
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent dsee) {
-        if (dsee.exception == null) {
+        unregisterAsAnEventHandler(this);
+        if (dsee.getMessage() == null || dsee.getMessage() == "") {
             writeToChat(MESSAGE_SUCCESS);
         } else {
             writeToChat(MESSAGE_FAILURE + ": " + dsee.toString());
         }
-        unregisterAsAnEventHandler(this);
     }
 
     /**

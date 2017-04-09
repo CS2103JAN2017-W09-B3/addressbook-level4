@@ -27,7 +27,7 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
     private static final String FXML = "StatusBarFooter.fxml";
-    private static final String SAVING_MESSAGE = "Saving to: ./";
+    private static final String SAVING_MESSAGE = "Saving to: ";
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation, ObservableList<ReadOnlyTask> observableList) {
         super(FXML);

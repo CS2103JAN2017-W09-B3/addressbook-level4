@@ -1,7 +1,7 @@
-package seedu.task.commons.events.storage;
+package seedu.task.commons.exceptions;
 
 import seedu.task.commons.events.BaseEvent;
-
+//@@author A0139938L
 /**
  * Indicates an exception during a file loading
  */
@@ -26,4 +26,12 @@ public class DataLoadingExceptionEvent extends BaseEvent {
             return exception.getMessage();
         }
     }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
 }
+//@@author

@@ -16,7 +16,6 @@ import seedu.task.commons.events.model.LoadFromRequestEvent;
 import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.model.UpdateTasksEvent;
-import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.chat.ChatList;
@@ -76,9 +75,9 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             ReadOnlyTaskManager readOnly = taskManager.get();
             this.resetData(readOnly);
-            raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_SUCCESS));
+//            raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_SUCCESS));
         } catch (NoSuchElementException nsee) {
-            raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_FAIL));
+//            raise(new NewResultAvailableEvent(MESSAGE_RESET_DATA_FAIL));
         }
     }
 
@@ -395,8 +394,6 @@ public class ModelManager extends ComponentManager implements Model {
         raise(event);
         this.resetData(event.getTaskManager());
     }
-
-
     //@@author
 
 }

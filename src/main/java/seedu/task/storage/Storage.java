@@ -6,8 +6,8 @@ import java.util.Optional;
 import seedu.task.commons.events.model.LoadFromRequestEvent;
 import seedu.task.commons.events.model.SaveToRequestEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
-import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.exceptions.DataSavingExceptionEvent;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
 
