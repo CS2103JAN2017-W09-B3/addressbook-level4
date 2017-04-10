@@ -3,10 +3,13 @@
 package seedu.task.commons.util;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import seedu.task.commons.core.LogsCenter;
 
 /**
  * Provides utility functions to send HTTP requests.
@@ -21,6 +24,9 @@ public class HttpUtil {
     public static final int API_PORT = 80;
     public static final String API_ENDPOINT = "/register/";
 
+    private static final Logger logger = LogsCenter.getLogger(HttpUtil.class);
+    private static final String logPrefix = "[HttpUtil]";
+
     /**
      * Uploads a file to the URL
      *
@@ -31,8 +37,10 @@ public class HttpUtil {
      */
     public static boolean uploadFile(String url, String fileName, String filePath) {
         try {
+            logger.info(String.format("%s: url: %s, fileName: %s, filePath: %s", logPrefix, url, fileName, filePath));
             HttpResponse<String> request = Unirest.post(url).field(fileName, new File(filePath)).asString();
             int status = request.getStatus();
+            logger.info(String.format("%s: Return status code: %d", logPrefix, status));
             if (status != 200) {
                 return false;
             }

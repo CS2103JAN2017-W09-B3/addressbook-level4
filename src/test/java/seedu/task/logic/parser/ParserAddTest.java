@@ -37,7 +37,7 @@ public class ParserAddTest {
     // Add Command Tests
 
     @Test
-    public void parser_add_floatingTask() {
+    public void parser_addFloatingTask_successful() {
         String commandString = "add Test Task";
         Command result = this.parser.parseCommand(commandString);
 

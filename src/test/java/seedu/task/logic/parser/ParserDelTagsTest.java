@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.DeleteTagCommand;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.model.UndoManager;
 
@@ -27,13 +28,13 @@ public class ParserDelTagsTest {
      *
      */
     @Test
-    public void parser_delTags_noIndexTags() {
+    public void parser_delTagsNoIndexTags() {
         Command result = this.parser.parseCommand("deltag");
         assertTrue(result instanceof IncorrectCommand);
     }
 
     @Test
-    public void parser_delTags_noIndex() {
+    public void parser_delTagsNoIndex_failure() {
         Command result = this.parser.parseCommand("deltag #one");
         assertTrue(result instanceof IncorrectCommand);
     }
@@ -43,19 +44,17 @@ public class ParserDelTagsTest {
      */
 
     @Test
-    public void parser_delTags_oneTag() {
+    public void parser_delTagsOneTag_successful() {
         String commandString = "deltag 5 #one";
         Command result = this.parser.parseCommand(commandString);
         assertTrue(result != null);
-        //TODO: Fix
-        //assertTrue(result instanceof AddTagCommand);
+        assertTrue(result instanceof DeleteTagCommand);
     }
 
     @Test
-    public void parser_addTags_noTags() {
+    public void parser_addTagsNoTags_successful() {
         Command result = this.parser.parseCommand("deltag 1");
         assertTrue(result != null);
-        //TODO: Fix
-        //assertTrue(result instanceof AddTagCommand);
+        assertTrue(result instanceof DeleteTagCommand);
     }
 }
