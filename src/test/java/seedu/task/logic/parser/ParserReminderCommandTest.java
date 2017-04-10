@@ -8,10 +8,10 @@ import org.junit.Test;
 
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.commands.UncheckCommand;
+import seedu.task.logic.commands.ReminderCommand;
 import seedu.task.model.UndoManager;
 
-public class ParserUncheckTest {
+public class ParserReminderCommandTest {
     private Parser parser;
     @SuppressWarnings("unused")
     private UndoManager undomanager;
@@ -28,8 +28,9 @@ public class ParserUncheckTest {
      *
      */
     @Test
-    public void parser_uncheckNoIndex_failure() {
-        Command result = this.parser.parseCommand("uncheck");
+    public void parser_emptyArgs_failure() {
+        String commandString = "reminders";
+        Command result = this.parser.parseCommand(commandString);
         assertTrue(result instanceof IncorrectCommand);
     }
 
@@ -39,11 +40,18 @@ public class ParserUncheckTest {
      */
 
     @Test
-    public void parser_uncheckIndex_successful() {
-        String commandString = "uncheck 5";
+    public void parser_enable_successful() {
+        String commandString = "reminders enable";
         Command result = this.parser.parseCommand(commandString);
 
-        assertTrue(result instanceof UncheckCommand);
+        assertTrue(result instanceof ReminderCommand);
     }
 
+    @Test
+    public void parser_disable_successful() {
+        String commandString = "reminders disable";
+        Command result = this.parser.parseCommand(commandString);
+
+        assertTrue(result instanceof ReminderCommand);
+    }
 }

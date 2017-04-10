@@ -32,7 +32,7 @@ public class ParserRedoTest {
      */
 
     @Test
-    public void parser_redo_noArgs() {
+    public void parser_redoNoArgs_successful() {
         String commandString = "redo";
         Command result = this.parser.parseCommand(commandString);
 
