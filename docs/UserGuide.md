@@ -19,7 +19,7 @@ By : `W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbsp;&nb
 	9. [Undo and Redo](#39-undo-and-redo)
 	10. [Saving and Loading](#310-saving-and-loading)
 	11. [Email Reminders](#311-email-reminders)
-	12. [Command history](#312-command-history-up)
+	12. [Command history](#312-command-history-↑)
 	12. [Accepted date and time inputs](#313-accepted-date-and-time-inputs)
 	13. [Exiting the app](#314-exiting-the-app-exit)
 4. [FAQ](#4-faq)
@@ -87,7 +87,7 @@ This command applies to tasks with a deadline, such as assignment submissions. T
 
 Example:
 
-* add `Complete history assignment` by `7/13/17`
+* add `Complete history assignment` by `13/7/17`
 
 > Adds a new task `Complete history assignment` that is due on `13th July 2017`.
 
@@ -116,7 +116,7 @@ Examples:
 
 <img src="images/addTags2.png" width="800" />
 
-* add `Prepare software demo` from `7/13/17` to `7/15/17` `#school` `#homework`
+* add `Prepare software demo` from `13/7/17` to `15/7/17` `#school` `#homework`
 
 > Adds a new task `Prepare software demo` that lasts from `13th July 2017` to `15th July 2017` with the tags `#school` and `#homework`.
 
@@ -145,9 +145,9 @@ Things don't always go according to plan. For instance, an assignment's deadline
 Examples:
 
 * list <br>
-edit `1` `write essay` by `5/13/17`<br>
+edit `1` `write essay` by `13/5/17`<br>
 
-> Edits the description of the selected task to `write essay` and deadline to `5/13/17`. Suru also automatically slots it in the correct position on the list, sorted by due date.
+> Edits the description of the selected task to `write essay` and deadline to `13/5/17`. Suru also automatically slots it in the correct position on the list, sorted by due date.
 
 <img src="images/edit1.png" width="800" />
 
@@ -178,9 +178,9 @@ You can also remove tags from an existing task by using the `deltag` command.
 
 Example:
 
-* deltag `2` `#hobby`<br>
+* deltag `1` `#hobby`<br>
 
-> Deletes the tag `#hobby` from the 2nd task in the list.
+> Deletes the tag `#hobby` from the 1st task in the list.
 
 <img src="images/deltag-p1.png" width="800" />
 
@@ -272,7 +272,7 @@ Examples:
 
 <img src="images/check-1.png" width="800" />
 
-* find `Essay` <br>
+* find `school` <br>
   check `1` <br>
 
 > Checks off the 1st task in the results of the `find` command.
@@ -286,20 +286,12 @@ Unchecks a task to indicate that it is incomplete.
 Examples:
 
 * list<br>
-  uncheck `30`<br>
+  uncheck `45`<br>
   
-> Unchecks the 30th task in the listing.
+> Unchecks the 45th task in the listing.
 
 <img src="images/uncheck-0.png" width="800" />
 <img src="images/uncheck-1.png" width="800" />
-
-* find `Essay`<br>
-  uncheck `1`<br>
-
-> Unchecks the 1st task in the results of the `find` command.
-
-<img src="images/uncheck-2.png" width="800" />
-<img src="images/uncheck-3.png" width="800" />
 
 ### 3.9. Undo and redo
 People can make mistakes. Thankfully, Suru makes it easy to undo any accidents.

@@ -28,13 +28,13 @@ public class ParserAddTagsTest {
      *
      */
     @Test
-    public void parser_addTags_noIndexTags() {
+    public void parser_addTags_noIndexTags_incorrectCommand() {
         Command result = this.parser.parseCommand("addtag");
         assertTrue(result instanceof IncorrectCommand);
     }
 
     @Test
-    public void parser_addTags_noIndex() {
+    public void parser_addTags_noIndex_incorrectCommand() {
         Command result = this.parser.parseCommand("addtag #one");
         assertTrue(result instanceof IncorrectCommand);
     }
@@ -44,7 +44,7 @@ public class ParserAddTagsTest {
      */
 
     @Test
-    public void parser_addTags_oneTag() {
+    public void parser_addTags_oneTag_successful() {
         String commandString = "addtag 5 #one";
         Command result = this.parser.parseCommand(commandString);
 
@@ -52,7 +52,7 @@ public class ParserAddTagsTest {
     }
 
     @Test
-    public void parser_addTags_noTags() {
+    public void parser_addTags_noTags_successful() {
         Command result = this.parser.parseCommand("addtag 1");
         assertTrue(result instanceof AddTagCommand);
     }

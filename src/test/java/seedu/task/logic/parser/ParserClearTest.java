@@ -32,7 +32,7 @@ public class ParserClearTest {
      */
 
     @Test
-    public void parser_clear_noArgs() {
+    public void parser_clearNoArgs_successful() {
         String commandString = "clear";
         Command result = this.parser.parseCommand(commandString);
 

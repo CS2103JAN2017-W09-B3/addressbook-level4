@@ -28,7 +28,7 @@ public class ParserUncheckTest {
      *
      */
     @Test
-    public void parser_uncheck_noIndex() {
+    public void parser_uncheckNoIndex_failure() {
         Command result = this.parser.parseCommand("uncheck");
         assertTrue(result instanceof IncorrectCommand);
     }
@@ -39,7 +39,7 @@ public class ParserUncheckTest {
      */
 
     @Test
-    public void parser_uncheck_Index() {
+    public void parser_uncheckIndex_successful() {
         String commandString = "uncheck 5";
         Command result = this.parser.parseCommand(commandString);
 

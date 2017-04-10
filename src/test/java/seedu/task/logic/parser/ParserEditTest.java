@@ -44,7 +44,7 @@ public class ParserEditTest {
     // Edit Command Tests
 
     @Test
-    public void parser_edit_description() {
+    public void parser_editDescription_successful() {
         String commandString = "edit 2 buy groceries";
 
         Command result = this.parser.parseCommand(commandString);
@@ -64,7 +64,7 @@ public class ParserEditTest {
     }
 
     @Test
-    public void parser_edit_descriptionDeadline() {
+    public void parser_editDescriptionDeadline_successful() {
         String commandString = "edit 2 buy groceries by 05/13/17";
         EndTime compareEndTime = null;
 
@@ -92,7 +92,7 @@ public class ParserEditTest {
     }
 
     @Test
-    public void parser_edit_descriptionDeadlineWithQuotes() {
+    public void parser_editDescriptionDeadlineWithQuotes_successful() {
         String commandString = "edit 2 '' by 05/13/17";
         EndTime compareEndTime = null;
 
@@ -118,7 +118,7 @@ public class ParserEditTest {
         assertFalse(taskDescriptor.getTags().isPresent());
     }
     @Test
-    public void parser_edit_tags() {
+    public void parser_editTags_successful() {
         String commandString = "edit 2 #first #second";
 
         Command result = this.parser.parseCommand(commandString);
@@ -148,7 +148,7 @@ public class ParserEditTest {
     }
 
     @Test
-    public void parser_edit_descriptionComplete() {
+    public void parser_editDescriptionComplete_successful() {
         String commandString = "edit 2 buy groceries from 05/13/17 to 05/14/17 #first #second";
         StartTime compareStartTime = null;
         EndTime compareEndTime = null;

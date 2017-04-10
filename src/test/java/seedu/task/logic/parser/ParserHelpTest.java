@@ -32,7 +32,7 @@ public class ParserHelpTest {
      */
 
     @Test
-    public void parser_exit_noArgs() {
+    public void parser_exitNoArgs_successful() {
         String commandString = "help";
         Command result = this.parser.parseCommand(commandString);
 
