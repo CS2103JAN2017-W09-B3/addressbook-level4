@@ -14,11 +14,10 @@ This test script is to assist testers during their testing with `Suru` by provid
 1) Download the zip file [W09-B3][Suru].zip <br>
 2) Extract all contents of the zip file into the same folder. The following files should be in the same folder if the extraction is successful.
 
-> * [W09-B3][Suru].jar
-> * data
-	* taskmanager.xml
+> * /data
+    * taskmanager.xml
 > * sampledata.xml
-> * testscript.md
+> * [W09-B3][Suru].jar
 
 3) Launch [W09-B3][Suru].jar
 
@@ -29,7 +28,8 @@ This test script is to assist testers during their testing with `Suru` by provid
 * Type `load` `SampleData.xml`
 
 > * You should see the task list being replaced with sample tasks
-> * Suru should also give you the message "Load location has been changed."
+> * Suru should also show you the message 
+> "The task data has been successfully loaded!"
 
 ### Adding Tasks
 
@@ -38,6 +38,10 @@ This test script is to assist testers during their testing with `Suru` by provid
 
 > * The new task will be added into the Task Panel on the left
 > * Newly added task is selected on the task list panel
+> * Suru should also show you the message <br>
+> "Your new task has been added: Watch Fast and Furious 8 <br>
+> Completion Status: normal <br>
+> Task Type: someday"
 
 
 #### 2. Add a deadline task
@@ -45,12 +49,24 @@ This test script is to assist testers during their testing with `Suru` by provid
 
 > * The new task will be added with an end date of 30 April 2017
 > * Newly added task is selected on the task list panel
+> * Suru should also show you the message <br>
+> "Your new task has been added: Complete history assignment <br>
+> By: 30 Apr, 2017 12:00 PM <br>
+> Completion Status: normal <br>
+> Task Type: deadline"
 
 #### 3. Add an event
 * Type `add` `Attend Alice birthday party from next tuesday 8pm to next tuesday 10pm`
 
 > * The new task will be added next Tuesday with a start time from 8pm to 10pm
 > * Newly added task is selected on the task list panel 
+> * Suru should also show you the message  <br>
+> "Your new task has been added: Attend Alice birthday party <br>
+> From: 18 Apr, 2017 8:00 PM <br>
+> To: 18 Apr, 2017 10:00 PM <br>
+> Completion Status: normal <br>
+> Task Type: event" <br>
+> *Above date output is subject to change depending on when you run the test
 
 #### 4. Add an event with time only
 * Type `add` `Dinner with girlfriend at Marche from 8pm to 10pm`
@@ -209,3 +225,4 @@ Type `uncheck` `2`
 * Type `exit`
 
 > * Exits Suru Task Manager
+
