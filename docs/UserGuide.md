@@ -19,8 +19,9 @@ By : `W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbsp;&nb
 	9. [Undo and Redo](#39-undo-and-redo)
 	10. [Saving and Loading](#310-saving-and-loading)
 	11. [Email Reminders](#311-email-reminders)
-	12. [Accepted date and time inputs](#312-accepted-date-and-time-inputs)
-	13. [Exiting the app](#313-exiting-the-app-exit)
+	12. [Command history](#312-command-history-up)
+	12. [Accepted date and time inputs](#313-accepted-date-and-time-inputs)
+	13. [Exiting the app](#314-exiting-the-app-exit)
 4. [FAQ](#4-faq)
 5. [Command Summary](#5-command-summary)
 
@@ -395,10 +396,14 @@ After executing this command, Suru will stop sending email reminders.
 
 <!-- @@author A0139410N -->
 
-### 3.12. Accepted date and time inputs
+### 3.12. Command history: <kbd>up</kbd>
+If you are a fan of command line, Suru's command history will be familiar to you. Simply press the <kbd>up</kbd> arrow key on your keyboard and the previous command is filled in the textbox!
+
+
+### 3.13. Accepted date and time inputs
 Suru accepts a wide range of natural date and time inputs to make it as comfortable as possible for you to manage your tasks.
 
-#### 3.12.1 Accepted date Inputs:
+#### 3.13.1 Accepted date Inputs:
 
 |Numbers & Slashes|Months|Relative Dates|
 |-----|--------|---|
@@ -410,7 +415,7 @@ Suru accepts a wide range of natural date and time inputs to make it as comforta
 | | |Last/next month|
 | | |Last/next year|
 
-#### 3.12.2 Accepted time inputs:
+#### 3.13.2 Accepted time inputs:
 
 |24-hr notation|AM/PM|Presets|
 |---|---|---|
@@ -420,7 +425,7 @@ Suru accepts a wide range of natural date and time inputs to make it as comforta
 | |8pm| Night(8pm)|
 
 
-### 3.13. Exiting the app: `exit`
+### 3.14. Exiting the app: `exit`
 Exits Suru.
 
 Format: `exit`
