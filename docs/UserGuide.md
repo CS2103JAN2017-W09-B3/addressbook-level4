@@ -19,7 +19,7 @@ By : `W09-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Feb 2017`  &nbsp;&nbsp;&nbsp;&nb
 	9. [Undo and Redo](#39-undo-and-redo)
 	10. [Saving and Loading](#310-saving-and-loading)
 	11. [Email Reminders](#311-email-reminders)
-	12. [Command history](#312-command-history-up)
+	12. [Command history](#312-command-history-↑)
 	12. [Accepted date and time inputs](#313-accepted-date-and-time-inputs)
 	13. [Exiting the app](#314-exiting-the-app-exit)
 4. [FAQ](#4-faq)
