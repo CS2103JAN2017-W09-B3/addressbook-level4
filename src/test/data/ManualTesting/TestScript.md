@@ -14,8 +14,7 @@ This test script is to assist testers during their testing with `Suru` by provid
 1) Download the zip file [W09-B3][Suru].zip <br>
 2) Extract all contents of the zip file into the same folder. The following files should be in the same folder if the extraction is successful.
 
-> * /data 
-    * taskmanager.xml
+> * data/taskmanager.xml
 > * sampledata.xml
 > * [W09-B3][Suru].jar
 
