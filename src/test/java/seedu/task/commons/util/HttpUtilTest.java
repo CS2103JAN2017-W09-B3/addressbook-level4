@@ -17,6 +17,12 @@ public class HttpUtilTest {
         assertFalse(result);
     }
 
+    @Test
+    public void httputil_pushFile_failure() {
+        boolean result = HttpUtil.pushSaveFile("test@example.com", 15, "nonsample/taskmanager.xml");
+        assertFalse(result);
+    }
+
     // Valid tests
     @Test
     public void httputil_validUrl_success() {
@@ -31,9 +37,5 @@ public class HttpUtilTest {
         assertTrue(result);
     }
 
-    @Test
-    public void httputil_pushFile_success() {
-        boolean result = HttpUtil.pushSaveFile("test@example.com", 15, "sample/taskmanager.xml");
-        assertTrue(result);
-    }
+
 }

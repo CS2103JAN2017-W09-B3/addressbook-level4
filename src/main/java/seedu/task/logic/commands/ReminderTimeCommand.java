@@ -16,8 +16,8 @@ public class ReminderTimeCommand extends Command {
     public static final String[] COMMAND_WORDS = new String[] {"remindme", "remindtime"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "New reminder time set successfully! Will remind %d minutes"
-            + " before the event!";
+    public static final String MESSAGE_SUCCESS = "New reminder time set successfully! "
+            + "Will remind %d minutes before the event!";
     public static final String MESSAGE_INCORRECT = "Please specify a valid integer!";
     public static final String MESSAGE_USERPREFS_ERROR = "There was an error retrieving/saving the preferences file!";
 
