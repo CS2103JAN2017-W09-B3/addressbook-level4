@@ -28,12 +28,13 @@ public class AddCommand extends Command {
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Adds a task to the task manager. "
-            + "Parameters: DESCRIPTION from START_DATE to END_DATE #TAGS\n"
+            + "Parameters: DESCRIPTION [from START_DATE to END_DATE][by END_DATE] #TAGS\n"
             + "Example: " + DEFACTO_COMMAND
-            + " Do CS2103 tutorial from 03/06/17 to 03/08/17 #CS2103 #uni";
+            + " Do CS2103 tutorial from saturday noon to saturday night #CS2103 #uni";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_SUCCESS = "Your new task has been added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK =
+            "Sorry, this task already exists in the task manager";
 
     private Task toAdd;
 

@@ -47,7 +47,8 @@ public class SelectCommandTest extends TaskManagerGuiTest {
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
         ReadOnlyTask selectedTask = taskListPanel.getTask(index - 1);
-        assertResultMessage("Selected Task: " + index + "\nTask Name: " +  selectedTask.getAsText());
+        assertResultMessage("Displaying information for task " + index + "\nTask Name: "
+            +  selectedTask.getAsText());
         assertTaskSelected(index);
     }
 

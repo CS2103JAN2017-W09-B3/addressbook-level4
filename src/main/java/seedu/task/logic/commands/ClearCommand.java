@@ -9,7 +9,7 @@ import seedu.task.model.TaskManager;
 public class ClearCommand extends Command {
 
     public static final String[] COMMAND_WORDS = new String[] {"clear"};
-    public static final String MESSAGE_SUCCESS = "Task manager has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Your task manager has been cleared!";
 
     /**
      * Creates and empty command with the relevant command words.

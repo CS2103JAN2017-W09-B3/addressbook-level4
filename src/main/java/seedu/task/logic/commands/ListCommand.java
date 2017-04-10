@@ -11,7 +11,7 @@ public class ListCommand extends Command {
     public static final String[] COMMAND_WORDS = new String[] {"list", "ls"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS = "All tasks has been listed!";
 
     public static final String MESSAGE_USAGE = DEFACTO_COMMAND + ": Lists all tasks with index numbers, "
             + "use checked/unchecked/deadline/event/someday/upcoming/overdue as a keyword to only "

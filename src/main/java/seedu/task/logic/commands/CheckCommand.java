@@ -23,9 +23,8 @@ public class CheckCommand extends TaskCompleted {
             + "Parameters: INDEX (must be a positive integer)";
 
     //@@author A0138664W
-    public static final String MESSAGE_CHECK_SUCCESS = "Task %1$s checked/completed!";
-    public static final String MESSAGE_TASK_ALREADY_CHECKED = "Task %1$s is already checked.";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_CHECK_SUCCESS = "Task %1$s has been checked/completed!";
+    public static final String MESSAGE_TASK_ALREADY_CHECKED = "Sorry, Task %1$s is already checked.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 

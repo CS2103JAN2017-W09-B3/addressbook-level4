@@ -23,8 +23,10 @@ public class SaveToCommand extends Command {
             + "Example: " + DEFACTO_COMMAND
             + " ./taskmanager.xml";
 
-    public static final String MESSAGE_SUCCESS = "Save location has been changed.";
-    private static final String MESSAGE_FAILURE = "There was a problem changing your save location";
+    public static final String MESSAGE_SUCCESS = "Your task data has been successfully saved to "
+            + "the requested location.";
+    private static final String MESSAGE_FAILURE = "There was a problem changing your save location, "
+            + "please try again!";
     private static final String VALID_FILE_REGEX = "(.+)?[\\w,\\s,\\d]+\\.xml$";
     private static final Pattern ARGUMENTS_FORMAT = Pattern.compile(VALID_FILE_REGEX);
 
