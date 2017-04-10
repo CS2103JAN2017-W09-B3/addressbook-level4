@@ -28,7 +28,7 @@ public class ParserDeleteTest {
      *
      */
     @Test
-    public void parser_delete_noIndex() {
+    public void parser_deleteNoIndex_incorrectCommand() {
         String commandString = "delete";
         Command result = this.parser.parseCommand(commandString);
 
@@ -43,7 +43,7 @@ public class ParserDeleteTest {
     // Add Command Tests
 
     @Test
-    public void parser_delete_index() {
+    public void parser_deleteIndex_successful() {
         String commandString = "delete 1";
         Command result = this.parser.parseCommand(commandString);
 

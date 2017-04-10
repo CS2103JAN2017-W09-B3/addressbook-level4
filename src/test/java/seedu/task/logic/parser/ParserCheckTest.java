@@ -28,7 +28,7 @@ public class ParserCheckTest {
      *
      */
     @Test
-    public void parser_check_noIndex() {
+    public void parser_checkNoIndex_incorrectCommand() {
         Command result = this.parser.parseCommand("check");
         assertTrue(result instanceof IncorrectCommand);
     }
@@ -39,7 +39,7 @@ public class ParserCheckTest {
      */
 
     @Test
-    public void parser_check_Index() {
+    public void parser_checkIndex_successful() {
         String commandString = "check 5";
         Command result = this.parser.parseCommand(commandString);
 

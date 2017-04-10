@@ -32,7 +32,7 @@ public class ParserUndoTest {
      */
 
     @Test
-    public void parser_undo_noArgs() {
+    public void parser_undoNoArgs_successful() {
         String commandString = "undo";
         Command result = this.parser.parseCommand(commandString);
 

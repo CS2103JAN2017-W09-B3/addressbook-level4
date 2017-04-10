@@ -28,7 +28,7 @@ public class ParserCommonTest {
      */
 
     @Test
-    public void parser_emptyInput() {
+    public void parser_emptyInput_incorrectCommand() {
         Command result = this.parser.parseCommand("");
         assertTrue(result instanceof IncorrectCommand);
     }
