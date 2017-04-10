@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
 
     public static final String[] COMMAND_WORDS = new String[] {"exit", "quit"};
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting suru as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting suru, see you next time!";
 
     /**
      * Constructs a command with the relevant command words.

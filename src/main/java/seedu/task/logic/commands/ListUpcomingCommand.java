@@ -12,7 +12,8 @@ public class ListUpcomingCommand extends Command {
           CompletionStatus.IncompleteType.UPCOMING.toString()};
     public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
+    public static final String MESSAGE_SUCCESS = "All " + DEFACTO_COMMAND + " tasks has been listed!"
+            + " Please do not forget to finish them.";
 
     public ListUpcomingCommand() {
         super(LIST_COMMAND_WORDS);

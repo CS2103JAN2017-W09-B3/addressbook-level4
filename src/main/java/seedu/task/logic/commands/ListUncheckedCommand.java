@@ -6,7 +6,7 @@ package seedu.task.logic.commands;
  */
 public class ListUncheckedCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Listed all unchecked tasks";
+    public static final String MESSAGE_SUCCESS = "All unchecked tasks has been listed!";
 
     //@@author A0146789H
     public static final String[] LIST_COMMAND_WORDS = new String[] {"unchecked"};

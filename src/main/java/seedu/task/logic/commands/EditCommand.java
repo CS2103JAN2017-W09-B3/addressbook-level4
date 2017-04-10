@@ -34,9 +34,11 @@ public class EditCommand extends Command {
             + " ...\n"
             + "Example: " + DEFACTO_COMMAND + " 1 another task from tomorrow to next wednesday #first";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "I have edited the task: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "You have not requested any changes to be made, "
+            + "please try again.";
+    public static final String MESSAGE_DUPLICATE_TASK =
+            "Sorry, this task already exists in the task manager.";
 
     private int filteredTaskListIndex;
     private EditTaskDescriptor editTaskDescriptor;

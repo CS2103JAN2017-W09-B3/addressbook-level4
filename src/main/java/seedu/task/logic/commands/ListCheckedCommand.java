@@ -6,10 +6,10 @@ package seedu.task.logic.commands;
  */
 public class ListCheckedCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Listed all checked tasks";
+    public static final String MESSAGE_SUCCESS = "All completed tasks has been listed!";
 
     //@@author A0146789H
-    public static final String[] LIST_COMMAND_WORDS = new String[] {"checked"};
+    public static final String[] LIST_COMMAND_WORDS = new String[] {"checked", "completed"};
     public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
     public ListCheckedCommand() {

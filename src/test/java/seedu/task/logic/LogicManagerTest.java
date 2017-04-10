@@ -310,15 +310,17 @@ public class LogicManagerTest {
 
     @Test
     public void execute_listEvent_showsEvent() throws Exception {
-     // prepare expectations, only supposed to show 3 event tasks with 6 tasks in total
+        // prepare expectations, only supposed to show 4 event tasks with 6 tasks in total
         TestDataHelper helper = new TestDataHelper();
         Task unchecked1 = helper.generateTaskWithName("not done");
         Task unchecked2 = helper.generateTaskWithName("Also not done");
+        Task upcoming = helper.upcomingTask();
         Task checked = helper.completedTask();
 
         List<Task> sample = helper.generateSampleTaskList();
         TaskManager expectedAB = helper.generateTaskManager(sample);
-        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2, checked);
+        List<Task> expectedList = helper.generateTaskList(unchecked1, unchecked2,
+                                                            upcoming, checked);
 
         // prepare address book state comprising of sample Tasks for List commands
         helper.addToModel(model, sample);

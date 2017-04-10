@@ -11,7 +11,7 @@ public class ListEventCommand extends Command {
     public static final String[] LIST_COMMAND_WORDS = new String[] {TaskType.EVENT.toString()};
     public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
+    public static final String MESSAGE_SUCCESS = "All " + DEFACTO_COMMAND + " tasks has been listed!";
 
     public ListEventCommand() {
         super(LIST_COMMAND_WORDS);

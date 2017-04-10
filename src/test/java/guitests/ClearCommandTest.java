@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.logic.commands.ClearCommand;
 import seedu.task.testutil.TestTask;
 //@@author A0139938L
 public class ClearCommandTest extends TaskManagerGuiTest {
@@ -37,7 +38,7 @@ public class ClearCommandTest extends TaskManagerGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Task manager has been cleared!");
+        assertResultMessage(ClearCommand.MESSAGE_SUCCESS);
     }
 }
 //@@author

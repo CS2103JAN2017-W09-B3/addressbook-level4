@@ -23,8 +23,8 @@ public class UncheckCommand extends TaskCompleted {
             + "Parameters: INDEX (must be a positive integer)";
 
     //@@author
-    public static final String MESSAGE_UNCHECK_SUCCESS = "Task %1$s unchecked/incomplete!";
-    public static final String MESSAGE_TASK_ALREADY_UNCHECKED = "Task %1$s is already unchecked.";
+    public static final String MESSAGE_UNCHECK_SUCCESS = "Task %1$s has been unchecked!";
+    public static final String MESSAGE_TASK_ALREADY_UNCHECKED = "Sorry, task %1$s is already unchecked.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";

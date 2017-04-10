@@ -11,7 +11,7 @@ public class EmailCommand extends Command {
     public static final String[] COMMAND_WORDS = new String[] {"email"};
     public static final String DEFACTO_COMMAND = COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "New email set successfully!";
+    public static final String MESSAGE_SUCCESS = "The new email has been set successfully!";
     public static final String MESSAGE_INCORRECT = "Please specify a valid email!";
 
     private String email;

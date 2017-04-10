@@ -8,10 +8,11 @@ import seedu.task.model.task.TaskType;
  */
 public class ListFloatingCommand extends Command {
 
-    public static final String[] LIST_COMMAND_WORDS = new String[] {TaskType.SOMEDAY.toString()};
+    public static final String[] LIST_COMMAND_WORDS = new String[] {TaskType.SOMEDAY.toString(),
+                                                                    "floating", "whenever"};
     public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
+    public static final String MESSAGE_SUCCESS = "All floating tasks has been listed!";
 
     public ListFloatingCommand() {
         super(LIST_COMMAND_WORDS);

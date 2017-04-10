@@ -8,8 +8,9 @@ import seedu.task.commons.exceptions.DataLoadingExceptionEvent;
 
 public class LoadFromCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Load location has been changed.";
-    private static final String MESSAGE_FAILURE = "There was a problem changing your load location";
+    public static final String MESSAGE_SUCCESS = "Your requested task data has been successfully loaded!";
+    private static final String MESSAGE_FAILURE = "There was a problem changing your load location, "
+            + "please try again.";
 
     private String filepath = "";
     //@@author A0146789H

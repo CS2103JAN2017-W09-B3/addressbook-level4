@@ -8,10 +8,12 @@ import seedu.task.model.task.CompletionStatus;
  */
 public class ListOverdueCommand extends Command {
 
-    public static final String[] LIST_COMMAND_WORDS = new String[] {CompletionStatus.IncompleteType.OVERDUE.toString()};
+    public static final String[] LIST_COMMAND_WORDS = new String[] {
+            CompletionStatus.IncompleteType.OVERDUE.toString()};
     public static final String DEFACTO_COMMAND = LIST_COMMAND_WORDS[0];
 
-    public static final String MESSAGE_SUCCESS = "Listed all " + DEFACTO_COMMAND + " tasks";
+    public static final String MESSAGE_SUCCESS = "All " + DEFACTO_COMMAND + " tasks has been listed!"
+            + " Please hurry up and complete them!";
 
     public ListOverdueCommand() {
         super(LIST_COMMAND_WORDS);

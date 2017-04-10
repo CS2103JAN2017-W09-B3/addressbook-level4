@@ -32,11 +32,12 @@ public class DeleteTagCommand extends Command {
             + "Parameters: INDEX [#tag]\n"
             + "Example: " + DEFACTO_COMMAND
             + " 1 #CS2103 #uni";
-    public static final String DEL_TAG_SUCCESS = "Deleted tags from task: %1$s";
+    public static final String DEL_TAG_SUCCESS = "I have deleted the tags from task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
+    public static final String MESSAGE_DUPLICATE_TASK =
+            "Sorry, this task already exists in the task manager.";
     public static final String MESSAGE_DUPLICATE_TAGS = "This tag already exists in the task.";
-    public static final String MESSAGE_TASK_WITHOUT_TAGS = "This task has no tags.";
+    public static final String MESSAGE_TASK_WITHOUT_TAGS = "Sorry, this task has no tags to delete.";
 
 
     private int filteredTaskListIndex;
