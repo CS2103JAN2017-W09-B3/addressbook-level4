@@ -396,8 +396,8 @@ After executing this command, Suru will stop sending email reminders.
 
 <!-- @@author A0139410N -->
 
-### 3.12. Command history: <kbd>up</kbd>
-If you are a fan of command line, Suru's command history will be familiar to you. Simply press the <kbd>up</kbd> arrow key on your keyboard and the previous command is filled in the textbox!
+### 3.12. Command history: <kbd>↑</kbd>
+If you are a fan of command line, Suru's command history will be familiar to you. Simply press the <kbd>↑</kbd> arrow key on your keyboard and the previous command is filled in the textbox!
 
 
 ### 3.13. Accepted date and time inputs
