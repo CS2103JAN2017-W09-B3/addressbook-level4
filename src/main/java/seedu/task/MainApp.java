@@ -17,6 +17,7 @@ import seedu.task.commons.core.Version;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
+import seedu.task.commons.util.HttpUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
@@ -183,9 +184,29 @@ public class MainApp extends Application {
         System.exit(0);
     }
 
+    //@@author A0146789H
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        // Sync the save file to the cloud if the email is set on the exit event.
+        Optional<UserPrefs> optPrefs = null;
+        Optional<Config> optConfig = null;
+        try {
+            optPrefs = storage.readUserPrefs();
+            optConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE);
+        } catch (DataConversionException | IOException e1) {
+            e1.printStackTrace();
+        }
+
+        if (optPrefs != null && optConfig != null &&  optPrefs.isPresent() && optConfig.isPresent()) {
+            UserPrefs prefs = optPrefs.get();
+            Config config = optConfig.get();
+            if (!prefs.reminderEmail.equals("")) {
+                HttpUtil.pushSaveFile(prefs.reminderEmail, prefs.reminderTime, config.getTaskManagerFilePath());
+            }
+        }
+
         this.stop();
     }
 

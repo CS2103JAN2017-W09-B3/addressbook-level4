@@ -17,7 +17,6 @@ public class Config {
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "suru";
 
-
     public String getAppTitle() {
         return appTitle;
     }

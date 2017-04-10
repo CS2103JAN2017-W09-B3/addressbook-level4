@@ -8,7 +8,6 @@ import sendgrid
 from sendgrid.helpers.mail import *
 from flask import Flask, abort, request
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
 import xml.etree.ElementTree
 import dateutil.parser
 import datetime
@@ -17,13 +16,7 @@ import re
 
 app = Flask(__name__)
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-executors = {
-    'default': ThreadPoolExecutor(20),
-    'processpool': ProcessPoolExecutor(5)
-}
-scheduler = BackgroundScheduler(executors=executors, timezone="Asia/Singapore")
-scheduler.start()
-
+scheduler = BackgroundScheduler(timezone="Asia/Singapore")
 email_jobs = {}
 
 FROM_EMAIL = Email("no-reply@suru.com")
@@ -37,9 +30,7 @@ def sendmail(email, event, time_delta):
     content = Content("text/plain", words)
     mail= Mail(FROM_EMAIL, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=mail.get())
-    print response.status_code
-    print response.body
-    print response.headers
+    print response
     return response
 
 def process(file_data, email, time):
@@ -70,12 +61,10 @@ def process(file_data, email, time):
             job = scheduler.add_job(sendmail, "date",
                                     [email, name.text, time],
                                     next_run_time=actual)
-
             print job
             jobs.append(job)
 
     email_jobs[email] = jobs
-    return True
 
 @app.route('/')
 def index():

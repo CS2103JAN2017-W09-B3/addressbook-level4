@@ -17,7 +17,7 @@ public class ReminderCommandParser extends AbstractParser {
     @Override
     public Command parse(String args) {
         String option = args.trim().toLowerCase();
-        if (option.equals("enable")) {
+        if (option.equals("enable") || option.equals("sync")) {
             return new ReminderCommand(true);
         } else if (args.equals("disable")) {
             return new ReminderCommand(false);

@@ -1,3 +1,4 @@
+//@@author A0146789H
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.EventsCenter;
@@ -6,13 +7,14 @@ import seedu.task.commons.events.BaseEvent;
 import seedu.task.commons.events.ui.NewResultAvailableEvent;
 import seedu.task.logic.commands.exceptions.CommandException;
 import seedu.task.model.Model;
+import seedu.task.storage.Storage;
 
-//@@author A0146789H
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
+    protected Storage storage;
 
     /**
      * Constructs the class with an array of valid command words.
@@ -47,8 +49,9 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model) {
+    public void setData(Model model, Storage storage) {
         this.model = model;
+        this.storage = storage;
     }
 
     /**

@@ -1,3 +1,5 @@
+//@@author A0146789H
+
 package seedu.task.storage;
 
 import static org.junit.Assert.assertEquals;
@@ -62,6 +64,8 @@ public class JsonUserPrefsStorageTest {
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
         UserPrefs expected = new UserPrefs();
         expected.setGuiSettings(1000, 500, 300, 100);
+        expected.setReminderEmail("");
+        expected.setReminderTime(5);
         UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
         assertEquals(expected, actual);
     }
